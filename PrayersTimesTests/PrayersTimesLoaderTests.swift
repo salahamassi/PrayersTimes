@@ -72,12 +72,12 @@ class PrayersTimesLoaderTests: XCTestCase {
     }
     
     private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWithError error: RemotePrayersTimesLoader.Error, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors = [RemotePrayersTimesLoader.Error]()
-        sut.load { capturedErrors.append($0) }
+        var capturedResults = [RemotePrayersTimesLoader.Result]()
+        sut.load { capturedResults.append($0) }
         
         action()
         
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
     
     class HTTPClientSpy: HTTPClient {

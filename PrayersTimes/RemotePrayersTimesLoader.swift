@@ -28,13 +28,15 @@ public final class RemotePrayersTimesLoader {
         self.client = client
     }
     
-    public func load(completion: @escaping (Error) -> Void) {
+    public typealias Result = Swift.Result<[PrayerTime], Error>
+
+    public func load(completion: @escaping (RemotePrayersTimesLoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
             case .success:
-                completion(.invalidData)
+                completion(.failure(.invalidData))
             case .failure:
-                completion(.connectivity)
+                completion(.failure(.connectivity))
             }
         }
     }

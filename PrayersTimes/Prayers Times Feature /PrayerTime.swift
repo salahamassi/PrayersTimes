@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PrayerTime {
+public struct PrayerTime: Equatable {
     
     let fajr: String
     let sunrise: String
