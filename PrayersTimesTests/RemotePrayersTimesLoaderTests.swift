@@ -1,5 +1,5 @@
 //
-//  PrayersTimesLoaderTests.swift
+//  RemotePrayersTimesLoaderTests.swift
 //  PrayersTimesTests
 //
 //  Created by Salah Amassi on 21/04/2021.
@@ -8,7 +8,7 @@
 import XCTest
 import PrayersTimes
 
-class PrayersTimesLoaderTests: XCTestCase {
+class RemotePrayersTimesLoaderTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
