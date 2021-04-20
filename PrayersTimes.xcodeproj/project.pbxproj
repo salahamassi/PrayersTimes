@@ -12,6 +12,7 @@
 		3DD9D9DC262F748100CA2BFC /* PrayerTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayerTime.swift */; };
 		3DD9D9E0262F779400CA2BFC /* PrayersTimesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */; };
 		3DD9D9E9262F799900CA2BFC /* PrayersTimesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9E8262F799900CA2BFC /* PrayersTimesLoaderTests.swift */; };
+		3DD9D9ED262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		3DD9D9DB262F748100CA2BFC /* PrayerTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTime.swift; sourceTree = "<group>"; };
 		3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesLoader.swift; sourceTree = "<group>"; };
 		3DD9D9E8262F799900CA2BFC /* PrayersTimesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesLoaderTests.swift; sourceTree = "<group>"; };
+		3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrayersTimesLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */,
 				3DD9D9C3262F742600CA2BFC /* Info.plist */,
 				3DD9D9E3262F77E500CA2BFC /* Prayers Times Feature  */,
+				3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */,
 			);
 			path = PrayersTimes;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DD9D9E0262F779400CA2BFC /* PrayersTimesLoader.swift in Sources */,
+				3DD9D9ED262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift in Sources */,
 				3DD9D9DC262F748100CA2BFC /* PrayerTime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
