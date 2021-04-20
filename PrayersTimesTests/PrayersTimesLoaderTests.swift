@@ -107,6 +107,21 @@ class PrayersTimesLoaderTests: XCTestCase {
             client.complete(withStatusCode: 200, data: json)
         })
     }
+    
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let url = URL(string: "http://any-url.com")!
+        let client = HTTPClientSpy()
+        var sut: RemotePrayersTimesLoader? = RemotePrayersTimesLoader(url: url, client: client)
+
+        var capturedResults = [RemotePrayersTimesLoader.Result]()
+        sut?.load { capturedResults.append($0) }
+
+        sut = nil
+        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
+
+        XCTAssertTrue(capturedResults.isEmpty)
+    }
+
     // MARK: - Helpers
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemotePrayersTimesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()

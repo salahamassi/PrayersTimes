@@ -25,7 +25,8 @@ public final class RemotePrayersTimesLoader {
     public typealias Result = Swift.Result<[PrayersTimes], Error>
     
     public func load(completion: @escaping (RemotePrayersTimesLoader.Result) -> Void) {
-        client.get(from: url) { result in
+        client.get(from: url) { [weak self] result in
+            guard self != nil else { return }
             switch result {
             case let .success((data, response)):
                 do {
