@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D90A20C262F9CAB00E28772 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimes.h; sourceTree = "<group>"; };
 		3DD9D9C3262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */,
 				3DD9D9F4262F9A9000CA2BFC /* PrayersTimesItemMapper.swift */,
 				3DD9D9F8262F9ACB00CA2BFC /* RemotePrayersTimes.swift */,
+				3D90A20C262F9CAB00E28772 /* HTTPClient.swift */,
 			);
 			path = PrayersTimes;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			files = (
 				3DD9D9E0262F779400CA2BFC /* PrayersTimesLoader.swift in Sources */,
 				3DD9D9ED262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift in Sources */,
+				3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */,
 				3DD9D9F5262F9A9000CA2BFC /* PrayersTimesItemMapper.swift in Sources */,
 				3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */,
 				3DD9D9F9262F9ACB00CA2BFC /* RemotePrayersTimes.swift in Sources */,
