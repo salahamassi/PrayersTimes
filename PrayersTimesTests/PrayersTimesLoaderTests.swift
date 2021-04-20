@@ -10,34 +10,46 @@ import Foundation
 import XCTest
 
 class PrayersTimesLoader {
-    func load() {
-        HTTPClient.shared.requestedURL = URL(string: "https://a-url.com")
+    
+    let client: HTTPClient
+    
+    init(client: HTTPClient) {
+        self.client = client
     }
+    
 
+    func load() {
+        client.get(from: URL(string: "https://a-url.com")!)
+    }
 }
 
-class HTTPClient {
-    static let shared = HTTPClient()
 
-    private init() {}
+protocol HTTPClient {
+    func get(from url: URL)
+}
 
+
+class HTTPClientSpy: HTTPClient {
+    func get(from url: URL) {
+        requestedURL = url
+    }
+    
     var requestedURL: URL?
 }
-
 
 
 class PrayersTimesLoaderTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
-        let client = HTTPClient.shared
-        _ = PrayersTimesLoader()
+        let client = HTTPClientSpy()
+        _ = PrayersTimesLoader(client: client)
 
         XCTAssertNil(client.requestedURL)
     }
 
     func test_load_requestDataFromURL() {
-        let client = HTTPClient.shared
-        let sut = PrayersTimesLoader()
+        let client = HTTPClientSpy()
+        let sut = PrayersTimesLoader(client: client)
 
         sut.load()
 
