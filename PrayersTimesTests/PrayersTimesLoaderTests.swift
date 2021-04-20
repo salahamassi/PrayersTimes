@@ -114,8 +114,8 @@ class PrayersTimesLoaderTests: XCTestCase {
         return (sut, client)
     }
     
-    private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) -> (model: PrayerTime, json: [String: Any]) {
-        let item = PrayerTime(fajr: fajr,
+    private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) -> (model: PrayersTimes, json: [String: Any]) {
+        let item = PrayersTimes(fajr: fajr,
                                sunrise: sunrise,
                                dhuhr: dhuhr,
                                asr: asr,

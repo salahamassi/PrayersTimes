@@ -8,6 +8,6 @@
 import Foundation
 
 protocol PrayersTimesLoader {
-    typealias LoadPrayersTimesResult = Result<[PrayerTime], Error>
+    typealias LoadPrayersTimesResult = Result<[PrayersTimes], Error>
     func load(completion: @escaping (LoadPrayersTimesResult) -> Void)
 }

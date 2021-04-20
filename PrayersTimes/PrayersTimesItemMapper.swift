@@ -1,5 +1,5 @@
 //
-//  PrayerTimeItemMapper.swift
+//  PrayersTimesItemMapper.swift
 //  PrayersTimes
 //
 //  Created by Salah Amassi on 21/04/2021.
@@ -7,20 +7,20 @@
 
 import Foundation
 
-class PrayerTimeItemMapper {
+class PrayersTimesItemMapper {
     
     private struct Root: Decodable {
         
         let code: Int
         let status: String
-        let data: [RemotePrayerTime]
+        let data: [RemotePrayersTimes]
         
-        var prayersTimes: [PrayerTime] {
+        var prayersTimes: [PrayersTimes] {
             data.map(\.prayerTime)
         }
     }
 
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [PrayerTime] {
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [PrayersTimes] {
         guard response.statusCode == 200 else {
             throw RemotePrayersTimesLoader.Error.invalidData
         }

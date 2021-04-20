@@ -1,5 +1,5 @@
 //
-//  RemotePrayerTime.swift
+//  RemotePrayersTimes.swift
 //  PrayersTimes
 //
 //  Created by Salah Amassi on 21/04/2021.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct RemotePrayerTime: Decodable {
+struct RemotePrayersTimes: Decodable {
     
     let timings: Timings
-    let date: PrayerTimeDate
+    let date: PrayersTimesDate
     
-    var prayerTime: PrayerTime {
+    var prayerTime: PrayersTimes {
         .init(fajr: timings.fajr,
               sunrise: timings.sunrise,
               dhuhr: timings.dhuhr,
@@ -49,7 +49,7 @@ struct RemotePrayerTime: Decodable {
             case midnight = "Midnight"
         }
     }
-    struct PrayerTimeDate: Codable {
+    struct PrayersTimesDate: Codable {
         let timestamp: String
     }
 }

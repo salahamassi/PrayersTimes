@@ -28,14 +28,14 @@ public final class RemotePrayersTimesLoader {
         self.client = client
     }
     
-    public typealias Result = Swift.Result<[PrayerTime], Error>
+    public typealias Result = Swift.Result<[PrayersTimes], Error>
     
     public func load(completion: @escaping (RemotePrayersTimesLoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
             case let .success((data, response)):
                 do {
-                    let items = try PrayerTimeItemMapper.map(data, response)
+                    let items = try PrayersTimesItemMapper.map(data, response)
                     completion(.success(items))
                 } catch {
                     completion(.failure(.invalidData))

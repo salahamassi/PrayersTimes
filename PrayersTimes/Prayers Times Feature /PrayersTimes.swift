@@ -1,5 +1,5 @@
 //
-//  PrayerTime.swift
+//  PrayersTimes.swift
 //  PrayersTimes
 //
 //  Created by Salah Amassi on 20/04/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PrayerTime: Equatable {
+public struct PrayersTimes: Equatable {
     
     public let fajr: String
     public let sunrise: String
