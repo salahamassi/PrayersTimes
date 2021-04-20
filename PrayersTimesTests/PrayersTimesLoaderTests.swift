@@ -70,7 +70,7 @@ class PrayersTimesLoaderTests: XCTestCase {
         let (sut, client) = makeSUT()
 
         expect(sut, toCompleteWith: .success([])) {
-            let emptyListJSON = Data("{\"code\": 200,\"status\":\"OK\",\"data\": []}".utf8)
+            let emptyListJSON = makeItemsJSON([])
             client.complete(withStatusCode: 200, data: emptyListJSON)
         }
     }
