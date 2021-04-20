@@ -49,13 +49,15 @@ class PrayersTimesLoaderTests: XCTestCase {
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
-
-        var capturedErrors = [RemotePrayersTimesLoader.Error]()
-        sut.load { capturedErrors.append($0) }
-
-        client.complete(withStatusCode: 400)
-
-        XCTAssertEqual(capturedErrors, [.invalidData])
+        
+        let samples = [199, 201, 300, 400, 500]
+        
+        for (index, sample) in samples.enumerated() {
+            var capturedErrors = [RemotePrayersTimesLoader.Error]()
+            sut.load { capturedErrors.append($0) }
+            client.complete(withStatusCode: sample, at: index)
+            XCTAssertEqual(capturedErrors, [.invalidData])
+        }
     }
     
     // MARK: - Helpers
