@@ -77,7 +77,7 @@ class PrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
 
-        let item1 = PrayerTime(fajr: "05:01 (EEST)",
+        let item1 = makeItem(fajr: "05:01 (EEST)",
                                sunrise: "06:31 (EEST)",
                                dhuhr: "12:46 (EEST)",
                                asr: "16:18 (EEST)",
@@ -88,19 +88,7 @@ class PrayersTimesLoaderTests: XCTestCase {
                                midnight: "00:46 (EEST)",
                                date: Date(timeIntervalSince1970: 1617256861))
         
-        let item1JSON = [
-            "timings": ["Fajr": item1.fajr,
-                        "Sunrise": item1.sunrise,
-                        "Dhuhr": item1.dhuhr,
-                        "Asr": item1.asr,
-                        "Sunset": item1.sunset,
-                        "Maghrib": item1.maghrib,
-                        "Isha": item1.isha,
-                        "Imsak": item1.imsak,
-                        "Midnight": item1.midnight],
-            "date": ["timestamp": String(item1.date.timeIntervalSince1970)]
-        ]
-        let item2 = PrayerTime(fajr: "05:01 (EEST)",
+        let item2 = makeItem(fajr: "05:01 (EEST)",
                                sunrise: "06:30 (EEST)",
                                dhuhr: "12:46 (EEST)",
                                asr: "16:18 (EEST)",
@@ -110,28 +98,11 @@ class PrayersTimesLoaderTests: XCTestCase {
                                imsak: "04:50 (EEST)",
                                midnight: "00:46 (EEST)",
                                date: Date(timeIntervalSince1970: 1617343261))
-        
-        let item2JSON = [
-            "timings": ["Fajr": item2.fajr,
-                        "Sunrise": item2.sunrise,
-                        "Dhuhr": item2.dhuhr,
-                        "Asr": item2.asr,
-                        "Sunset": item2.sunset,
-                        "Maghrib": item2.maghrib,
-                        "Isha": item2.isha,
-                        "Imsak": item2.imsak,
-                        "Midnight": item2.midnight],
-            "date": ["timestamp": String(item2.date.timeIntervalSince1970)]
-        ]
 
-        let itemsJSON = [
-            "code": 200,
-            "status": "OK",
-            "data": [item1JSON, item2JSON]
-        ] as [String : Any]
+        let items = [item1.model, item2.model]
 
-        expect(sut, toCompleteWith: .success([item1, item2]), when: {
-            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+        expect(sut, toCompleteWith: .success(items), when: {
+            let json = makeItemsJSON([item1.json, item2.json])
             client.complete(withStatusCode: 200, data: json)
         })
     }
@@ -142,6 +113,42 @@ class PrayersTimesLoaderTests: XCTestCase {
         return (sut, client)
     }
     
+    private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) -> (model: PrayerTime, json: [String: Any]) {
+        let item = PrayerTime(fajr: fajr,
+                               sunrise: sunrise,
+                               dhuhr: dhuhr,
+                               asr: asr,
+                               sunset: sunset,
+                               maghrib: maghrib,
+                               isha: isha,
+                               imsak: imsak,
+                               midnight: midnight,
+                               date: date)
+
+        let json = [
+            "timings": ["Fajr": item.fajr,
+                        "Sunrise": item.sunrise,
+                        "Dhuhr": item.dhuhr,
+                        "Asr": item.asr,
+                        "Sunset": item.sunset,
+                        "Maghrib": item.maghrib,
+                        "Isha": item.isha,
+                        "Imsak": item.imsak,
+                        "Midnight": item.midnight],
+            "date": ["timestamp": String(item.date.timeIntervalSince1970)]
+        ]
+        return (item, json)
+    }
+    
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        let json = [
+            "code": 200,
+            "status": "OK",
+            "data": items
+        ] as [String : Any]
+        return try! JSONSerialization.data(withJSONObject: json)
+    }
+
     private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWith result: RemotePrayersTimesLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         var capturedResults = [RemotePrayersTimesLoader.Result]()
         sut.load { capturedResults.append($0) }
