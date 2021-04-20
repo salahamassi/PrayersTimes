@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PrayersTimesItemMapper {
+final class PrayersTimesItemMapper {
     
     private struct Root: Decodable {
         
