@@ -10,6 +10,7 @@
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9CE262F742600CA2BFC /* PrayersTimesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9CD262F742600CA2BFC /* PrayersTimesTests.swift */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DD9D9DC262F748100CA2BFC /* PrayerTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayerTime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		3DD9D9C8262F742600CA2BFC /* PrayersTimesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9CD262F742600CA2BFC /* PrayersTimesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesTests.swift; sourceTree = "<group>"; };
 		3DD9D9CF262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DD9D9DB262F748100CA2BFC /* PrayerTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerTime.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */,
 				3DD9D9C3262F742600CA2BFC /* Info.plist */,
+				3DD9D9DB262F748100CA2BFC /* PrayerTime.swift */,
 			);
 			path = PrayersTimes;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 				TargetAttributes = {
 					3DD9D9BE262F742600CA2BFC = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					3DD9D9C7262F742600CA2BFC = {
 						CreatedOnToolsVersion = 12.4;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD9D9DC262F748100CA2BFC /* PrayerTime.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +345,7 @@
 		3DD9D9D4262F742600CA2BFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -356,6 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimes;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -363,6 +370,7 @@
 		3DD9D9D5262F742600CA2BFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -386,6 +394,7 @@
 		3DD9D9D7262F742600CA2BFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PrayersTimesTests/Info.plist;
@@ -403,6 +412,7 @@
 		3DD9D9D8262F742600CA2BFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = PrayersTimesTests/Info.plist;
