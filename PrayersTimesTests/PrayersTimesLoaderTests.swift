@@ -73,7 +73,68 @@ class PrayersTimesLoaderTests: XCTestCase {
             client.complete(withStatusCode: 200, data: emptyListJSON)
         }
     }
+    
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+        let (sut, client) = makeSUT()
 
+        let item1 = PrayerTime(fajr: "05:01 (EEST)",
+                               sunrise: "06:31 (EEST)",
+                               dhuhr: "12:46 (EEST)",
+                               asr: "16:18 (EEST)",
+                               sunset: "19:02 (EEST)",
+                               maghrib: "19:02 (EEST)",
+                               isha: "20:22 (EEST)",
+                               imsak: "04:51 (EEST)",
+                               midnight: "00:46 (EEST)",
+                               date: Date(timeIntervalSince1970: 1617256861))
+        
+        let item1JSON = [
+            "timings": ["Fajr": item1.fajr,
+                        "Sunrise": item1.sunrise,
+                        "Dhuhr": item1.dhuhr,
+                        "Asr": item1.asr,
+                        "Sunset": item1.sunset,
+                        "Maghrib": item1.maghrib,
+                        "Isha": item1.isha,
+                        "Imsak": item1.imsak,
+                        "Midnight": item1.midnight],
+            "date": ["timestamp": String(item1.date.timeIntervalSince1970)]
+        ]
+        let item2 = PrayerTime(fajr: "05:01 (EEST)",
+                               sunrise: "06:30 (EEST)",
+                               dhuhr: "12:46 (EEST)",
+                               asr: "16:18 (EEST)",
+                               sunset: "19:02 (EEST)",
+                               maghrib: "19:02 (EEST)",
+                               isha: "20:22 (EEST)",
+                               imsak: "04:50 (EEST)",
+                               midnight: "00:46 (EEST)",
+                               date: Date(timeIntervalSince1970: 1617343261))
+        
+        let item2JSON = [
+            "timings": ["Fajr": item2.fajr,
+                        "Sunrise": item2.sunrise,
+                        "Dhuhr": item2.dhuhr,
+                        "Asr": item2.asr,
+                        "Sunset": item2.sunset,
+                        "Maghrib": item2.maghrib,
+                        "Isha": item2.isha,
+                        "Imsak": item2.imsak,
+                        "Midnight": item2.midnight],
+            "date": ["timestamp": String(item2.date.timeIntervalSince1970)]
+        ]
+
+        let itemsJSON = [
+            "code": 200,
+            "status": "OK",
+            "data": [item1JSON, item2JSON]
+        ] as [String : Any]
+
+        expect(sut, toCompleteWith: .success([item1, item2]), when: {
+            let json = try! JSONSerialization.data(withJSONObject: itemsJSON)
+            client.complete(withStatusCode: 200, data: json)
+        })
+    }
     // MARK: - Helpers
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemotePrayersTimesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
