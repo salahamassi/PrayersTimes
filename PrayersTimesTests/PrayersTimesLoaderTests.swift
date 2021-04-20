@@ -38,13 +38,10 @@ class PrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [RemotePrayersTimesLoader.Error]()
-        sut.load { capturedErrors.append($0) }
-        
-        let clientError = NSError(domain: "Test", code: 0)
-        client.complete(with: clientError)
-        
-        XCTAssertEqual(capturedErrors, [.connectivity])
+        expect(sut, toCompleteWithError: .connectivity) {
+            let clientError = NSError(domain: "Test", code: 0)
+            client.complete(with: clientError)
+        }
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
@@ -53,29 +50,34 @@ class PrayersTimesLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         
         for (index, sample) in samples.enumerated() {
-            var capturedErrors = [RemotePrayersTimesLoader.Error]()
-            sut.load { capturedErrors.append($0) }
-            client.complete(withStatusCode: sample, at: index)
-            XCTAssertEqual(capturedErrors, [.invalidData])
+            expect(sut, toCompleteWithError: .invalidData) {
+                client.complete(withStatusCode: sample, at: index)
+            }
         }
     }
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [RemotePrayersTimesLoader.Error]()
-        sut.load { capturedErrors.append($0) }
-        
-        let invalidJSON = Data("invalid json".utf8)
-        client.complete(withStatusCode: 200, data: invalidJSON)
-        
-        XCTAssertEqual(capturedErrors, [.invalidData])
+        expect(sut, toCompleteWithError: .invalidData) {
+            let invalidJSON = Data("invalid json".utf8)
+            client.complete(withStatusCode: 200, data: invalidJSON)
+        }
     }
     // MARK: - Helpers
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemotePrayersTimesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemotePrayersTimesLoader(url: url, client: client)
         return (sut, client)
+    }
+    
+    private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWithError error: RemotePrayersTimesLoader.Error, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        var capturedErrors = [RemotePrayersTimesLoader.Error]()
+        sut.load { capturedErrors.append($0) }
+        
+        action()
+        
+        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
     }
     
     class HTTPClientSpy: HTTPClient {
