@@ -33,8 +33,9 @@ public final class RemotePrayersTimesLoader {
     public func load(completion: @escaping (RemotePrayersTimesLoader.Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success((data, _)):
-                if let root = try? JSONDecoder().decode(Root.self, from: data) {
+            case let .success((data, response)):
+                if response.statusCode == 200,
+                   let root = try? JSONDecoder().decode(Root.self, from: data) {
                     completion(.success(root.prayersTimes))
                 } else {
                     completion(.failure(.invalidData))

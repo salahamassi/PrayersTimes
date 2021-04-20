@@ -51,7 +51,8 @@ class PrayersTimesLoaderTests: XCTestCase {
         
         for (index, sample) in samples.enumerated() {
             expect(sut, toCompleteWith: .failure(.invalidData)) {
-                client.complete(withStatusCode: sample, at: index)
+                let json = makeItemsJSON([])
+                client.complete(withStatusCode: sample, data: json, at: index)
             }
         }
     }
@@ -174,7 +175,7 @@ class PrayersTimesLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
         
-        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
             let response = HTTPURLResponse(
                 url: requestedURLs[index],
                 statusCode: code,
