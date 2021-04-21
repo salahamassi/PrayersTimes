@@ -27,13 +27,14 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3DD9D9C7262F742600CA2BFC"
-            BuildableName = "PrayersTimesTests.xctest"
-            BlueprintName = "PrayersTimesTests"
+            BlueprintIdentifier = "3DD9D9BE262F742600CA2BFC"
+            BuildableName = "PrayersTimes.framework"
+            BlueprintName = "PrayersTimes"
             ReferencedContainer = "container:PrayersTimes.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
