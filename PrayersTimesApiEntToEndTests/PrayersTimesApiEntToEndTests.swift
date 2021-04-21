@@ -22,10 +22,12 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
         }
     }
     
-    private func getFeedResult() -> RemotePrayersTimesLoader.Result? {
+    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> RemotePrayersTimesLoader.Result? {
         let serverURL = URL(string: "http://api.aladhan.com/v1/calendar?latitude=31.524019&longitude=34.445422&method=5&month=04&year=1437")!
         let client = URLSessionHTTPClient()
         let loader = RemotePrayersTimesLoader(url: serverURL, client: client)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
 
         let exp = expectation(description: "Wait for load completion")
 
