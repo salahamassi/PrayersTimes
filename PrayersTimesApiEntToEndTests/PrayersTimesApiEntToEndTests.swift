@@ -10,21 +10,8 @@ import PrayersTimes
 
 class PrayersTimesApiEntToEndTests: XCTestCase {
     
-    func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
-        let testServerURL = URL(string: "http://api.aladhan.com/v1/calendar?latitude=31.524019&longitude=34.445422&method=5&month=04&year=1437")!
-        let client = URLSessionHTTPClient()
-        let loader = RemotePrayersTimesLoader(url: testServerURL, client: client)
-        
-        let exp = expectation(description: "Wait for load completion")
-        
-        var receivedResult: RemotePrayersTimesLoader.Result?
-        loader.load { result in
-            receivedResult = result
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 5.0)
-        
-        switch receivedResult {
+    func test_endToEndTestServerGETPrayerTimesResult_matchesFixedServerURL() {        
+        switch getFeedResult() {
         case let .success(items)?:
             XCTAssertEqual(items.count, 30, "Expected 30 items.")
             XCTAssertEqual(items[0], expectedItem(at: 0))
@@ -35,8 +22,25 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
         }
     }
     
+    private func getFeedResult() -> RemotePrayersTimesLoader.Result? {
+        let serverURL = URL(string: "http://api.aladhan.com/v1/calendar?latitude=31.524019&longitude=34.445422&method=5&month=04&year=1437")!
+        let client = URLSessionHTTPClient()
+        let loader = RemotePrayersTimesLoader(url: serverURL, client: client)
+
+        let exp = expectation(description: "Wait for load completion")
+
+        var receivedResult: RemotePrayersTimesLoader.Result?
+        loader.load { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5.0)
+
+        return receivedResult
+    }
+
     private func expectedItem(at index: Int) -> PrayersTimes {
-        return PrayersTimes(fajr: fajr(at: 0),
+        .init(fajr: fajr(at: 0),
                             sunrise: sunrise(at: 0),
                             dhuhr: dhuhr(at: 0),
                             asr: asr(at: 0),
