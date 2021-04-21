@@ -32,7 +32,6 @@ class PrayersTimesStore {
     typealias DeletionCompletion = (Error?) -> Void
 
     var deleteCachedPrayersTimesCallCount = 0
-    var insertCallCount = 0
     var insertions = [(items: [PrayersTimes], timestamp: Date)]()
 
     private var deletionCompletions = [DeletionCompletion]()
@@ -44,7 +43,6 @@ class PrayersTimesStore {
     }
     
     func insert(_ items: [PrayersTimes], timestamp: Date) {
-        insertCallCount += 1
         insertions.append((items, timestamp))
     }
     
@@ -81,7 +79,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.insertCallCount, 0)
+        XCTAssertEqual(store.insertions.count, 0)
     }
     
     func test_save_requestsNewCacheInsertionOnSuccessfulDeletion() {
@@ -91,7 +89,9 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletionSuccessfully()
 
-        XCTAssertEqual(store.insertCallCount, 1)
+        XCTAssertEqual(store.insertions.countRemove redundant test code
+                       
+, 1)
     }
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
