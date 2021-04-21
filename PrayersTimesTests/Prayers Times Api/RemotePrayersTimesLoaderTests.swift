@@ -109,6 +109,39 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
         })
     }
     
+    func test_load_deliversItemsOn200HTTPResponseWithInvalidDateJSONItems() {
+        let (sut, client) = makeSUT()
+        
+        let item = PrayersTimes(fajr: "05:01 (EEST)",
+                                sunrise: "06:30 (EEST)",
+                                dhuhr: "12:46 (EEST)",
+                                asr: "16:18 (EEST)",
+                                sunset: "19:02 (EEST)",
+                                maghrib: "19:02 (EEST)",
+                                isha: "20:22 (EEST)",
+                                imsak: "04:50 (EEST)",
+                                midnight: "00:46 (EEST)",
+                                date: Date(timeIntervalSince1970: 0))
+
+        let json = [
+            "timings": ["Fajr": item.fajr,
+                        "Sunrise": item.sunrise,
+                        "Dhuhr": item.dhuhr,
+                        "Asr": item.asr,
+                        "Sunset": item.sunset,
+                        "Maghrib": item.maghrib,
+                        "Isha": item.isha,
+                        "Imsak": item.imsak,
+                        "Midnight": item.midnight],
+            "date": ["timestamp": "invalid time stamp"]
+        ]
+        
+        expect(sut, toCompleteWith: .success([item]), when: {
+            let json = makeItemsJSON([json])
+            client.complete(withStatusCode: 200, data: json)
+        })
+    }
+    
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let url = URL(string: "http://any-url.com")!
         let client = HTTPClientSpy()
