@@ -38,7 +38,7 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(.connectivity)) {
+        expect(sut, toCompleteWith: .failure(RemotePrayersTimesLoader.Error.connectivity)) {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         }
@@ -50,7 +50,8 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         
         for (index, sample) in samples.enumerated() {
-            expect(sut, toCompleteWith: .failure(.invalidData)) {
+            expect(sut,
+                   toCompleteWith: .failure(RemotePrayersTimesLoader.Error.invalidData)) {
                 let json = makeItemsJSON([])
                 client.complete(withStatusCode: sample, data: json, at: index)
             }
@@ -60,7 +61,7 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(.invalidData)) {
+        expect(sut, toCompleteWith: .failure(RemotePrayersTimesLoader.Error.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
@@ -173,13 +174,26 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: json)
     }
 
-    private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWith result: RemotePrayersTimesLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedResults = [RemotePrayersTimesLoader.Result]()
-        sut.load { capturedResults.append($0) }
+    private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWith expectedResult: RemotePrayersTimesLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for load completion")
+
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedItems), .success(expectedItems)):
+                XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
+            case let (.failure(receivedError as RemotePrayersTimesLoader.Error), .failure(expectedError as RemotePrayersTimesLoader.Error)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
+            }
+
+            exp.fulfill()
+        }
 
         action()
         
-        XCTAssertEqual(capturedResults, [result], file: file, line: line)
+        wait(for: [exp], timeout: 1.0)
     }
     
     class HTTPClientSpy: HTTPClient {

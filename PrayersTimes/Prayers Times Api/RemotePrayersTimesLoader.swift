@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemotePrayersTimesLoader {
+public final class RemotePrayersTimesLoader: PrayersTimesLoader {
     
     public let client: HTTPClient
     public let url: URL
@@ -22,7 +22,7 @@ public final class RemotePrayersTimesLoader {
         self.client = client
     }
     
-    public typealias Result = Swift.Result<[PrayersTimes], Error>
+    public typealias Result = PrayersTimesLoader.LoadPrayersTimesResult
     
     public func load(completion: @escaping (RemotePrayersTimesLoader.Result) -> Void) {
         client.get(from: url) { [weak self] result in
@@ -33,10 +33,10 @@ public final class RemotePrayersTimesLoader {
                     let items = try PrayersTimesItemMapper.map(data, response)
                     completion(.success(items))
                 } catch {
-                    completion(.failure(.invalidData))
+                    completion(.failure(Error.invalidData))
                 }
             case .failure:
-                completion(.failure(.connectivity))
+                completion(.failure(Error.connectivity))
             }
         }
     }

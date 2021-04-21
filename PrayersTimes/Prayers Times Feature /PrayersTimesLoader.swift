@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PrayersTimesLoader {
+public protocol PrayersTimesLoader {
     typealias LoadPrayersTimesResult = Result<[PrayersTimes], Error>
     func load(completion: @escaping (LoadPrayersTimesResult) -> Void)
 }
