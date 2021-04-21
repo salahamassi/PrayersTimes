@@ -8,7 +8,7 @@
 import XCTest
 import PrayersTimes
 
-class URLSessionHTTPClient {
+class URLSessionHTTPClient: HTTPClient {
     private let session: URLSession
     
     init(session: URLSession = .shared) {
