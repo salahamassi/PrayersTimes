@@ -29,12 +29,12 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
             XCTAssertEqual(items.count, 30, "Expected 30 items.")
             XCTAssertEqual(items[0], expectedItem(at: 0))
         case let .failure(error)?:
-            XCTFail("Expected successful feed result, got \(error) instead")
-            
+            XCTFail("Expected successful prayers times result, got \(error) instead")
         default:
-            XCTFail("Expected successful feed result, got no result instead")
+            XCTFail("Expected successful prayers times, got no result instead")
         }
     }
+    
     private func expectedItem(at index: Int) -> PrayersTimes {
         return PrayersTimes(fajr: fajr(at: 0),
                             sunrise: sunrise(at: 0),
