@@ -196,13 +196,14 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     
     class HTTPClientSpy: HTTPClient {
         
-        private var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
+        typealias Result = HTTPClient.Result
+        private var messages = [(url: URL, completion: (Result) -> Void)]()
         
         var requestedURLs: [URL] {
             messages.map(\.url)
         }
         
-        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
+        func get(from url: URL, completion: @escaping (Result) -> Void) {
             messages.append((url, completion))
         }
         
