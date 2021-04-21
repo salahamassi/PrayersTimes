@@ -23,9 +23,14 @@ class LocalPrayersTimesLoader {
 
 class PrayersTimesStore {
     var deleteCachedPrayersTimesCallCount = 0
+    var insertCallCount = 0
     
     func deleteCachedPrayersTimes() {
         deleteCachedPrayersTimesCallCount += 1
+    }
+    
+    func completeDeletion(with error: Error, at index: Int = 0) {
+        
     }
 }
 
@@ -33,7 +38,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_init_doesNotDeleteCacheUponCreation() {
         let (_, store) = makeSUT()
-
+        
         XCTAssertEqual(store.deleteCachedPrayersTimesCallCount, 0)
     }
     
@@ -46,6 +51,18 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         XCTAssertEqual(store.deleteCachedPrayersTimesCallCount, 1)
     }
     
+    func test_save_doesNotRequestCacheInsertionOnDeletionError() {
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
+        let deletionError = anyNSError()
+        
+        sut.save(items)
+        store.completeDeletion(with: deletionError)
+        
+        XCTAssertEqual(store.insertCallCount, 0)
+    }
+    
+    
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
         let store = PrayersTimesStore()
@@ -54,7 +71,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
     }
-
+    
     private func uniqueItem() -> PrayersTimes {
         .init(fajr: "05:01 (EEST)",
               sunrise: "06:30 (EEST)",
@@ -66,5 +83,9 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
               imsak: "04:50 (EEST)",
               midnight: "00:46 (EEST)",
               date: Date(timeIntervalSince1970: 1617343261))
+    }
+    
+    private func anyNSError() -> NSError {
+        .init(domain: "any error", code: 0)
     }
 }
