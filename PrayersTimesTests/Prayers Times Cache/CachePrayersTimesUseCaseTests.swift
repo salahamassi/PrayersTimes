@@ -32,15 +32,13 @@ class PrayersTimesStore {
 class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_init_doesNotDeleteCacheUponCreation() {
-        let store = PrayersTimesStore()
-        _ = LocalPrayersTimesLoader(store: store)
-        
+        let (_, store) = makeSUT()
+
         XCTAssertEqual(store.deleteCachedPrayersTimesCallCount, 0)
     }
     
     func test_save_requestsCacheDeletion() {
-        let store = PrayersTimesStore()
-        let sut = LocalPrayersTimesLoader(store: store)
+        let (sut, store) = makeSUT()
         let items = [uniqueItem(), uniqueItem()]
         
         sut.save(items)
@@ -49,6 +47,12 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    private func makeSUT() -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
+        let store = PrayersTimesStore()
+        let sut = LocalPrayersTimesLoader(store: store)
+        return (sut, store)
+    }
+
     private func uniqueItem() -> PrayersTimes {
         .init(fajr: "05:01 (EEST)",
               sunrise: "06:30 (EEST)",
