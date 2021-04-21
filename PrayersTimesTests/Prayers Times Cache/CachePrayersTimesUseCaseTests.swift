@@ -17,20 +17,38 @@ class LocalPrayersTimesLoader {
     }
     
     func save(_ items: [PrayersTimes]) {
-        store.deleteCachedPrayersTimes()
+        store.deleteCachedPrayersTimes { [unowned self] error in
+            if error == nil {
+                self.store.insert(items)
+            }
+        }
     }
 }
 
 class PrayersTimesStore {
+    
+    typealias DeletionCompletion = (Error?) -> Void
+
     var deleteCachedPrayersTimesCallCount = 0
     var insertCallCount = 0
     
-    func deleteCachedPrayersTimes() {
+    private var deletionCompletions = [DeletionCompletion]()
+
+    
+    func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
         deleteCachedPrayersTimesCallCount += 1
+        deletionCompletions.append(completion)
     }
     
+    func insert(_ items: [PrayersTimes]) {
+        insertCallCount += 1
+    }
+    
+    func completeDeletionSuccessfully(at index: Int = 0) {
+        deletionCompletions[index](nil)
+    }
+
     func completeDeletion(with error: Error, at index: Int = 0) {
-        
     }
 }
 
@@ -62,6 +80,15 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         XCTAssertEqual(store.insertCallCount, 0)
     }
     
+    func test_save_requestsNewCacheInsertionOnSuccessfulDeletion() {
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
+
+        sut.save(items)
+        store.completeDeletionSuccessfully()
+
+        XCTAssertEqual(store.insertCallCount, 1)
+    }
     
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
