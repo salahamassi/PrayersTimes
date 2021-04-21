@@ -18,7 +18,7 @@
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
 		3DD9D9E0262F779400CA2BFC /* PrayersTimesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */; };
-		3DD9D9E9262F799900CA2BFC /* RemotePrayersTimesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9E8262F799900CA2BFC /* RemotePrayersTimesLoaderTests.swift */; };
+		3DD9D9E9262F799900CA2BFC /* LoadPrayersTimesFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9E8262F799900CA2BFC /* LoadPrayersTimesFromRemoteUseCaseTests.swift */; };
 		3DD9D9ED262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */; };
 		3DD9D9F5262F9A9000CA2BFC /* PrayersTimesItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9F4262F9A9000CA2BFC /* PrayersTimesItemMapper.swift */; };
 		3DD9D9F9262F9ACB00CA2BFC /* RemotePrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9F8262F9ACB00CA2BFC /* RemotePrayersTimes.swift */; };
@@ -56,7 +56,7 @@
 		3DD9D9CF262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimes.swift; sourceTree = "<group>"; };
 		3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesLoader.swift; sourceTree = "<group>"; };
-		3DD9D9E8262F799900CA2BFC /* RemotePrayersTimesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrayersTimesLoaderTests.swift; sourceTree = "<group>"; };
+		3DD9D9E8262F799900CA2BFC /* LoadPrayersTimesFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadPrayersTimesFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
 		3DD9D9EC262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrayersTimesLoader.swift; sourceTree = "<group>"; };
 		3DD9D9F4262F9A9000CA2BFC /* PrayersTimesItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesItemMapper.swift; sourceTree = "<group>"; };
 		3DD9D9F8262F9ACB00CA2BFC /* RemotePrayersTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrayersTimes.swift; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 		3D90A210262F9E3600E28772 /* Prayers Times Api */ = {
 			isa = PBXGroup;
 			children = (
-				3DD9D9E8262F799900CA2BFC /* RemotePrayersTimesLoaderTests.swift */,
+				3DD9D9E8262F799900CA2BFC /* LoadPrayersTimesFromRemoteUseCaseTests.swift */,
 				3DA6617C262FA60D00BCD876 /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Prayers Times Api";
@@ -339,7 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DD9D9E9262F799900CA2BFC /* RemotePrayersTimesLoaderTests.swift in Sources */,
+				3DD9D9E9262F799900CA2BFC /* LoadPrayersTimesFromRemoteUseCaseTests.swift in Sources */,
 				3DA6617D262FA60D00BCD876 /* URLSessionHTTPClientTests.swift in Sources */,
 				3DA66182262FC3E000BCD876 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
