@@ -135,12 +135,6 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     private func failure(_ error: RemotePrayersTimesLoader.Error) -> RemotePrayersTimesLoader.Result {
         .failure(error)
     }
-
-    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
-        }
-    }
     
     private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) -> (model: PrayersTimes, json: [String: Any]) {
         let item = PrayersTimes(fajr: fajr,
