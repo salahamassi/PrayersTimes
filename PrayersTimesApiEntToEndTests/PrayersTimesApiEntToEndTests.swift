@@ -11,7 +11,7 @@ import PrayersTimes
 class PrayersTimesApiEntToEndTests: XCTestCase {
     
     func test_endToEndTestServerGETPrayerTimesResult_matchesFixedServerURL() {        
-        switch getFeedResult() {
+        switch getPrayerTimesResult() {
         case let .success(items)?:
             XCTAssertEqual(items.count, 30, "Expected 30 items.")
             XCTAssertEqual(items[0], expectedItem(at: 0))
@@ -22,7 +22,7 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
         }
     }
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> RemotePrayersTimesLoader.Result? {
+    private func getPrayerTimesResult(file: StaticString = #filePath, line: UInt = #line) -> RemotePrayersTimesLoader.Result? {
         let serverURL = URL(string: "http://api.aladhan.com/v1/calendar?latitude=31.524019&longitude=34.445422&method=5&month=04&year=1437")!
         let client = URLSessionHTTPClient()
         let loader = RemotePrayersTimesLoader(url: serverURL, client: client)
