@@ -38,7 +38,7 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(RemotePrayersTimesLoader.Error.connectivity)) {
+        expect(sut, toCompleteWith: failure(.connectivity)) {
             let clientError = NSError(domain: "Test", code: 0)
             client.complete(with: clientError)
         }
@@ -51,7 +51,7 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
         
         for (index, sample) in samples.enumerated() {
             expect(sut,
-                   toCompleteWith: .failure(RemotePrayersTimesLoader.Error.invalidData)) {
+                   toCompleteWith: failure(.invalidData)) {
                 let json = makeItemsJSON([])
                 client.complete(withStatusCode: sample, data: json, at: index)
             }
@@ -61,7 +61,7 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        expect(sut, toCompleteWith: .failure(RemotePrayersTimesLoader.Error.invalidData)) {
+        expect(sut, toCompleteWith: failure(.invalidData)) {
             let invalidJSON = Data("invalid json".utf8)
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
@@ -132,6 +132,10 @@ class RemotePrayersTimesLoaderTests: XCTestCase {
         return (sut, client)
     }
     
+    private func failure(_ error: RemotePrayersTimesLoader.Error) -> RemotePrayersTimesLoader.Result {
+        .failure(error)
+    }
+
     private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
             XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
