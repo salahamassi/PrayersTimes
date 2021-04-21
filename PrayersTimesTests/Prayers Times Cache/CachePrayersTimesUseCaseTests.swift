@@ -11,15 +11,17 @@ import PrayersTimes
 class LocalPrayersTimesLoader {
     
     private let store: PrayersTimesStore
-    
-    init(store: PrayersTimesStore) {
+    private let currentDate: () -> Date
+
+    init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
+        self.currentDate = currentDate
     }
     
     func save(_ items: [PrayersTimes]) {
         store.deleteCachedPrayersTimes { [unowned self] error in
             if error == nil {
-                self.store.insert(items)
+                self.store.insert(items, timestamp: currentDate())
             }
         }
     }
@@ -31,7 +33,8 @@ class PrayersTimesStore {
 
     var deleteCachedPrayersTimesCallCount = 0
     var insertCallCount = 0
-    
+    var insertions = [(items: [PrayersTimes], timestamp: Date)]()
+
     private var deletionCompletions = [DeletionCompletion]()
 
     
@@ -40,8 +43,9 @@ class PrayersTimesStore {
         deletionCompletions.append(completion)
     }
     
-    func insert(_ items: [PrayersTimes]) {
+    func insert(_ items: [PrayersTimes], timestamp: Date) {
         insertCallCount += 1
+        insertions.append((items, timestamp))
     }
     
     func completeDeletionSuccessfully(at index: Int = 0) {
@@ -90,10 +94,22 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         XCTAssertEqual(store.insertCallCount, 1)
     }
     
+    func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
+        let timestamp = Date()
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT(currentDate: { timestamp })
+
+        sut.save(items)
+        store.completeDeletionSuccessfully()
+
+        XCTAssertEqual(store.insertions.count, 1)
+        XCTAssertEqual(store.insertions.first?.items, items)
+        XCTAssertEqual(store.insertions.first?.timestamp, timestamp)
+    }
     // MARK: - Helpers
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
+    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
         let store = PrayersTimesStore()
-        let sut = LocalPrayersTimesLoader(store: store)
+        let sut = LocalPrayersTimesLoader(store: store, currentDate: currentDate)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, store)
