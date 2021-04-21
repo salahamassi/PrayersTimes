@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CI.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>PrayersTimes.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,6 +22,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>3DA6618E262FD1AE00BCD876</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3DD9D9BE262F742600CA2BFC</key>
 		<dict>
 			<key>primary</key>
