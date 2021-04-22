@@ -41,7 +41,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversCachedPrayersTimesOnTheSameMonth() {
+    func test_load_deliversCachedPrayersTimesOnTheSameMonthDate() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -58,7 +58,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoPrayersTimesOnNotTheSameMonth() {
+    func test_load_deliversNoPrayersTimesOnNotTheSameMonthDate() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
