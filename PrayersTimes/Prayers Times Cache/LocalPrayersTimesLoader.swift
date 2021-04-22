@@ -47,6 +47,7 @@ public final class LocalPrayersTimesLoader {
             case .found, .empty:
                 completion(.success([]))
             case let .failure(error):
+                self.store.deleteCachedPrayersTimes { _ in }
                 completion(.failure(error))
             }
         }
