@@ -79,7 +79,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let store = PrayersTimesStoreSpy()
         var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
 
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
         sut?.save([uniqueItem()]) { receivedResults.append($0) }
 
         sut = nil
@@ -92,7 +92,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let store = PrayersTimesStoreSpy()
         var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
 
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
         sut?.save([uniqueItem()]) { receivedResults.append($0) }
 
         store.completeDeletionSuccessfully()
@@ -114,7 +114,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for save completion")
 
-        var receivedError: Error?
+        var receivedError: LocalPrayersTimesLoader.SaveResult = nil
         sut.save([uniqueItem()]) { error in
             receivedError = error
             exp.fulfill()
