@@ -18,9 +18,9 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     
     func test_load_requestsCacheRetrieval() {
         let (sut, store) = makeSUT()
-
+        
         sut.load() { _ in }
-
+        
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
@@ -45,10 +45,10 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
-
+        
         let sameMonthDate = fixedCurrentDate.startOfMonth
         let otherSameMonthDate = fixedCurrentDate.endOfMonth
-
+        
         for (index, date) in [sameMonthDate, otherSameMonthDate].enumerated() {
             expect(sut, toCompleteWith: .success(items.models), when: {
                 store.completeRetrieval(with: items.local,
@@ -76,30 +76,48 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     
     func test_load_deletesCacheOnRetrievalError() {
         let (sut, store) = makeSUT()
-
+        
         sut.load { _ in }
         store.completeRetrieval(with: anyNSError())
-
+        
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedPrayersTimes])
     }
-
+    
     func test_load_doesNotDeleteCacheOnEmptyCache() {
         let (sut, store) = makeSUT()
-
+        
         sut.load { _ in }
         store.completeRetrievalWithEmptyCache()
-
+        
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
-
+    
+    func test_load_doesNotDeleteCacheOnTheSameMonthDate() {
+        let items = uniqueItems()
+        let fixedCurrentDate = Date()
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        
+        let sameMonthDate = fixedCurrentDate.startOfMonth
+        let otherSameMonthDate = fixedCurrentDate.endOfMonth
+        
+        for (index, date) in [sameMonthDate, otherSameMonthDate].enumerated() {
+            sut.load { _ in }
+            store.completeRetrieval(with: items.local,
+                                    timestamp: date,
+                                    at: index)
+        }
+        XCTAssertFalse(store.receivedMessages.contains(.deleteCachedPrayersTimes))
+    }
+    
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWith expectedResult: LocalPrayersTimesLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
-
+        
         sut.load { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedPrayersTimes), .success(expectedPrayersTimes)):
                 XCTAssertEqual(receivedPrayersTimes, expectedPrayersTimes, file: file, line: line)
-
+                
             case let (.failure(receivedError as NSError), .failure(expectedError as NSError)):
                 XCTAssertEqual(receivedError.code, expectedError.code, file: file, line: line)
                 XCTAssertEqual(receivedError.domain, expectedError.domain, file: file, line: line)
@@ -138,15 +156,15 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     private func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
         let models = [uniqueItem(), uniqueItem()]
         let local = models.map{ LocalPrayersTimes(fajr: $0.fajr,
-                                                 sunrise: $0.sunrise,
-                                                 dhuhr: $0.dhuhr,
-                                                 asr: $0.asr,
-                                                 sunset: $0.sunset,
-                                                 maghrib: $0.maghrib,
-                                                 isha: $0.isha,
-                                                 imsak: $0.imsak,
-                                                 midnight: $0.midnight,
-                                                 date: $0.date) }
+                                                  sunrise: $0.sunrise,
+                                                  dhuhr: $0.dhuhr,
+                                                  asr: $0.asr,
+                                                  sunset: $0.sunset,
+                                                  maghrib: $0.maghrib,
+                                                  isha: $0.isha,
+                                                  imsak: $0.imsak,
+                                                  midnight: $0.midnight,
+                                                  date: $0.date) }
         return (models, local)
     }
     
@@ -160,7 +178,7 @@ private extension Date {
     func adding(month: Int) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .month, value: month, to: self)!
     }
-
+    
     func adding(seconds: TimeInterval) -> Date {
         return self + seconds
     }
