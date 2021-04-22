@@ -53,6 +53,10 @@ class PrayersTimesStoreSpy: PrayersTimesStore {
         insertionCompletions[index](error)
     }
     
+    func completeRetrievalWithEmptyCache(at index: Int = 0) {
+        retrievalCompletions[index](nil)
+    }
+
     func completeRetrieval(with error: Error, at index: Int = 0) {
         retrievalCompletions[index](error)
     }
