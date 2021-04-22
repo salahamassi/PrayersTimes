@@ -113,60 +113,30 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     }
     
     func test_save_failsOnDeletionError() {
-        let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT()
         let deletionError = anyNSError()
-        let exp = expectation(description: "Wait for save completion")
-
-        var receivedError: Error?
-        sut.save(items) { error in
-            receivedError = error
-            exp.fulfill()
+        
+        expect(sut, toCompleteWithError: deletionError) {
+            store.completeDeletion(with: deletionError)
         }
-
-        store.completeDeletion(with: deletionError)
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual((receivedError as NSError?)?.code, deletionError.code)
-        XCTAssertEqual((receivedError as NSError?)?.domain, deletionError.domain)
     }
 
     func test_save_failsOnInsertionError() {
-        let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT()
         let insertionError = anyNSError()
-        let exp = expectation(description: "Wait for save completion")
-
-        var receivedError: Error?
-        sut.save(items) { error in
-            receivedError = error
-            exp.fulfill()
+        
+        expect(sut, toCompleteWithError: insertionError) {
+            store.completeDeletionSuccessfully()
+            store.completeInsertion(with: insertionError)
         }
-
-        store.completeDeletionSuccessfully()
-        store.completeInsertion(with: insertionError)
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertEqual((receivedError as NSError?)?.code, insertionError.code)
-        XCTAssertEqual((receivedError as NSError?)?.domain, insertionError.domain)
     }
     
     func test_save_succeedsOnSuccessfulCacheInsertion() {
-        let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT()
-        let exp = expectation(description: "Wait for save completion")
-
-        var receivedError: Error?
-        sut.save(items) { error in
-            receivedError = error
-            exp.fulfill()
+        expect(sut, toCompleteWithError: nil) {
+            store.completeDeletionSuccessfully()
+            store.completeInsertionSuccessfully()
         }
-
-        store.completeDeletionSuccessfully()
-        store.completeInsertionSuccessfully()
-        wait(for: [exp], timeout: 1.0)
-
-        XCTAssertNil(receivedError)
     }
 
     // MARK: - Helpers
@@ -178,6 +148,28 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         return (sut, store)
     }
     
+    private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "Wait for save completion")
+
+        var receivedError: Error?
+        sut.save([uniqueItem()]) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+
+        action()
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual((receivedError as NSError?)?.code,
+                       expectedError?.code,
+                       file: file,
+                       line: line)
+        XCTAssertEqual((receivedError as NSError?)?.domain,
+                       expectedError?.domain,
+                       file: file,
+                       line: line)
+    }
+
     private func uniqueItem() -> PrayersTimes {
         .init(fajr: "05:01 (EEST)",
               sunrise: "06:30 (EEST)",
