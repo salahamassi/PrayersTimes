@@ -40,11 +40,14 @@ public final class LocalPrayersTimesLoader {
     }
     
     public func load(completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
+        store.retrieve { result in
+            switch result {
+            case let .found(prayersTimes, _):
+                completion(.success(prayersTimes.toModels()))
+            case .empty:
                 completion(.success([]))
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
@@ -65,3 +68,19 @@ private extension Array where Element == PrayersTimes {
         }
     }
 }
+
+private extension Array where Element == LocalPrayersTimes {
+    func toModels() -> [PrayersTimes] {
+        map { PrayersTimes(fajr: $0.fajr,
+                                sunrise: $0.sunrise,
+                                dhuhr: $0.dhuhr,
+                                asr: $0.asr,
+                                sunset: $0.sunset,
+                                maghrib: $0.maghrib,
+                                isha: $0.isha,
+                                imsak: $0.imsak,
+                                midnight: $0.midnight,
+                                date: $0.date) }
+    }
+}
+

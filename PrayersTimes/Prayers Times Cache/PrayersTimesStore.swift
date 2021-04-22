@@ -7,11 +7,17 @@
 
 import Foundation
 
+public enum RetrieveCachedPrayersTimesResult {
+    case empty
+    case found(feed: [LocalPrayersTimes], timestamp: Date)
+    case failure(Error)
+}
+
 public protocol PrayersTimesStore {
-    
+
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
-    typealias RetrievalCompletion = (Error?) -> Void
+    typealias RetrievalCompletion = (RetrieveCachedPrayersTimesResult) -> Void
 
     func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
     
