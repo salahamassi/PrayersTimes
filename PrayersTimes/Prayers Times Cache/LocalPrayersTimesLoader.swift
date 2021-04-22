@@ -40,16 +40,21 @@ public final class LocalPrayersTimesLoader {
     }
     
     public func load(completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { result in
+        store.retrieve { [unowned self] result in
             switch result {
-            case let .found(prayersTimes, _):
+            case let .found(prayersTimes, timestamp) where self.validate(timestamp):
                 completion(.success(prayersTimes.toModels()))
-            case .empty:
+            case .found, .empty:
                 completion(.success([]))
             case let .failure(error):
                 completion(.failure(error))
             }
         }
+    }
+    
+    private func validate(_ timestamp: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.isDate(currentDate(), equalTo: timestamp, toGranularity: .month)
     }
 }
 

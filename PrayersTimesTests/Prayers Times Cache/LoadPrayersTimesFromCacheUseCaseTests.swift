@@ -44,12 +44,34 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     func test_load_deliversCachedPrayersTimesOnTheSameMonth() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
-        let sameMonthDate = fixedCurrentDate.adding(month: 1).adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
 
-        expect(sut, toCompleteWith: .success(items.models), when: {
-            store.completeRetrieval(with: items.local, timestamp: sameMonthDate)
-        })
+        let sameMonthDate = fixedCurrentDate.startOfMonth
+        let otherSameMonthDate = fixedCurrentDate.endOfMonth
+
+        for (index, date) in [sameMonthDate, otherSameMonthDate].enumerated() {
+            expect(sut, toCompleteWith: .success(items.models), when: {
+                store.completeRetrieval(with: items.local,
+                                        timestamp: date,
+                                        at: index)
+            })
+        }
+    }
+    
+    func test_load_deliversNoPrayersTimesOnNotTheSameMonth() {
+        let items = uniqueItems()
+        let fixedCurrentDate = Date()
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        let monthOffsets = [1, -1, 2, -2]
+        for (index, monthOffset) in monthOffsets.enumerated() {
+            let notSameMonthDate = fixedCurrentDate.adding(month: monthOffset)
+            expect(sut, toCompleteWith: .success([]), when: {
+                store.completeRetrieval(with: items.local,
+                                        timestamp: notSameMonthDate,
+                                        at: index)
+            })
+        }
     }
 
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWith expectedResult: LocalPrayersTimesLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
@@ -123,5 +145,20 @@ private extension Date {
 
     func adding(seconds: TimeInterval) -> Date {
         return self + seconds
+    }
+    
+    var startOfMonth: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month], from: self)
+        let startOfMonth = calendar.date(from: components)
+        return startOfMonth ?? self
+    }
+    
+    var endOfMonth: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return calendar.date(byAdding: components, to: startOfMonth) ?? self
     }
 }
