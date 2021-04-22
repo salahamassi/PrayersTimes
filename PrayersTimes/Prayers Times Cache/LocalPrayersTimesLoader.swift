@@ -13,7 +13,8 @@ public final class LocalPrayersTimesLoader {
     private let currentDate: () -> Date
     
     public typealias SaveResult = Error?
-
+    public typealias LoadResult = PrayersTimesLoader.LoadPrayersTimesResult
+    
     public init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
@@ -38,8 +39,12 @@ public final class LocalPrayersTimesLoader {
         }
     }
     
-    public func load(completion: @escaping (Error?) -> Void) {
-        store.retrieve(completion: completion)
+    public func load(completion: @escaping (LoadResult) -> Void) {
+        store.retrieve { error in
+            if let error = error {
+                completion(.failure(error))
+            }
+        }
     }
 }
 
