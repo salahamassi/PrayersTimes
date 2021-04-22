@@ -31,10 +31,26 @@ public final class LocalPrayersTimesLoader {
     }
     
     private func cache(_ items: [PrayersTimes], with completion: @escaping (SaveResult) -> Void) {
-        store.insert(items, timestamp: currentDate()) { [weak self] error in
+        store.insert(items.toLocal(), timestamp: currentDate()) { [weak self] error in
             guard self != nil else { return }
             
             completion(error)
+        }
+    }
+}
+
+private extension Array where Element == PrayersTimes {
+    func toLocal() -> [LocalPrayersTimes] {
+        map { LocalPrayersTimes(fajr: $0.fajr,
+                                sunrise: $0.sunrise,
+                                dhuhr: $0.dhuhr,
+                                asr: $0.asr,
+                                sunset: $0.sunset,
+                                maghrib: $0.maghrib,
+                                isha: $0.isha,
+                                imsak: $0.imsak,
+                                midnight: $0.midnight,
+                                date: $0.date)
         }
     }
 }

@@ -38,14 +38,14 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
         let timestamp = Date()
-        let items = [uniqueItem(), uniqueItem()]
+        let items = uniqueItems()
         let (sut, store) = makeSUT(currentDate: { timestamp })
         
-        sut.save(items) { _ in }
+        sut.save(items.models) { _ in }
         store.completeDeletionSuccessfully()
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes,
-                                                .insert(items, timestamp)])
+                                                .insert(items.local, timestamp)])
     }
     
     func test_save_failsOnDeletionError() {
@@ -137,7 +137,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         
         enum ReceivedMessage: Equatable {
             case deleteCachedPrayersTimes
-            case insert([PrayersTimes], Date)
+            case insert([LocalPrayersTimes], Date)
         }
         
         private(set) var receivedMessages = [ReceivedMessage]()
@@ -145,7 +145,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         private var deletionCompletions = [DeletionCompletion]()
         private var insertionCompletions = [InsertionCompletion]()
         
-        func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
+        func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
             insertionCompletions.append(completion)
             receivedMessages.append(.insert(items, timestamp))
         }
@@ -183,6 +183,21 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
               imsak: "04:50 (EEST)",
               midnight: "00:46 (EEST)",
               date: Date(timeIntervalSince1970: 1617343261))
+    }
+    
+    private func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
+        let models = [uniqueItem(), uniqueItem()]
+        let local = models.map{ LocalPrayersTimes(fajr: $0.fajr,
+                                                 sunrise: $0.sunrise,
+                                                 dhuhr: $0.dhuhr,
+                                                 asr: $0.asr,
+                                                 sunset: $0.sunset,
+                                                 maghrib: $0.maghrib,
+                                                 isha: $0.isha,
+                                                 imsak: $0.imsak,
+                                                 midnight: $0.midnight,
+                                                 date: $0.date) }
+        return (models, local)
     }
     
     private func anyNSError() -> NSError {
