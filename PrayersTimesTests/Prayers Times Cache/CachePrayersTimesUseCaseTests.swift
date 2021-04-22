@@ -31,19 +31,23 @@ class PrayersTimesStore {
     
     typealias DeletionCompletion = (Error?) -> Void
 
-    var deleteCachedPrayersTimesCallCount = 0
-    var insertions = [(items: [PrayersTimes], timestamp: Date)]()
+    enum ReceivedMessage: Equatable {
+        case deleteCachedPrayersTimes
+        case insert([PrayersTimes], Date)
+    }
+
+    private(set) var receivedMessages = [ReceivedMessage]()
 
     private var deletionCompletions = [DeletionCompletion]()
 
     
     func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
-        deleteCachedPrayersTimesCallCount += 1
         deletionCompletions.append(completion)
+        receivedMessages.append(.deleteCachedPrayersTimes)
     }
     
     func insert(_ items: [PrayersTimes], timestamp: Date) {
-        insertions.append((items, timestamp))
+        receivedMessages.append(.insert(items, timestamp))
     }
     
     func completeDeletionSuccessfully(at index: Int = 0) {
@@ -56,10 +60,10 @@ class PrayersTimesStore {
 
 class CachePrayersTimesUseCaseTests: XCTestCase {
     
-    func test_init_doesNotDeleteCacheUponCreation() {
+    func test_init_doesNotMessageStoreUponCreation() {
         let (_, store) = makeSUT()
         
-        XCTAssertEqual(store.deleteCachedPrayersTimesCallCount, 0)
+        XCTAssertEqual(store.receivedMessages, [])
     }
     
     func test_save_requestsCacheDeletion() {
@@ -68,7 +72,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         
         sut.save(items)
         
-        XCTAssertEqual(store.deleteCachedPrayersTimesCallCount, 1)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes])
     }
     
     func test_save_doesNotRequestCacheInsertionOnDeletionError() {
@@ -79,21 +83,9 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.insertions.count, 0)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes])
     }
-    
-    func test_save_requestsNewCacheInsertionOnSuccessfulDeletion() {
-        let items = [uniqueItem(), uniqueItem()]
-        let (sut, store) = makeSUT()
-
-        sut.save(items)
-        store.completeDeletionSuccessfully()
-
-        XCTAssertEqual(store.insertions.countRemove redundant test code
-                       
-, 1)
-    }
-    
+        
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
         let timestamp = Date()
         let items = [uniqueItem(), uniqueItem()]
@@ -102,9 +94,8 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         sut.save(items)
         store.completeDeletionSuccessfully()
 
-        XCTAssertEqual(store.insertions.count, 1)
-        XCTAssertEqual(store.insertions.first?.items, items)
-        XCTAssertEqual(store.insertions.first?.timestamp, timestamp)
+        XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes,
+                                                .insert(items, timestamp)])
     }
     // MARK: - Helpers
     private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
