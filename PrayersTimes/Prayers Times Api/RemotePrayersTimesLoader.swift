@@ -29,15 +29,34 @@ public final class RemotePrayersTimesLoader: PrayersTimesLoader {
             guard self != nil else { return }
             switch result {
             case let .success((data, response)):
-                do {
-                    let items = try PrayersTimesItemMapper.map(data, response)
-                    completion(.success(items))
-                } catch {
-                    completion(.failure(Error.invalidData))
-                }
+                completion(RemotePrayersTimesLoader.map(data, from: response))
             case .failure:
                 completion(.failure(Error.connectivity))
             }
         }
+    }
+    
+    private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+        do {
+            let items = try PrayersTimesItemMapper.map(data, from: response)
+            return .success(items.toModels())
+        } catch {
+            return .failure(error)
+        }
+    }
+}
+
+private extension Array where Element == RemotePrayersTimes {
+    func toModels() -> [PrayersTimes] {
+        map { PrayersTimes(fajr: $0.timings.fajr,
+                           sunrise: $0.timings.sunrise,
+                           dhuhr: $0.timings.dhuhr,
+                           asr: $0.timings.asr,
+                           sunset: $0.timings.sunset,
+                           maghrib: $0.timings.maghrib,
+                           isha: $0.timings.isha,
+                           imsak: $0.timings.imsak,
+                           midnight: $0.timings.midnight,
+                           date: Date(timeIntervalSince1970: Double($0.date.timestamp) ?? 0.0)) }
     }
 }
