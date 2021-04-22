@@ -12,19 +12,6 @@ struct RemotePrayersTimes: Decodable {
     let timings: Timings
     let date: PrayersTimesDate
     
-    var prayerTime: PrayersTimes {
-        .init(fajr: timings.fajr,
-              sunrise: timings.sunrise,
-              dhuhr: timings.dhuhr,
-              asr: timings.asr,
-              sunset: timings.sunset,
-              maghrib: timings.maghrib,
-              isha: timings.isha,
-              imsak: timings.imsak,
-              midnight: timings.midnight,
-              date: Date(timeIntervalSince1970: Double(date.timestamp) ?? 0.0))
-    }
-
     struct Timings: Decodable {
         
         let fajr: String

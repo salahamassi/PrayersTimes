@@ -8,37 +8,6 @@
 import XCTest
 import PrayersTimes
 
-class LocalPrayersTimesLoader {
-    
-    private let store: PrayersTimesStore
-    private let currentDate: () -> Date
-    
-    init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
-        self.store = store
-        self.currentDate = currentDate
-    }
-    
-    func save(_ items: [PrayersTimes], completion: @escaping (Error?) -> Void) {
-        store.deleteCachedPrayersTimes { [unowned self] error in
-            if error == nil {
-                self.store.insert(items, timestamp: self.currentDate(), completion: completion)
-            } else {
-                completion(error)
-            }
-        }
-    }
-}
-
-protocol PrayersTimesStore {
-    
-    typealias DeletionCompletion = (Error?) -> Void
-    typealias InsertionCompletion = (Error?) -> Void
-
-    func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
-    
-    func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion)
-}
-
 class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_init_doesNotMessageStoreUponCreation() {
@@ -69,14 +38,14 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
         let timestamp = Date()
-        let items = [uniqueItem(), uniqueItem()]
+        let items = uniqueItems()
         let (sut, store) = makeSUT(currentDate: { timestamp })
         
-        sut.save(items) { _ in }
+        sut.save(items.models) { _ in }
         store.completeDeletionSuccessfully()
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes,
-                                                .insert(items, timestamp)])
+                                                .insert(items.local, timestamp)])
     }
     
     func test_save_failsOnDeletionError() {
@@ -106,6 +75,33 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         }
     }
 
+    func test_save_doesNotDeliverDeletionErrorAfterSUTInstanceHasBeenDeallocated() {
+        let store = PrayersTimesStoreSpy()
+        var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
+
+        var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
+        sut?.save([uniqueItem()]) { receivedResults.append($0) }
+
+        sut = nil
+        store.completeDeletion(with: anyNSError())
+
+        XCTAssertTrue(receivedResults.isEmpty)
+    }
+    
+    func test_save_doesNotDeliverInsertionErrorAfterSUTInstanceHasBeenDeallocated() {
+        let store = PrayersTimesStoreSpy()
+        var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
+
+        var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
+        sut?.save([uniqueItem()]) { receivedResults.append($0) }
+
+        store.completeDeletionSuccessfully()
+        sut = nil
+        store.completeInsertion(with: anyNSError())
+
+        XCTAssertTrue(receivedResults.isEmpty)
+    }
+    
     // MARK: - Helpers
     private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStoreSpy) {
         let store = PrayersTimesStoreSpy()
@@ -118,7 +114,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for save completion")
 
-        var receivedError: Error?
+        var receivedError: LocalPrayersTimesLoader.SaveResult = nil
         sut.save([uniqueItem()]) { error in
             receivedError = error
             exp.fulfill()
@@ -141,7 +137,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         
         enum ReceivedMessage: Equatable {
             case deleteCachedPrayersTimes
-            case insert([PrayersTimes], Date)
+            case insert([LocalPrayersTimes], Date)
         }
         
         private(set) var receivedMessages = [ReceivedMessage]()
@@ -149,7 +145,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         private var deletionCompletions = [DeletionCompletion]()
         private var insertionCompletions = [InsertionCompletion]()
         
-        func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
+        func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
             insertionCompletions.append(completion)
             receivedMessages.append(.insert(items, timestamp))
         }
@@ -187,6 +183,21 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
               imsak: "04:50 (EEST)",
               midnight: "00:46 (EEST)",
               date: Date(timeIntervalSince1970: 1617343261))
+    }
+    
+    private func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
+        let models = [uniqueItem(), uniqueItem()]
+        let local = models.map{ LocalPrayersTimes(fajr: $0.fajr,
+                                                 sunrise: $0.sunrise,
+                                                 dhuhr: $0.dhuhr,
+                                                 asr: $0.asr,
+                                                 sunset: $0.sunset,
+                                                 maghrib: $0.maghrib,
+                                                 isha: $0.isha,
+                                                 imsak: $0.imsak,
+                                                 midnight: $0.midnight,
+                                                 date: $0.date) }
+        return (models, local)
     }
     
     private func anyNSError() -> NSError {

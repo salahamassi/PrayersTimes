@@ -14,21 +14,17 @@ final class PrayersTimesItemMapper {
         let code: Int
         let status: String
         let data: [RemotePrayersTimes]
-        
-        var prayersTimes: [PrayersTimes] {
-            data.map(\.prayerTime)
-        }
     }
     
     static var OK_200: Int { return 200 }
-
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [PrayersTimes] {
-        guard response.statusCode == OK_200 else {
+    
+    static func map(_ data: Data, from response: HTTPURLResponse) throws -> [RemotePrayersTimes] {
+        guard response.statusCode == OK_200,
+              let root = try? JSONDecoder().decode(Root.self, from: data) else {
             throw RemotePrayersTimesLoader.Error.invalidData
         }
-
-        let root = try JSONDecoder().decode(Root.self, from: data)
-        return root.prayersTimes
+        
+        return root.data
     }
 }
 
