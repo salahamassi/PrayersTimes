@@ -18,8 +18,9 @@ class LocalPrayersTimesLoader {
         self.currentDate = currentDate
     }
     
-    func save(_ items: [PrayersTimes]) {
+    func save(_ items: [PrayersTimes], completion: @escaping (Error?) -> Void) {
         store.deleteCachedPrayersTimes { [unowned self] error in
+            completion(error)
             if error == nil {
                 self.store.insert(items, timestamp: currentDate())
             }
@@ -55,6 +56,7 @@ class PrayersTimesStore {
     }
 
     func completeDeletion(with error: Error, at index: Int = 0) {
+        deletionCompletions[index](error)
     }
 }
 
@@ -70,7 +72,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let items = [uniqueItem(), uniqueItem()]
         
-        sut.save(items)
+        sut.save(items) { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes])
     }
@@ -80,7 +82,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT()
         let deletionError = anyNSError()
         
-        sut.save(items)
+        sut.save(items) { _ in }
         store.completeDeletion(with: deletionError)
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes])
@@ -91,12 +93,32 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT(currentDate: { timestamp })
 
-        sut.save(items)
+        sut.save(items) { _ in }
         store.completeDeletionSuccessfully()
 
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes,
                                                 .insert(items, timestamp)])
     }
+    
+    func test_save_failsOnDeletionError() {
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
+        let deletionError = anyNSError()
+        let exp = expectation(description: "Wait for save completion")
+
+        var receivedError: Error?
+        sut.save(items) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+
+        store.completeDeletion(with: deletionError)
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual((receivedError as NSError?)?.code, deletionError.code)
+        XCTAssertEqual((receivedError as NSError?)?.domain, deletionError.domain)
+    }
+
     // MARK: - Helpers
     private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
         let store = PrayersTimesStore()
