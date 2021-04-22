@@ -13,6 +13,7 @@ class PrayersTimesStoreSpy: PrayersTimesStore {
     enum ReceivedMessage: Equatable {
         case deleteCachedPrayersTimes
         case insert([LocalPrayersTimes], Date)
+        case retrieve
     }
     
     private(set) var receivedMessages = [ReceivedMessage]()
@@ -28,6 +29,10 @@ class PrayersTimesStoreSpy: PrayersTimesStore {
     func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
         deletionCompletions.append(completion)
         receivedMessages.append(.deleteCachedPrayersTimes)
+    }
+    
+    func retrieve() {
+        receivedMessages.append(.retrieve)
     }
     
     func completeDeletionSuccessfully(at index: Int = 0) {

@@ -37,6 +37,10 @@ public final class LocalPrayersTimesLoader {
             completion(error)
         }
     }
+    
+    public func load() {
+        store.retrieve()
+    }
 }
 
 private extension Array where Element == PrayersTimes {

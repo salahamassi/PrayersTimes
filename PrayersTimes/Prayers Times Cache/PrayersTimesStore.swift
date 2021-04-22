@@ -15,4 +15,6 @@ public protocol PrayersTimesStore {
     func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
     
     func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion)
+    
+    func retrieve()
 }
