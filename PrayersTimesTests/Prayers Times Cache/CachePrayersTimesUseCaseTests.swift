@@ -29,47 +29,14 @@ class LocalPrayersTimesLoader {
     }
 }
 
-class PrayersTimesStore {
+protocol PrayersTimesStore {
     
     typealias DeletionCompletion = (Error?) -> Void
     typealias InsertionCompletion = (Error?) -> Void
+
+    func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
     
-    enum ReceivedMessage: Equatable {
-        case deleteCachedPrayersTimes
-        case insert([PrayersTimes], Date)
-    }
-    
-    private(set) var receivedMessages = [ReceivedMessage]()
-    
-    private var deletionCompletions = [DeletionCompletion]()
-    private var insertionCompletions = [InsertionCompletion]()
-    
-    
-    func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
-        deletionCompletions.append(completion)
-        receivedMessages.append(.deleteCachedPrayersTimes)
-    }
-    
-    func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
-        insertionCompletions.append(completion)
-        receivedMessages.append(.insert(items, timestamp))
-    }
-    
-    func completeDeletionSuccessfully(at index: Int = 0) {
-        deletionCompletions[index](nil)
-    }
-    
-    func completeDeletion(with error: Error, at index: Int = 0) {
-        deletionCompletions[index](error)
-    }
-    
-    func completeInsertionSuccessfully(at index: Int = 0) {
-        insertionCompletions[index](nil)
-    }
-    
-    func completeInsertion(with error: Error, at index: Int = 0) {
-        insertionCompletions[index](error)
-    }
+    func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion)
 }
 
 class CachePrayersTimesUseCaseTests: XCTestCase {
@@ -140,8 +107,8 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     }
 
     // MARK: - Helpers
-    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStore) {
-        let store = PrayersTimesStore()
+    private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStoreSpy) {
+        let store = PrayersTimesStoreSpy()
         let sut = LocalPrayersTimesLoader(store: store, currentDate: currentDate)
         trackForMemoryLeaks(store, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -168,6 +135,45 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
                        expectedError?.domain,
                        file: file,
                        line: line)
+    }
+
+    class PrayersTimesStoreSpy: PrayersTimesStore {
+        
+        enum ReceivedMessage: Equatable {
+            case deleteCachedPrayersTimes
+            case insert([PrayersTimes], Date)
+        }
+        
+        private(set) var receivedMessages = [ReceivedMessage]()
+        
+        private var deletionCompletions = [DeletionCompletion]()
+        private var insertionCompletions = [InsertionCompletion]()
+        
+        func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
+            insertionCompletions.append(completion)
+            receivedMessages.append(.insert(items, timestamp))
+        }
+
+        func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
+            deletionCompletions.append(completion)
+            receivedMessages.append(.deleteCachedPrayersTimes)
+        }
+        
+        func completeDeletionSuccessfully(at index: Int = 0) {
+            deletionCompletions[index](nil)
+        }
+        
+        func completeDeletion(with error: Error, at index: Int = 0) {
+            deletionCompletions[index](error)
+        }
+        
+        func completeInsertionSuccessfully(at index: Int = 0) {
+            insertionCompletions[index](nil)
+        }
+        
+        func completeInsertion(with error: Error, at index: Int = 0) {
+            insertionCompletions[index](error)
+        }
     }
 
     private func uniqueItem() -> PrayersTimes {
