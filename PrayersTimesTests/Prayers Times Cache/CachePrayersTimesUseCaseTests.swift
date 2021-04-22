@@ -12,7 +12,7 @@ class LocalPrayersTimesLoader {
     
     private let store: PrayersTimesStore
     private let currentDate: () -> Date
-
+    
     init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
@@ -20,9 +20,10 @@ class LocalPrayersTimesLoader {
     
     func save(_ items: [PrayersTimes], completion: @escaping (Error?) -> Void) {
         store.deleteCachedPrayersTimes { [unowned self] error in
-            completion(error)
             if error == nil {
-                self.store.insert(items, timestamp: currentDate())
+                self.store.insert(items, timestamp: self.currentDate(), completion: completion)
+            } else {
+                completion(error)
             }
         }
     }
@@ -31,32 +32,39 @@ class LocalPrayersTimesLoader {
 class PrayersTimesStore {
     
     typealias DeletionCompletion = (Error?) -> Void
-
+    typealias InsertionCompletion = (Error?) -> Void
+    
     enum ReceivedMessage: Equatable {
         case deleteCachedPrayersTimes
         case insert([PrayersTimes], Date)
     }
-
+    
     private(set) var receivedMessages = [ReceivedMessage]()
-
+    
     private var deletionCompletions = [DeletionCompletion]()
-
+    private var insertionCompletions = [InsertionCompletion]()
+    
     
     func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
         deletionCompletions.append(completion)
         receivedMessages.append(.deleteCachedPrayersTimes)
     }
     
-    func insert(_ items: [PrayersTimes], timestamp: Date) {
+    func insert(_ items: [PrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
+        insertionCompletions.append(completion)
         receivedMessages.append(.insert(items, timestamp))
     }
     
     func completeDeletionSuccessfully(at index: Int = 0) {
         deletionCompletions[index](nil)
     }
-
+    
     func completeDeletion(with error: Error, at index: Int = 0) {
         deletionCompletions[index](error)
+    }
+    
+    func completeInsertion(with error: Error, at index: Int = 0) {
+        insertionCompletions[index](error)
     }
 }
 
@@ -87,15 +95,15 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes])
     }
-        
+    
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
         let timestamp = Date()
         let items = [uniqueItem(), uniqueItem()]
         let (sut, store) = makeSUT(currentDate: { timestamp })
-
+        
         sut.save(items) { _ in }
         store.completeDeletionSuccessfully()
-
+        
         XCTAssertEqual(store.receivedMessages, [.deleteCachedPrayersTimes,
                                                 .insert(items, timestamp)])
     }
@@ -117,6 +125,26 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
 
         XCTAssertEqual((receivedError as NSError?)?.code, deletionError.code)
         XCTAssertEqual((receivedError as NSError?)?.domain, deletionError.domain)
+    }
+
+    func test_save_failsOnInsertionError() {
+        let items = [uniqueItem(), uniqueItem()]
+        let (sut, store) = makeSUT()
+        let insertionError = anyNSError()
+        let exp = expectation(description: "Wait for save completion")
+
+        var receivedError: Error?
+        sut.save(items) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+
+        store.completeDeletionSuccessfully()
+        store.completeInsertion(with: insertionError)
+        wait(for: [exp], timeout: 1.0)
+
+        XCTAssertEqual((receivedError as NSError?)?.code, insertionError.code)
+        XCTAssertEqual((receivedError as NSError?)?.domain, insertionError.domain)
     }
 
     // MARK: - Helpers
