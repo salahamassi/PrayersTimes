@@ -83,6 +83,15 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedPrayersTimes])
     }
 
+    func test_load_doesNotDeleteCacheOnEmptyCache() {
+        let (sut, store) = makeSUT()
+
+        sut.load { _ in }
+        store.completeRetrievalWithEmptyCache()
+
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWith expectedResult: LocalPrayersTimesLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
 
