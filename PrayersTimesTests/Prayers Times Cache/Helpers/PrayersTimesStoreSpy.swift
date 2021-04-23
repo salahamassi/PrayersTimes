@@ -54,7 +54,7 @@ class PrayersTimesStoreSpy: PrayersTimesStore {
     }
     
     func completeRetrieval(with prayersTimes: [LocalPrayersTimes], timestamp: Date, at index: Int = 0) {
-        retrievalCompletions[index](.found(feed: prayersTimes, timestamp: timestamp))
+        retrievalCompletions[index](.found(prayersTimes: prayersTimes, timestamp: timestamp))
     }
 
     func completeRetrievalWithEmptyCache(at index: Int = 0) {
