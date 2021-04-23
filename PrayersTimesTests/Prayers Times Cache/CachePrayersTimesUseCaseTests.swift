@@ -132,36 +132,4 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
                        file: file,
                        line: line)
     }
-    
-    private func uniqueItem() -> PrayersTimes {
-        .init(fajr: "05:01 (EEST)",
-              sunrise: "06:30 (EEST)",
-              dhuhr: "12:46 (EEST)",
-              asr: "16:18 (EEST)",
-              sunset: "19:02 (EEST)",
-              maghrib: "19:02 (EEST)",
-              isha: "20:22 (EEST)",
-              imsak: "04:50 (EEST)",
-              midnight: "00:46 (EEST)",
-              date: Date(timeIntervalSince1970: 1617343261))
-    }
-    
-    private func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
-        let models = [uniqueItem(), uniqueItem()]
-        let local = models.map{ LocalPrayersTimes(fajr: $0.fajr,
-                                                 sunrise: $0.sunrise,
-                                                 dhuhr: $0.dhuhr,
-                                                 asr: $0.asr,
-                                                 sunset: $0.sunset,
-                                                 maghrib: $0.maghrib,
-                                                 isha: $0.isha,
-                                                 imsak: $0.imsak,
-                                                 midnight: $0.midnight,
-                                                 date: $0.date) }
-        return (models, local)
-    }
-    
-    private func anyNSError() -> NSError {
-        .init(domain: "any error", code: 0)
-    }
 }
