@@ -90,6 +90,10 @@ class CodablePrayersTimesStore {
             completion(error)
         }
     }
+    
+    func deleteCachedPrayersTimes(completion: @escaping PrayersTimesStore.DeletionCompletion) {
+        completion(nil)
+    }
 }
 
 class CodablePrayersTimesStoreTests: XCTestCase {
@@ -178,6 +182,20 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
         expect(sut, toRetrieve: .empty)
     }
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let sut = makeSUT()
+        let exp = expectation(description: "Wait for cache deletion")
+
+        sut.deleteCachedPrayersTimes { deletionError in
+            XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+
+        expect(sut, toRetrieve: .empty)
+    }
+
 
     // - MARK: Helpers
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
