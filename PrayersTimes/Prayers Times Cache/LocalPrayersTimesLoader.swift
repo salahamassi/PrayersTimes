@@ -40,7 +40,8 @@ public final class LocalPrayersTimesLoader {
     }
     
     public func load(completion: @escaping (LoadResult) -> Void) {
-        store.retrieve { [unowned self] result in
+        store.retrieve { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .found(prayersTimes, timestamp) where self.validate(timestamp):
                 completion(.success(prayersTimes.toModels()))

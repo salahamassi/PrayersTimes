@@ -133,6 +133,19 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
                                                 .retrieve,
                                                 .deleteCachedPrayersTimes])
     }
+    
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
+        let store = PrayersTimesStoreSpy()
+        var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
+
+        var receivedResults = [LocalPrayersTimesLoader.LoadResult]()
+        sut?.load { receivedResults.append($0) }
+
+        sut = nil
+        store.completeRetrievalWithEmptyCache()
+
+        XCTAssertTrue(receivedResults.isEmpty)
+    }
 
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWith expectedResult: LocalPrayersTimesLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
