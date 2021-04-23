@@ -19,7 +19,7 @@ public protocol PrayersTimesStore {
     typealias InsertionCompletion = (Error?) -> Void
     typealias RetrievalCompletion = (RetrieveCachedPrayersTimesResult) -> Void
 
-    func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
+    func insert(_ data: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion)
     
     func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion)
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LocalPrayersTimes: Equatable {
+public struct LocalPrayersTimes: Equatable, Codable {
     
     public let fajr: String
     public let sunrise: String
