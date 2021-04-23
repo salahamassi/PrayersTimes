@@ -74,7 +74,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_hasNoSideEffectsOnRetrievalError() {
+    func test_load_hasNoSideEffectsOnEmptyCache() {
         let (sut, store) = makeSUT()
         
         sut.load { _ in }
