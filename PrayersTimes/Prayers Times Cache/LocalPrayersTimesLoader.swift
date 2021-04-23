@@ -20,6 +20,14 @@ public final class LocalPrayersTimesLoader {
         self.currentDate = currentDate
     }
     
+    private func validate(_ timestamp: Date) -> Bool {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.isDate(currentDate(), equalTo: timestamp, toGranularity: .month)
+    }
+}
+
+extension LocalPrayersTimesLoader {
+    
     public func save(_ items: [PrayersTimes], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedPrayersTimes { [weak self] error in
             guard let self = self else { return }
@@ -38,6 +46,9 @@ public final class LocalPrayersTimesLoader {
             completion(error)
         }
     }
+}
+
+extension LocalPrayersTimesLoader {
     
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
@@ -52,6 +63,9 @@ public final class LocalPrayersTimesLoader {
             }
         }
     }
+}
+
+extension LocalPrayersTimesLoader {
     
     public func validateCache() {
         store.retrieve { [weak self] result in
@@ -64,11 +78,6 @@ public final class LocalPrayersTimesLoader {
             default: break
             }
         }
-    }
-    
-    private func validate(_ timestamp: Date) -> Bool {
-        let calendar = Calendar(identifier: .gregorian)
-        return calendar.isDate(currentDate(), equalTo: timestamp, toGranularity: .month)
     }
 }
 
