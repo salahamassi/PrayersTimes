@@ -8,47 +8,6 @@
 import XCTest
 import PrayersTimes
 
-extension FailableDeletePrayersTimesStoreSpecs where Self: XCTestCase {
-    
-    func assertThatDeleteDeliversErrorOnDeletionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        let deletionError = deleteCache(from: sut)
-
-        XCTAssertNotNil(deletionError, "Expected cache deletion to fail", file: file, line: line)
-    }
-
-    func assertThatDeleteHasNoSideEffectsOnDeletionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        deleteCache(from: sut)
-
-        expect(sut, toRetrieve: .empty, file: file, line: line)
-    }
-}
-
-extension FailableInsertPrayersTimesStoreSpecs where Self: XCTestCase {
-    
-    func assertThatInsertDeliversErrorOnInsertionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        let insertionError = insert((uniqueItems().local, Date()), to: sut)
-
-        XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error", file: file, line: line)
-    }
-
-    func assertThatInsertHasNoSideEffectsOnInsertionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        insert((uniqueItems().local, Date()), to: sut)
-
-        expect(sut, toRetrieve: .empty, file: file, line: line)
-    }
-}
-
-extension FailableRetrievePrayersTimesStoreSpecs where Self: XCTestCase {
-    
-    func assertThatRetrieveDeliversFailureOnRetrievalError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        expect(sut, toRetrieve: .failure(anyNSError()), file: file, line: line)
-    }
-
-    func assertThatRetrieveHasNoSideEffectsOnFailure(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        expect(sut, toRetrieveTwice: .failure(anyNSError()), file: file, line: line)
-    }
-}
-
 extension PrayersTimesStoreSpecs where Self: XCTestCase {
 
     func assertThatRetrieveDeliversEmptyOnEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
