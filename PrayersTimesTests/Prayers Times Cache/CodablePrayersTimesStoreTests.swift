@@ -80,10 +80,15 @@ class CodablePrayersTimesStore {
     }
     
     func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping PrayersTimesStore.InsertionCompletion) {
-        let encoder = JSONEncoder()
-        let encoded = try! encoder.encode(Cache(data: items.map(CodablePrayersTimes.init), timestamp: timestamp))
-        try! encoded.write(to: storeURL)
-        completion(nil)
+        do {
+            let encoder = JSONEncoder()
+            let cache = Cache(data: items.map(CodablePrayersTimes.init), timestamp: timestamp)
+            let encoded = try encoder.encode(cache)
+            try encoded.write(to: storeURL)
+            completion(nil)
+        } catch {
+            completion(error)
+        }
     }
 }
 
@@ -161,10 +166,22 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
         expect(sut, toRetrieve: .found(prayersTimes: latestPrayersTimes, timestamp: latestTimestamp))
     }
+    
+    func test_insert_deliversErrorOnInsertionError() {
+        let invalidStoreURL = URL(string: "invalid://store-url")!
+        let sut = makeSUT(storeURL: invalidStoreURL)
+        let prayersTimes = uniqueItems().local
+        let timestamp = Date()
+
+        let insertionError = insert((prayersTimes, timestamp), to: sut)
+
+        XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
+        expect(sut, toRetrieve: .empty)
+    }
 
     // - MARK: Helpers
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
-        let sut = CodablePrayersTimesStore(storeURL: testSpecificStoreURL())
+        let sut = CodablePrayersTimesStore(storeURL: storeURL ?? testSpecificStoreURL())
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
@@ -175,7 +192,6 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         var insertionError: Error?
         sut.insert(cache.data, timestamp: cache.timestamp) { receivedInsertionError in
             insertionError = receivedInsertionError
-            XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
