@@ -161,6 +161,38 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_retrieve_hasNoSideEffectsOnNonEmptyCache() {
+            let sut = makeSUT()
+            let prayersTimes = uniqueItems().local
+            let timestamp = Date()
+            let exp = expectation(description: "Wait for cache retrieval")
+
+            sut.insert(prayersTimes, timestamp: timestamp) { insertionError in
+                XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
+
+                sut.retrieve { firstResult in
+                    sut.retrieve { secondResult in
+                        switch (firstResult, secondResult) {
+                        case let (.found(prayersTimes: firstFoundPrayersTimes, timestamp: firstFoundTimestamp),
+                              .found(prayersTimes: secondFoundPrayersTimes, timestamp: secondFoundTimestamp)):
+                            XCTAssertEqual(firstFoundPrayersTimes, prayersTimes)
+                            XCTAssertEqual(firstFoundTimestamp, timestamp)
+
+                            XCTAssertEqual(secondFoundPrayersTimes, prayersTimes)
+                            XCTAssertEqual(secondFoundTimestamp, timestamp)
+                        default:
+                            XCTFail("Expected retrieving twice from non empty cache to deliver same found result with prayers times \(prayersTimes) and timestamp \(timestamp), got \(firstResult) and \(secondResult) instead")
+                        }
+
+                        exp.fulfill()
+                    }
+                }
+            }
+
+            wait(for: [exp], timeout: 1.0)
+        }
+
+    
     // - MARK: Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
         let sut = CodablePrayersTimesStore(storeURL: testSpecificStoreURL())
