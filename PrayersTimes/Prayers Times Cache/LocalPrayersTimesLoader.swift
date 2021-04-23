@@ -45,9 +45,7 @@ public final class LocalPrayersTimesLoader {
             switch result {
             case let .found(prayersTimes, timestamp) where self.validate(timestamp):
                 completion(.success(prayersTimes.toModels()))
-            case .empty:
-                completion(.success([]))
-            case .found:
+            case .empty,.found:
                 completion(.success([]))
             case let .failure(error):
                 completion(.failure(error))
