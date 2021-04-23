@@ -8,7 +8,7 @@
 import XCTest
 import PrayersTimes
 
-class CodablePrayersTimesStoreTests: XCTestCase {
+class CodablePrayersTimesStoreTests: XCTestCase, FailablePrayersTimesStoreSpecs {
     
     override func setUp() {
         super.setUp()
@@ -69,17 +69,32 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
+    func test_insert_deliversNoErrorOnEmptyCache() {
+        let sut = makeSUT()
+        
+        let insertionError = insert((uniqueItems().local, Date()), to: sut)
+        
+        XCTAssertNil(insertionError, "Expected to insert cache successfully")
+    }
+    
+    func test_insert_deliversNoErrorOnNonEmptyCache() {
+        let sut = makeSUT()
+        insert((uniqueItems().local, Date()), to: sut)
+        
+        let insertionError = insert((uniqueItems().local, Date()), to: sut)
+        
+        XCTAssertNil(insertionError, "Expected to override cache successfully")
+    }
+    
     func test_insert_overridesPreviouslyInsertedCacheValues() {
         let sut = makeSUT()
         
-        let firstInsertionError = insert((uniqueItems().local, Date()), to: sut)
-        XCTAssertNil(firstInsertionError, "Expected to insert cache successfully")
+        insert((uniqueItems().local, Date()), to: sut)
         
         let latestPrayersTimes = uniqueItems().local
         let latestTimestamp = Date()
-        let latestInsertionError = insert((latestPrayersTimes, latestTimestamp), to: sut)
+        insert((latestPrayersTimes, latestTimestamp), to: sut)
         
-        XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
         expect(sut, toRetrieve: .found(prayersTimes: latestPrayersTimes, timestamp: latestTimestamp))
     }
     
@@ -105,23 +120,37 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         expect(sut, toRetrieve: .empty)
     }
     
-    func test_delete_hasNoSideEffectsOnEmptyCache() {
+    func test_delete_deliversNoErrorOnEmptyCache() {
         let sut = makeSUT()
         
         let deletionError = deleteCache(from: sut)
         
         XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+    }
+    
+    func test_delete_hasNoSideEffectsOnEmptyCache() {
+        let sut = makeSUT()
+        
+        deleteCache(from: sut)
+        
         
         expect(sut, toRetrieve: .empty)
     }
     
-    func test_delete_emptiesPreviouslyInsertedCache() {
+    func test_delete_deliversNoErrorOnNonEmptyCache() {
         let sut = makeSUT()
         insert((uniqueItems().local, Date()), to: sut)
         
         let deletionError = deleteCache(from: sut)
         
         XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+    }
+    
+    func test_delete_emptiesPreviouslyInsertedCache() {
+        let sut = makeSUT()
+        insert((uniqueItems().local, Date()), to: sut)
+        
+        deleteCache(from: sut)
         
         expect(sut, toRetrieve: .empty)
     }
