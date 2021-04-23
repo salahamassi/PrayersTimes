@@ -162,7 +162,9 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     }
     
     // - MARK: Helpers
-    private func makeSUT() -> CodablePrayersTimesStore {
-        return CodablePrayersTimesStore()
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
+        let sut = CodablePrayersTimesStore()
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return sut
     }
 }
