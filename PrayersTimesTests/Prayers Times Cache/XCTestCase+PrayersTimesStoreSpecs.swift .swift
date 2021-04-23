@@ -8,7 +8,23 @@
 import XCTest
 import PrayersTimes
 
-extension PrayersTimesStoreSpecs where Self: XCTestCase {
+extension FailableInsertPrayersTimesStoreSpecs where Self: XCTestCase {
+    
+    func assertThatInsertDeliversErrorOnInsertionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
+        let insertionError = insert((uniqueItems().local, Date()), to: sut)
+
+        XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error", file: file, line: line)
+    }
+
+    func assertThatInsertHasNoSideEffectsOnInsertionError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
+        insert((uniqueItems().local, Date()), to: sut)
+
+        expect(sut, toRetrieve: .empty, file: file, line: line)
+    }
+}
+
+extension FailableRetrievePrayersTimesStoreSpecs where Self: XCTestCase {
+    
     func assertThatRetrieveDeliversFailureOnRetrievalError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetrieve: .failure(anyNSError()), file: file, line: line)
     }
