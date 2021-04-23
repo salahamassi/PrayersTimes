@@ -9,6 +9,60 @@ import Foundation
 
 public class CodablePrayersTimesStore: PrayersTimesStore {
     
+    private let queue = DispatchQueue(label: "\(CodablePrayersTimesStore.self)Queue", qos: .userInitiated)
+    private let storeURL: URL
+    
+    public init(storeURL: URL) {
+        self.storeURL = storeURL
+    }
+    
+    public func retrieve(completion: @escaping RetrievalCompletion) {
+        let storeURL = self.storeURL
+        queue.async {
+            guard let data = try? Data(contentsOf: storeURL) else {
+                return completion(.empty)
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let cache = try decoder.decode(Cache.self, from: data)
+                completion(.found(prayersTimes: cache.localPrayersTimes, timestamp: cache.timestamp))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    public func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
+        let storeURL = self.storeURL
+        queue.async {
+            do {
+                let encoder = JSONEncoder()
+                let cache = Cache(data: items.map(CodablePrayersTimes.init), timestamp: timestamp)
+                let encoded = try encoder.encode(cache)
+                try encoded.write(to: storeURL)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
+    public func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
+        let storeURL = self.storeURL
+        queue.async {
+            guard FileManager.default.fileExists(atPath: storeURL.path) else {
+                return completion(nil)
+            }
+            do {
+                try FileManager.default.removeItem(at: storeURL)
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
     private struct Cache: Codable {
         let data: [CodablePrayersTimes]
         let timestamp: Date
@@ -54,51 +108,6 @@ public class CodablePrayersTimesStore: PrayersTimesStore {
                   imsak: imsak,
                   midnight: midnight,
                   date: date)
-        }
-    }
-    
-    private let storeURL: URL
-    
-    public init(storeURL: URL) {
-        self.storeURL = storeURL
-    }
-    
-    public func retrieve(completion: @escaping RetrievalCompletion) {
-        
-        guard let data = try? Data(contentsOf: storeURL) else {
-            return completion(.empty)
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            let cache = try decoder.decode(Cache.self, from: data)
-            completion(.found(prayersTimes: cache.localPrayersTimes, timestamp: cache.timestamp))
-        } catch {
-            completion(.failure(error))
-        }
-    }
-    
-    public func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping InsertionCompletion) {
-        do {
-            let encoder = JSONEncoder()
-            let cache = Cache(data: items.map(CodablePrayersTimes.init), timestamp: timestamp)
-            let encoded = try encoder.encode(cache)
-            try encoded.write(to: storeURL)
-            completion(nil)
-        } catch {
-            completion(error)
-        }
-    }
-    
-    public func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
-        guard FileManager.default.fileExists(atPath: storeURL.path) else {
-            return completion(nil)
-        }
-        do {
-            try FileManager.default.removeItem(at: storeURL)
-            completion(nil)
-        } catch {
-            completion(error)
         }
     }
 }
