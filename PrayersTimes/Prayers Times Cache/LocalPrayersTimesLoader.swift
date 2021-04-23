@@ -57,13 +57,8 @@ public final class LocalPrayersTimesLoader {
     }
     
     public func validateCache() {
-        store.retrieve { [unowned self] result in
-            switch result {
-            case .failure:
-                self.store.deleteCachedPrayersTimes { _ in }
-            default: break
-            }
-        }
+        store.retrieve { _ in }
+        store.deleteCachedPrayersTimes { _ in }
     }
     
     private func validate(_ timestamp: Date) -> Bool {
