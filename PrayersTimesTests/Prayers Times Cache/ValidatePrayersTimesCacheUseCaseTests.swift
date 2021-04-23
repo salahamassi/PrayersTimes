@@ -76,6 +76,18 @@ class ValidatePrayersTimesCacheUseCaseTests: XCTestCase {
                                                 .deleteCachedPrayersTimes])
     }
     
+    func test_validateCache_doesNotDeleteInvalidCacheAfterSUTInstanceHasBeenDeallocated() {
+        let store = PrayersTimesStoreSpy()
+        var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
+
+        sut?.validateCache()
+
+        sut = nil
+        store.completeRetrieval(with: anyNSError())
+
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
     // MARK: - Helpers
     private func makeSUT(currentDate: @escaping () -> Date = Date.init, file: StaticString = #file, line: UInt = #line) -> (sut: LocalPrayersTimesLoader, store: PrayersTimesStoreSpy) {
         let store = PrayersTimesStoreSpy()
