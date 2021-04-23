@@ -92,6 +92,11 @@ class CodablePrayersTimesStore {
     }
     
     func deleteCachedPrayersTimes(completion: @escaping PrayersTimesStore.DeletionCompletion) {
+        guard FileManager.default.fileExists(atPath: storeURL.path) else {
+            return completion(nil)
+        }
+
+        try! FileManager.default.removeItem(at: storeURL)
         completion(nil)
     }
 }
@@ -196,6 +201,19 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         expect(sut, toRetrieve: .empty)
     }
 
+    func test_delete_emptiesPreviouslyInsertedCache() {
+        let sut = makeSUT()
+        insert((uniqueItems().local, Date()), to: sut)
+
+        let exp = expectation(description: "Wait for cache deletion")
+        sut.deleteCachedPrayersTimes { deletionError in
+            XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+
+        expect(sut, toRetrieve: .empty)
+    }
 
     // - MARK: Helpers
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
