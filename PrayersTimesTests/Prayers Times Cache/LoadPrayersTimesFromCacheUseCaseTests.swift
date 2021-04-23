@@ -41,7 +41,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversCachedPrayersTimesOnTheSameMonthDate() {
+    func test_load_deliversCachedPrayersTimesOnTheSameMonth() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -58,7 +58,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversNoPrayersTimesOnNotTheSameMonthDate() {
+    func test_load_deliversNoPrayersTimesOnNotTheSameMonth() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -92,7 +92,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_load_doesNotDeleteCacheOnTheSameMonthDate() {
+    func test_load_doesNotDeleteCacheOnTheSameMonth() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -110,6 +110,30 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         XCTAssertFalse(store.receivedMessages.contains(.deleteCachedPrayersTimes))
     }
     
+    func test_load_deletesCacheOnNotTheSameMonth() {
+        let items = uniqueItems()
+        let fixedCurrentDate = Date()
+        let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
+        
+        let monthOffsets = [1, -1, 2, -2]
+        for (index, monthOffset) in monthOffsets.enumerated() {
+            sut.load { _ in }
+            
+            let notSameMonthDate = fixedCurrentDate.adding(month: monthOffset)
+            store.completeRetrieval(with: items.local,
+                                    timestamp: notSameMonthDate,
+                                    at: index)
+        }
+        XCTAssertEqual(store.receivedMessages, [.retrieve,
+                                                .deleteCachedPrayersTimes,
+                                                .retrieve,
+                                                .deleteCachedPrayersTimes,
+                                                .retrieve,
+                                                .deleteCachedPrayersTimes,
+                                                .retrieve,
+                                                .deleteCachedPrayersTimes])
+    }
+
     private func expect(_ sut: LocalPrayersTimesLoader, toCompleteWith expectedResult: LocalPrayersTimesLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for load completion")
         
