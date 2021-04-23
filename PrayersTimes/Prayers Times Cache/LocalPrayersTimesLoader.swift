@@ -51,10 +51,14 @@ public final class LocalPrayersTimesLoader {
                 self.store.deleteCachedPrayersTimes { _ in }
                 completion(.success([]))
             case let .failure(error):
-                self.store.deleteCachedPrayersTimes { _ in }
                 completion(.failure(error))
             }
         }
+    }
+    
+    public func validateCache() {
+        store.retrieve { _ in }
+        store.deleteCachedPrayersTimes { _ in }
     }
     
     private func validate(_ timestamp: Date) -> Bool {
