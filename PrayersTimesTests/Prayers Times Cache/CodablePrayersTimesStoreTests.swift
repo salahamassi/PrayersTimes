@@ -87,16 +87,12 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
-        try? FileManager.default.removeItem(at: storeURL)
+        try? FileManager.default.removeItem(at: storeURL())
     }
     
     override func tearDown() {
         super.tearDown()
-        
-        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
-        try? FileManager.default.removeItem(at: storeURL)
+        try? FileManager.default.removeItem(at: storeURL())
     }
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
@@ -167,9 +163,12 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     
     // - MARK: Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
-       let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
-        let sut = CodablePrayersTimesStore(storeURL: storeURL)
+        let sut = CodablePrayersTimesStore(storeURL: storeURL())
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
+    }
+    
+    private func storeURL() -> URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
     }
 }
