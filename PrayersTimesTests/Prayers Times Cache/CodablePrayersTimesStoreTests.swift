@@ -95,7 +95,7 @@ class CodablePrayersTimesStore {
         guard FileManager.default.fileExists(atPath: storeURL.path) else {
             return completion(nil)
         }
-
+        
         try! FileManager.default.removeItem(at: storeURL)
         completion(nil)
     }
@@ -147,7 +147,7 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     func test_retrieve_deliversFailureOnRetrievalError() {
         let storeURL = testSpecificStoreURL()
         let sut = makeSUT(storeURL: storeURL)
-
+        
         try! "invalid data".write(to: storeURL, atomically: false, encoding: .utf8)
         
         expect(sut, toRetrieve: .failure(anyNSError()))
@@ -156,22 +156,22 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     func test_retrieve_hasNoSideEffectsOnFailure() {
         let storeURL = testSpecificStoreURL()
         let sut = makeSUT(storeURL: storeURL)
-
+        
         try! "invalid data".write(to: storeURL, atomically: false, encoding: .utf8)
-
+        
         expect(sut, toRetrieveTwice: .failure(anyNSError()))
     }
     
     func test_insert_overridesPreviouslyInsertedCacheValues() {
         let sut = makeSUT()
-
+        
         let firstInsertionError = insert((uniqueItems().local, Date()), to: sut)
         XCTAssertNil(firstInsertionError, "Expected to insert cache successfully")
-
+        
         let latestPrayersTimes = uniqueItems().local
         let latestTimestamp = Date()
         let latestInsertionError = insert((latestPrayersTimes, latestTimestamp), to: sut)
-
+        
         XCTAssertNil(latestInsertionError, "Expected to override cache successfully")
         expect(sut, toRetrieve: .found(prayersTimes: latestPrayersTimes, timestamp: latestTimestamp))
     }
@@ -181,40 +181,34 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         let sut = makeSUT(storeURL: invalidStoreURL)
         let prayersTimes = uniqueItems().local
         let timestamp = Date()
-
+        
         let insertionError = insert((prayersTimes, timestamp), to: sut)
-
+        
         XCTAssertNotNil(insertionError, "Expected cache insertion to fail with an error")
         expect(sut, toRetrieve: .empty)
     }
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
-        let exp = expectation(description: "Wait for cache deletion")
-
-        sut.deleteCachedPrayersTimes { deletionError in
-            XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
-
+        
+        let deletionError = deleteCache(from: sut)
+        
+        XCTAssertNil(deletionError, "Expected empty cache deletion to succeed")
+        
         expect(sut, toRetrieve: .empty)
     }
-
+    
     func test_delete_emptiesPreviouslyInsertedCache() {
         let sut = makeSUT()
         insert((uniqueItems().local, Date()), to: sut)
-
-        let exp = expectation(description: "Wait for cache deletion")
-        sut.deleteCachedPrayersTimes { deletionError in
-            XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
-
+        
+        let deletionError = deleteCache(from: sut)
+        
+        XCTAssertNil(deletionError, "Expected non-empty cache deletion to succeed")
+        
         expect(sut, toRetrieve: .empty)
     }
-
+    
     // - MARK: Helpers
     private func makeSUT(storeURL: URL? = nil, file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
         let sut = CodablePrayersTimesStore(storeURL: storeURL ?? testSpecificStoreURL())
@@ -234,6 +228,17 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         return insertionError
     }
     
+    private func deleteCache(from sut: CodablePrayersTimesStore) -> Error? {
+        let exp = expectation(description: "Wait for cache deletion")
+        var deletionError: Error?
+        sut.deleteCachedPrayersTimes { receivedDeletionError in
+            deletionError = receivedDeletionError
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+        return deletionError
+    }
+    
     private func expect(_ sut: CodablePrayersTimesStore, toRetrieveTwice expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
@@ -246,8 +251,8 @@ class CodablePrayersTimesStoreTests: XCTestCase {
             switch (expectedResult, retrievedResult) {
             case (.empty, .empty),
                  (.failure, .failure):
-            break
-            
+                break
+                
             case let (.found(expectedPrayersTimes, expectedTimestamp),
                       .found(retrievedPrayersTimes, retrievedTimestamp)):
                 XCTAssertEqual(retrievedPrayersTimes, expectedPrayersTimes, file: file, line: line)
