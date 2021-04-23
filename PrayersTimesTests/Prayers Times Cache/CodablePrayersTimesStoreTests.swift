@@ -70,9 +70,13 @@ class CodablePrayersTimesStore {
             return completion(.empty)
         }
         
-        let decoder = JSONDecoder()
-        let cache = try! decoder.decode(Cache.self, from: data)
-        completion(.found(prayersTimes: cache.localPrayersTimes, timestamp: cache.timestamp))
+        do {
+            let decoder = JSONDecoder()
+            let cache = try decoder.decode(Cache.self, from: data)
+            completion(.found(prayersTimes: cache.localPrayersTimes, timestamp: cache.timestamp))
+        } catch {
+            completion(.failure(error))
+        }
     }
     
     func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping PrayersTimesStore.InsertionCompletion) {
@@ -103,7 +107,7 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
         let sut = makeSUT()
-
+        
         expect(sut, toRetrieveTwice: .empty)
     }
     
@@ -111,9 +115,9 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         let sut = makeSUT()
         let prayersTimes = uniqueItems().local
         let timestamp = Date()
-
+        
         insert((prayersTimes, timestamp), to: sut)
-
+        
         expect(sut, toRetrieve: .found(prayersTimes: prayersTimes, timestamp: timestamp))
     }
     
@@ -124,6 +128,14 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         
         insert((prayersTimes, timestamp), to: sut)
         expect(sut, toRetrieveTwice: .found(prayersTimes: prayersTimes, timestamp: timestamp))
+    }
+    
+    func test_retrieve_deliversFailureOnRetrievalError() {
+        let sut = makeSUT()
+        
+        try! "invalid data".write(to: testSpecificStoreURL(), atomically: false, encoding: .utf8)
+        
+        expect(sut, toRetrieve: .failure(anyNSError()))
     }
     
     // - MARK: Helpers
@@ -141,20 +153,21 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1.0)
     }
-
+    
     private func expect(_ sut: CodablePrayersTimesStore, toRetrieveTwice expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
-
+    
     private func expect(_ sut: CodablePrayersTimesStore, toRetrieve expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { retrievedResult in
             switch (expectedResult, retrievedResult) {
-            case (.empty, .empty):
-                break
-                
+            case (.empty, .empty),
+                 (.failure, .failure):
+            break
+            
             case let (.found(expectedPrayersTimes, expectedTimestamp),
                       .found(retrievedPrayersTimes, retrievedTimestamp)):
                 XCTAssertEqual(retrievedPrayersTimes, expectedPrayersTimes, file: file, line: line)
