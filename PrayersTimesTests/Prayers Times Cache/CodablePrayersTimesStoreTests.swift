@@ -8,7 +8,7 @@
 import XCTest
 import PrayersTimes
 
-class CodablePrayersTimesStore {
+class CodablePrayersTimesStore: PrayersTimesStore {
     
     private struct Cache: Codable {
         let data: [CodablePrayersTimes]
