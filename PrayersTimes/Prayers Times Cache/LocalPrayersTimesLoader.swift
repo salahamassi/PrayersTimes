@@ -11,10 +11,7 @@ public final class LocalPrayersTimesLoader {
     
     private let store: PrayersTimesStore
     private let currentDate: () -> Date
-    
-    public typealias SaveResult = Error?
-    public typealias LoadResult = PrayersTimesLoader.LoadPrayersTimesResult
-    
+        
     public init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
@@ -28,6 +25,8 @@ public final class LocalPrayersTimesLoader {
 
 extension LocalPrayersTimesLoader {
     
+    public typealias SaveResult = Error?
+
     public func save(_ items: [PrayersTimes], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedPrayersTimes { [weak self] error in
             guard let self = self else { return }
@@ -50,6 +49,8 @@ extension LocalPrayersTimesLoader {
 
 extension LocalPrayersTimesLoader: PrayersTimesLoader {
     
+    public typealias LoadResult = PrayersTimesLoader.LoadPrayersTimesResult
+
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
