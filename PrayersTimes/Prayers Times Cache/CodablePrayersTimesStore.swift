@@ -9,7 +9,7 @@ import Foundation
 
 public class CodablePrayersTimesStore: PrayersTimesStore {
     
-    private let queue = DispatchQueue(label: "\(CodablePrayersTimesStore.self)Queue", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "\(CodablePrayersTimesStore.self)Queue", qos: .userInitiated, attributes: .concurrent)
     private let storeURL: URL
     
     public init(storeURL: URL) {
@@ -18,7 +18,7 @@ public class CodablePrayersTimesStore: PrayersTimesStore {
     
     public func retrieve(completion: @escaping RetrievalCompletion) {
         let storeURL = self.storeURL
-        queue.async {
+        queue.async(flags: .barrier) {
             guard let data = try? Data(contentsOf: storeURL) else {
                 return completion(.empty)
             }
@@ -50,7 +50,7 @@ public class CodablePrayersTimesStore: PrayersTimesStore {
     
     public func deleteCachedPrayersTimes(completion: @escaping DeletionCompletion) {
         let storeURL = self.storeURL
-        queue.async {
+        queue.async(flags: .barrier) {
             guard FileManager.default.fileExists(atPath: storeURL.path) else {
                 return completion(nil)
             }
