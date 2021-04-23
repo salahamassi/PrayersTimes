@@ -12,12 +12,15 @@ public final class LocalPrayersTimesLoader {
     private let store: PrayersTimesStore
     private let currentDate: () -> Date
     
-    public typealias SaveResult = Error?
-
     public init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
     }
+}
+
+extension LocalPrayersTimesLoader {
+    
+    public typealias SaveResult = Error?
     
     public func save(_ items: [PrayersTimes], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedPrayersTimes { [weak self] error in
@@ -39,6 +42,41 @@ public final class LocalPrayersTimesLoader {
     }
 }
 
+extension LocalPrayersTimesLoader: PrayersTimesLoader {
+    
+    public typealias LoadResult = PrayersTimesLoader.LoadPrayersTimesResult
+    
+    public func load(completion: @escaping (LoadResult) -> Void) {
+        store.retrieve { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .found(prayersTimes, timestamp) where PrayersTimesCachePolicy.validate(timestamp, against: self.currentDate()):
+                completion(.success(prayersTimes.toModels()))
+            case .empty,.found:
+                completion(.success([]))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
+    }
+}
+
+extension LocalPrayersTimesLoader {
+    
+    public func validateCache() {
+        store.retrieve { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .found(_, timestamp) where !PrayersTimesCachePolicy.validate(timestamp, against: self.currentDate()):
+                    self.store.deleteCachedPrayersTimes { _ in }
+            case .failure:
+                self.store.deleteCachedPrayersTimes { _ in }
+            default: break
+            }
+        }
+    }
+}
+
 private extension Array where Element == PrayersTimes {
     func toLocal() -> [LocalPrayersTimes] {
         map { LocalPrayersTimes(fajr: $0.fajr,
@@ -54,3 +92,19 @@ private extension Array where Element == PrayersTimes {
         }
     }
 }
+
+private extension Array where Element == LocalPrayersTimes {
+    func toModels() -> [PrayersTimes] {
+        map { PrayersTimes(fajr: $0.fajr,
+                           sunrise: $0.sunrise,
+                           dhuhr: $0.dhuhr,
+                           asr: $0.asr,
+                           sunset: $0.sunset,
+                           maghrib: $0.maghrib,
+                           isha: $0.isha,
+                           imsak: $0.imsak,
+                           midnight: $0.midnight,
+                           date: $0.date) }
+    }
+}
+
