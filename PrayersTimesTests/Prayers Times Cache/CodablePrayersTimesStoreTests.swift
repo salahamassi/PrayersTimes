@@ -11,26 +11,69 @@ import PrayersTimes
 class CodablePrayersTimesStore {
     
     private struct Cache: Codable {
-        let data: [LocalPrayersTimes]
+        let data: [CodablePrayersTimes]
         let timestamp: Date
+        
+        var localPrayersTimes: [LocalPrayersTimes] {
+            data.map(\.local)
+        }
     }
-
+    
+    private struct CodablePrayersTimes: Codable {
+        private let fajr: String
+        private let sunrise: String
+        private let dhuhr: String
+        private let asr: String
+        private let sunset: String
+        private let maghrib: String
+        private let isha: String
+        private let imsak: String
+        private let midnight: String
+        private let date: Date
+        
+        init(_ prayersTimes: LocalPrayersTimes) {
+            self.fajr = prayersTimes.fajr
+            self.sunrise = prayersTimes.sunrise
+            self.dhuhr = prayersTimes.dhuhr
+            self.asr = prayersTimes.asr
+            self.sunset = prayersTimes.sunset
+            self.maghrib = prayersTimes.maghrib
+            self.isha = prayersTimes.isha
+            self.imsak = prayersTimes.imsak
+            self.midnight = prayersTimes.midnight
+            self.date = prayersTimes.date
+        }
+        
+        var local: LocalPrayersTimes {
+            .init(fajr: fajr,
+                  sunrise: sunrise,
+                  dhuhr: dhuhr,
+                  asr: asr,
+                  sunset: sunset,
+                  maghrib: maghrib,
+                  isha: isha,
+                  imsak: imsak,
+                  midnight: midnight,
+                  date: date)
+        }
+    }
+    
     private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
-
+    
     func retrieve(completion: @escaping PrayersTimesStore.RetrievalCompletion) {
-
+        
         guard let data = try? Data(contentsOf: storeURL) else {
             return completion(.empty)
         }
-
+        
         let decoder = JSONDecoder()
         let cache = try! decoder.decode(Cache.self, from: data)
-        completion(.found(prayersTimes: cache.data, timestamp: cache.timestamp))
+        completion(.found(prayersTimes: cache.localPrayersTimes, timestamp: cache.timestamp))
     }
     
     func insert(_ items: [LocalPrayersTimes], timestamp: Date, completion: @escaping PrayersTimesStore.InsertionCompletion) {
         let encoder = JSONEncoder()
-        let encoded = try! encoder.encode(Cache(data: items, timestamp: timestamp))
+        let encoded = try! encoder.encode(Cache(data: items.map(CodablePrayersTimes.init), timestamp: timestamp))
         try! encoded.write(to: storeURL)
         completion(nil)
     }
@@ -98,24 +141,24 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         let prayersTimes = uniqueItems().local
         let timestamp = Date()
         let exp = expectation(description: "Wait for cache retrieval")
-
+        
         sut.insert(prayersTimes, timestamp: timestamp) { insertionError in
             XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
-
+            
             sut.retrieve { retrieveResult in
                 switch retrieveResult {
                 case let .found(retrievedPrayersTimes, retrievedTimestamp):
                     XCTAssertEqual(retrievedPrayersTimes, prayersTimes)
                     XCTAssertEqual(retrievedTimestamp, timestamp)
-
+                    
                 default:
                     XCTFail("Expected found result with prayers times \(prayersTimes) and timestamp \(timestamp), got \(retrieveResult) instead")
                 }
-
+                
                 exp.fulfill()
             }
         }
-
+        
         wait(for: [exp], timeout: 1.0)
     }
 }
