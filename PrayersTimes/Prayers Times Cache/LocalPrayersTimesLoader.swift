@@ -48,7 +48,7 @@ extension LocalPrayersTimesLoader {
     }
 }
 
-extension LocalPrayersTimesLoader {
+extension LocalPrayersTimesLoader: PrayersTimesLoader {
     
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
