@@ -9,6 +9,16 @@ import XCTest
 import PrayersTimes
 
 extension PrayersTimesStoreSpecs where Self: XCTestCase {
+    func assertThatRetrieveDeliversFailureOnRetrievalError(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
+        expect(sut, toRetrieve: .failure(anyNSError()), file: file, line: line)
+    }
+
+    func assertThatRetrieveHasNoSideEffectsOnFailure(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
+        expect(sut, toRetrieveTwice: .failure(anyNSError()), file: file, line: line)
+    }
+}
+
+extension PrayersTimesStoreSpecs where Self: XCTestCase {
 
     func assertThatRetrieveDeliversEmptyOnEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetrieve: .empty, file: file, line: line)
@@ -142,12 +152,12 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
         return deletionError
     }
     
-    func expect(_ sut: PrayersTimesStore, toRetrieveTwice expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: PrayersTimesStore, toRetrieveTwice expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #filePath, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
     
-    func expect(_ sut: PrayersTimesStore, toRetrieve expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
+    func expect(_ sut: PrayersTimesStore, toRetrieve expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "Wait for cache retrieval")
         
         sut.retrieve { retrievedResult in
