@@ -111,16 +111,9 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         let sut = makeSUT()
         let prayersTimes = uniqueItems().local
         let timestamp = Date()
-        let exp = expectation(description: "Wait for cache retrieval")
-        
-        sut.insert(prayersTimes, timestamp: timestamp) { insertionError in
-            XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
-            
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-        
+
+        insert((prayersTimes, timestamp), to: sut)
+
         expect(sut, toRetrieve: .found(prayersTimes: prayersTimes, timestamp: timestamp))
     }
     
@@ -128,16 +121,8 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         let sut = makeSUT()
         let prayersTimes = uniqueItems().local
         let timestamp = Date()
-        let exp = expectation(description: "Wait for cache retrieval")
         
-        sut.insert(prayersTimes, timestamp: timestamp) { insertionError in
-            XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
-            
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-        
+        insert((prayersTimes, timestamp), to: sut)
         expect(sut, toRetrieveTwice: .found(prayersTimes: prayersTimes, timestamp: timestamp))
     }
     
@@ -148,6 +133,15 @@ class CodablePrayersTimesStoreTests: XCTestCase {
         return sut
     }
     
+    private func insert(_ cache: (data: [LocalPrayersTimes], timestamp: Date), to sut: CodablePrayersTimesStore) {
+        let exp = expectation(description: "Wait for cache insertion")
+        sut.insert(cache.data, timestamp: cache.timestamp) { insertionError in
+            XCTAssertNil(insertionError, "Expected prayers times to be inserted successfully")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+
     private func expect(_ sut: CodablePrayersTimesStore, toRetrieveTwice expectedResult: RetrieveCachedPrayersTimesResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
