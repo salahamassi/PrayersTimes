@@ -48,7 +48,6 @@ public final class LocalPrayersTimesLoader {
             case .empty:
                 completion(.success([]))
             case .found:
-                self.store.deleteCachedPrayersTimes { _ in }
                 completion(.success([]))
             case let .failure(error):
                 completion(.failure(error))
@@ -59,6 +58,8 @@ public final class LocalPrayersTimesLoader {
     public func validateCache() {
         store.retrieve { [unowned self] result in
             switch result {
+            case let .found(_, timestamp) where !self.validate(timestamp):
+                self.store.deleteCachedPrayersTimes { _ in }
             case .failure:
                 self.store.deleteCachedPrayersTimes { _ in }
             default: break

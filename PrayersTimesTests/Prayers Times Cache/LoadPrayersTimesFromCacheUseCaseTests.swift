@@ -110,7 +110,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve, .retrieve])
     }
     
-    func test_load_deletesCacheOnNotTheSameMonth() {
+    func test_load_hasNoSideEffectsOnNotTheSameMonthCache() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -125,13 +125,9 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
                                     at: index)
         }
         XCTAssertEqual(store.receivedMessages, [.retrieve,
-                                                .deleteCachedPrayersTimes,
                                                 .retrieve,
-                                                .deleteCachedPrayersTimes,
                                                 .retrieve,
-                                                .deleteCachedPrayersTimes,
-                                                .retrieve,
-                                                .deleteCachedPrayersTimes])
+                                                .retrieve])
     }
     
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
