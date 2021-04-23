@@ -92,7 +92,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_load_doesNotDeleteCacheOnTheSameMonth() {
+    func test_load_hasNoSideEffectsOnTheSameMonthCache() {
         let items = uniqueItems()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
@@ -107,7 +107,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
                                     timestamp: date,
                                     at: index)
         }
-        XCTAssertFalse(store.receivedMessages.contains(.deleteCachedPrayersTimes))
+        XCTAssertEqual(store.receivedMessages, [.retrieve, .retrieve])
     }
     
     func test_load_deletesCacheOnNotTheSameMonth() {
