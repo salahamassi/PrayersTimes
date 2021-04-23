@@ -58,7 +58,11 @@ class CodablePrayersTimesStore {
         }
     }
     
-    private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
+    private let storeURL: URL
+    
+    init(storeURL: URL) {
+        self.storeURL = storeURL
+    }
     
     func retrieve(completion: @escaping PrayersTimesStore.RetrievalCompletion) {
         
@@ -163,7 +167,8 @@ class CodablePrayersTimesStoreTests: XCTestCase {
     
     // - MARK: Helpers
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> CodablePrayersTimesStore {
-        let sut = CodablePrayersTimesStore()
+       let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("prayers-times.store")
+        let sut = CodablePrayersTimesStore(storeURL: storeURL)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
