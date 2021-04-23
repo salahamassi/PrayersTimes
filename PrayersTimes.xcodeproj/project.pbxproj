@@ -23,6 +23,7 @@
 		3DA66188262FCBC100BCD876 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA66187262FCBC100BCD876 /* URLSessionHTTPClient.swift */; };
 		3DA66192262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA66191262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift */; };
 		3DA66194262FD1AE00BCD876 /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
+		3DB4DA2026326232001A2C1B /* PrayersTimesCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */; };
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
@@ -67,6 +68,7 @@
 		3DA6618F262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesApiEntToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA66191262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesApiEntToEndTests.swift; sourceTree = "<group>"; };
 		3DA66193262FD1AE00BCD876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCachePolicy.swift; sourceTree = "<group>"; };
 		3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimes.h; sourceTree = "<group>"; };
 		3DD9D9C3262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				3D21B7DD263109C000DED34B /* LocalPrayersTimesLoader.swift */,
 				3D21B7E326310A1F00DED34B /* PrayersTimesStore.swift */,
 				3D21B7E826311B1D00DED34B /* LocalPrayersTimes.swift */,
+				3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */,
 			);
 			path = "Prayers Times Cache";
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				3DD9D9E0262F779400CA2BFC /* PrayersTimesLoader.swift in Sources */,
 				3D21B7DE263109C000DED34B /* LocalPrayersTimesLoader.swift in Sources */,
 				3DD9D9ED262F7D2400CA2BFC /* RemotePrayersTimesLoader.swift in Sources */,
+				3DB4DA2026326232001A2C1B /* PrayersTimesCachePolicy.swift in Sources */,
 				3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */,
 				3D21B7E926311B1D00DED34B /* LocalPrayersTimes.swift in Sources */,
 				3D21B7E426310A1F00DED34B /* PrayersTimesStore.swift in Sources */,

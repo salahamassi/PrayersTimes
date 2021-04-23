@@ -11,22 +11,17 @@ public final class LocalPrayersTimesLoader {
     
     private let store: PrayersTimesStore
     private let currentDate: () -> Date
-        
+    
     public init(store: PrayersTimesStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
-    }
-    
-    private func validate(_ timestamp: Date) -> Bool {
-        let calendar = Calendar(identifier: .gregorian)
-        return calendar.isDate(currentDate(), equalTo: timestamp, toGranularity: .month)
     }
 }
 
 extension LocalPrayersTimesLoader {
     
     public typealias SaveResult = Error?
-
+    
     public func save(_ items: [PrayersTimes], completion: @escaping (SaveResult) -> Void) {
         store.deleteCachedPrayersTimes { [weak self] error in
             guard let self = self else { return }
@@ -50,12 +45,12 @@ extension LocalPrayersTimesLoader {
 extension LocalPrayersTimesLoader: PrayersTimesLoader {
     
     public typealias LoadResult = PrayersTimesLoader.LoadPrayersTimesResult
-
+    
     public func load(completion: @escaping (LoadResult) -> Void) {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .found(prayersTimes, timestamp) where self.validate(timestamp):
+            case let .found(prayersTimes, timestamp) where PrayersTimesCachePolicy.validate(timestamp, against: self.currentDate()):
                 completion(.success(prayersTimes.toModels()))
             case .empty,.found:
                 completion(.success([]))
@@ -72,8 +67,8 @@ extension LocalPrayersTimesLoader {
         store.retrieve { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case let .found(_, timestamp) where !self.validate(timestamp):
-                self.store.deleteCachedPrayersTimes { _ in }
+            case let .found(_, timestamp) where !PrayersTimesCachePolicy.validate(timestamp, against: self.currentDate()):
+                    self.store.deleteCachedPrayersTimes { _ in }
             case .failure:
                 self.store.deleteCachedPrayersTimes { _ in }
             default: break
