@@ -7,6 +7,7 @@
 
 import XCTest
 
+/// This class mapping prayers times array items to a more readable and swifty type, using enum called "PrayersType" to detect every pray type and Foundation Date type to detect pray time instead of static string, so now the client can perform a calendrical calculations easily.
 class PrayersTimesMapper {
     
     enum Error: Swift.Error {
