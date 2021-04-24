@@ -31,6 +31,9 @@
 		3DB4DA2026326232001A2C1B /* PrayersTimesCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */; };
 		3DB4DA4526326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */; };
 		3DB4DA4D2632E7F4001A2C1B /* CodablePrayersTimesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */; };
+		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
+		3DBCDAC52633A4C4004EB263 /* PrayersTimesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */; };
+		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
@@ -48,6 +51,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3DD9D9BE262F742600CA2BFC;
 			remoteInfo = PrayersTimes;
+		};
+		3DBCDAC12633A4C4004EB263 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DD9D9B6262F742600CA2BFC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DBCDAB62633A4C4004EB263;
+			remoteInfo = PrayersTimesiOS;
 		};
 		3DD9D9CA262F742600CA2BFC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -83,6 +93,12 @@
 		3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCachePolicy.swift; sourceTree = "<group>"; };
 		3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStoreTests.swift; sourceTree = "<group>"; };
 		3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStore.swift; sourceTree = "<group>"; };
+		3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimesiOS.h; sourceTree = "<group>"; };
+		3DBCDABA2633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DBCDABF2633A4C4004EB263 /* PrayersTimesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesiOSTests.swift; sourceTree = "<group>"; };
+		3DBCDAC62633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimes.h; sourceTree = "<group>"; };
 		3DD9D9C3262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,6 +118,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DA66194262FD1AE00BCD876 /* PrayersTimes.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDAB42633A4C4004EB263 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDABC2633A4C4004EB263 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,12 +239,32 @@
 			path = "Prayers Times Store Specs";
 			sourceTree = "<group>";
 		};
+		3DBCDAB82633A4C4004EB263 /* PrayersTimesiOS */ = {
+			isa = PBXGroup;
+			children = (
+				3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */,
+				3DBCDABA2633A4C4004EB263 /* Info.plist */,
+			);
+			path = PrayersTimesiOS;
+			sourceTree = "<group>";
+		};
+		3DBCDAC32633A4C4004EB263 /* PrayersTimesiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */,
+				3DBCDAC62633A4C4004EB263 /* Info.plist */,
+			);
+			path = PrayersTimesiOSTests;
+			sourceTree = "<group>";
+		};
 		3DD9D9B5262F742600CA2BFC = {
 			isa = PBXGroup;
 			children = (
 				3DD9D9C1262F742600CA2BFC /* PrayersTimes */,
 				3DD9D9CC262F742600CA2BFC /* PrayersTimesTests */,
 				3DA66190262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests */,
+				3DBCDAB82633A4C4004EB263 /* PrayersTimesiOS */,
+				3DBCDAC32633A4C4004EB263 /* PrayersTimesiOSTests */,
 				3DD9D9C0262F742600CA2BFC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -224,6 +275,8 @@
 				3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */,
 				3DD9D9C8262F742600CA2BFC /* PrayersTimesTests.xctest */,
 				3DA6618F262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.xctest */,
+				3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */,
+				3DBCDABF2633A4C4004EB263 /* PrayersTimesiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -263,6 +316,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3DBCDAB22633A4C4004EB263 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3DD9D9BA262F742600CA2BFC /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +351,42 @@
 			name = PrayersTimesApiEntToEndTests;
 			productName = PrayersTimesApiEntToEndTests;
 			productReference = 3DA6618F262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3DBCDAB62633A4C4004EB263 /* PrayersTimesiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DBCDACC2633A4C4004EB263 /* Build configuration list for PBXNativeTarget "PrayersTimesiOS" */;
+			buildPhases = (
+				3DBCDAB22633A4C4004EB263 /* Headers */,
+				3DBCDAB32633A4C4004EB263 /* Sources */,
+				3DBCDAB42633A4C4004EB263 /* Frameworks */,
+				3DBCDAB52633A4C4004EB263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrayersTimesiOS;
+			productName = PrayersTimesiOS;
+			productReference = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3DBCDABE2633A4C4004EB263 /* PrayersTimesiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3DBCDACD2633A4C4004EB263 /* Build configuration list for PBXNativeTarget "PrayersTimesiOSTests" */;
+			buildPhases = (
+				3DBCDABB2633A4C4004EB263 /* Sources */,
+				3DBCDABC2633A4C4004EB263 /* Frameworks */,
+				3DBCDABD2633A4C4004EB263 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3DBCDAC22633A4C4004EB263 /* PBXTargetDependency */,
+			);
+			name = PrayersTimesiOSTests;
+			productName = PrayersTimesiOSTests;
+			productReference = 3DBCDABF2633A4C4004EB263 /* PrayersTimesiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		3DD9D9BE262F742600CA2BFC /* PrayersTimes */ = {
@@ -340,6 +437,12 @@
 					3DA6618E262FD1AE00BCD876 = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					3DBCDAB62633A4C4004EB263 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					3DBCDABE2633A4C4004EB263 = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					3DD9D9BE262F742600CA2BFC = {
 						CreatedOnToolsVersion = 12.4;
 						LastSwiftMigration = 1240;
@@ -366,12 +469,28 @@
 				3DD9D9BE262F742600CA2BFC /* PrayersTimes */,
 				3DD9D9C7262F742600CA2BFC /* PrayersTimesTests */,
 				3DA6618E262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests */,
+				3DBCDAB62633A4C4004EB263 /* PrayersTimesiOS */,
+				3DBCDABE2633A4C4004EB263 /* PrayersTimesiOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3DA6618D262FD1AE00BCD876 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDAB52633A4C4004EB263 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDABD2633A4C4004EB263 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -401,6 +520,21 @@
 			files = (
 				3DA66192262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift in Sources */,
 				3D21B7C02630C50E00DED34B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDAB32633A4C4004EB263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DBCDABB2633A4C4004EB263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DBCDAC52633A4C4004EB263 /* PrayersTimesiOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +587,11 @@
 			target = 3DD9D9BE262F742600CA2BFC /* PrayersTimes */;
 			targetProxy = 3DA66195262FD1AE00BCD876 /* PBXContainerItemProxy */;
 		};
+		3DBCDAC22633A4C4004EB263 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DBCDAB62633A4C4004EB263 /* PrayersTimesiOS */;
+			targetProxy = 3DBCDAC12633A4C4004EB263 /* PBXContainerItemProxy */;
+		};
 		3DD9D9CB262F742600CA2BFC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3DD9D9BE262F742600CA2BFC /* PrayersTimes */;
@@ -492,6 +631,102 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesApiEntToEndTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3DBCDAC82633A4C4004EB263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PrayersTimesiOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		3DBCDAC92633A4C4004EB263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PrayersTimesiOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3DBCDACA2633A4C4004EB263 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrayersTimesiOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3DBCDACB2633A4C4004EB263 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrayersTimesiOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -714,6 +949,24 @@
 			buildConfigurations = (
 				3DA66198262FD1AE00BCD876 /* Debug */,
 				3DA66199262FD1AE00BCD876 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DBCDACC2633A4C4004EB263 /* Build configuration list for PBXNativeTarget "PrayersTimesiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DBCDAC82633A4C4004EB263 /* Debug */,
+				3DBCDAC92633A4C4004EB263 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3DBCDACD2633A4C4004EB263 /* Build configuration list for PBXNativeTarget "PrayersTimesiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DBCDACA2633A4C4004EB263 /* Debug */,
+				3DBCDACB2633A4C4004EB263 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
