@@ -121,15 +121,18 @@ class CodablePrayersTimesStoreTests: XCTestCase, FailablePrayersTimesStoreSpecs 
     func test_delete_deliversErrorOnDeletionError() {
         let noDeletePermissionURL = cachesDirectory()
         let sut = makeSUT(storeURL: noDeletePermissionURL)
-        
+        #if os(macOS)
         assertThatDeleteDeliversErrorOnDeletionError(on: sut)
+        #endif
     }
     
     func test_delete_hasNoSideEffectsOnDeletionError() {
         let noDeletePermissionURL = cachesDirectory()
         let sut = makeSUT(storeURL: noDeletePermissionURL)
         
+        #if os(macOS)
         assertThatDeleteHasNoSideEffectsOnDeletionError(on: sut)
+        #endif
     }
     
     func test_storeSideEffects_runSerially() {
