@@ -28,6 +28,21 @@ class PrayersTimesMapper {
     typealias Input = (time: String, type: PrayersType)
     typealias Output = (date: Date, type: PrayersType)
     
+    private static func map(_ prayerTime: PrayersTimesMapper.Input, _ dateFormatter: DateFormatter, _ fullDateString: String, _ results: inout [(date: Date, type: PrayersTimesMapper.PrayersType)]) throws {
+        let splitResult = prayerTime.time.split(separator: " ")
+        var stringPrayerDate = ""
+        if let first = splitResult.first, let last = splitResult.last {
+            dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+            stringPrayerDate.append(fullDateString)
+            stringPrayerDate.append(" \(first):00")
+            guard let datePrayerTime = dateFormatter.date(from: stringPrayerDate)
+            else { throw  Error.invalidPrayerTime(prayerTime) }
+            results.append((date: datePrayerTime, type: prayerTime.type))
+        } else {
+            throw Error.invalidPrayerTime(prayerTime)
+        }
+    }
+    
     static func map(_ prayersTimes: Input ..., using date: Date) throws -> [Output] {
         
         let dateFormatter = DateFormatter()
@@ -35,20 +50,10 @@ class PrayersTimesMapper {
         let fullDateString = dateFormatter.string(from: date)
         
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+        
         var results = [Output]()
         for prayerTime in prayersTimes {
-            let splitResult = prayerTime.time.split(separator: " ")
-            var stringPrayerDate = ""
-            if let first = splitResult.first, let last = splitResult.last {
-                dateFormatter.timeZone = TimeZone(abbreviation: String(last))
-                stringPrayerDate.append(fullDateString)
-                stringPrayerDate.append(" \(first):00")
-                guard let datePrayerTime = dateFormatter.date(from: stringPrayerDate)
-                else { throw  Error.invalidPrayerTime(prayerTime) }
-                results.append((date: datePrayerTime, type: prayerTime.type))
-            } else {
-                throw Error.invalidPrayerTime(prayerTime)
-            }
+            try map(prayerTime, dateFormatter, fullDateString, &results)
         }
         return results
     }
