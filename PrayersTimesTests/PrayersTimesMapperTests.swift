@@ -20,7 +20,7 @@ class PrayersTimesMapper {
 
 class PrayersTimesMapperTests: XCTestCase {
 
-    func test_map_throwErrorOnInvalidDate() {
+    func test_map_throwErrorOnInvalidPrayersTimes() {
         let sut = PrayersTimesMapper.self
         
         var receivedError: Error?
@@ -32,5 +32,4 @@ class PrayersTimesMapperTests: XCTestCase {
         
         XCTAssertNotNil(receivedError)
     }
-
 }
