@@ -50,7 +50,6 @@ class PrayersTimesMapper {
                 throw Error.invalidPrayerTime(prayerTime)
             }
         }
-        print(results.map(\.date.timeIntervalSince1970), "salah")
         return results
     }
 }
