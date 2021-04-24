@@ -57,7 +57,7 @@ class PrayersTimesMapper {
 
 class PrayersTimesMapperTests: XCTestCase {
     
-    func test_map_throwErrorOnInvalidPrayersTimes() {
+    func test_map_throwErrorOnInvalidInputPrayersTimes() {
         let sut = PrayersTimesMapper.self
         
         var receivedError: Error?
@@ -69,8 +69,8 @@ class PrayersTimesMapperTests: XCTestCase {
         
         XCTAssertNotNil(receivedError)
     }
-    
-    func test_map_returnPrayerTimesDatesOnValidPrayersTimes() {
+
+    func test_map_returnOutputPrayerTimesOnValidInputPrayersTimes() {
         let sut = PrayersTimesMapper.self
         let results = try? sut.map((time: "05:01 (EEST)", type: .fajr),
                                    (time: "06:30 (EEST)", type: .sunrise),
