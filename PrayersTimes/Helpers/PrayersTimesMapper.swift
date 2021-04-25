@@ -7,14 +7,14 @@
 
 import Foundation
 
-/// This class mapping prayers times array items to a more readable and swifty type, using enum called "PrayersType" to detect every pray type and Foundation Date type to detect pray time instead of static string, so now the client can perform a calendrical calculations easily.
+/// This class mapping prayers times array items to a more readable and swifty type, using enum called "PrayerType" to detect every pray type and Foundation Date type to detect pray time instead of static string, so now the client can perform a calendrical calculations easily.
 public class PrayersTimesMapper {
     
     public enum Error: Swift.Error {
         case invalidPrayerTime(Input)
     }
 
-    public typealias Input = (time: String, type: PrayersType)
+    public typealias Input = (time: String, type: PrayerType)
     
     public static func map(_ prayersTimes: Input ..., using date: Date) throws -> [SwiftyPrayerTime] {
         

@@ -10,9 +10,9 @@ import Foundation
 public struct SwiftyPrayerTime {
   
     public let date: Date
-    public let type: PrayersType
+    public let type: PrayerType
     
-    public init(date: Date, type: PrayersType) {
+    public init(date: Date, type: PrayerType) {
         self.date = date
         self.type = type
     }
