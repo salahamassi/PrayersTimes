@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SwiftyPrayerTime: Comparable {
+public struct SwiftyPrayerTime {
   
     public let date: Date
     public let type: PrayersType
@@ -15,10 +15,6 @@ public struct SwiftyPrayerTime: Comparable {
     public init(date: Date, type: PrayersType) {
         self.date = date
         self.type = type
-    }
-    
-    public static func < (lhs: SwiftyPrayerTime, rhs: SwiftyPrayerTime) -> Bool {
-        lhs.date < rhs.date
     }
 }
 
