@@ -8,6 +8,9 @@
 import Foundation
 import PrayersTimes
 
+
+let staticDate = Date(timeIntervalSince1970: 1619298000)
+
 func uniqueItem() -> PrayersTimes {
     .init(fajr: "05:01 (EEST)",
           sunrise: "06:30 (EEST)",
@@ -18,7 +21,7 @@ func uniqueItem() -> PrayersTimes {
           isha: "20:22 (EEST)",
           imsak: "04:50 (EEST)",
           midnight: "00:46 (EEST)",
-          date: Date(timeIntervalSince1970: 1617343261))
+          date: staticDate)
 }
 
 func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
