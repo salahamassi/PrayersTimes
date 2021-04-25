@@ -49,6 +49,7 @@ class PrayersTimesMapperTests: XCTestCase {
         expect(output[5], mappingCorrectlyAtIndex: 5)
         expect(output[6], mappingCorrectlyAtIndex: 6)
         expect(output[7], mappingCorrectlyAtIndex: 7)
+        expect(output[8], mappingCorrectlyAtIndex: 8)
     }
     
     // MARK:- Helper
