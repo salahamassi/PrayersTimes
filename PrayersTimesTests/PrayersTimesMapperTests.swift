@@ -25,6 +25,7 @@ class PrayersTimesMapperTests: XCTestCase {
 
     func test_map_returnOutputPrayerTimesOnValidInputPrayersTimes() {
         let sut = PrayersTimesMapper.self
+        let currentDate = Date(timeIntervalSince1970: 1619298000)
         let results = try? sut.map((time: "05:01 (EEST)", type: .fajr),
                                    (time: "06:30 (EEST)", type: .sunrise),
                                    (time: "12:46 (EEST)", type: .dhuhr),
@@ -34,7 +35,7 @@ class PrayersTimesMapperTests: XCTestCase {
                                    (time: "20:22 (EEST)", type: .isha),
                                    (time: "04:50 (EEST)", type: .imsak),
                                    (time: "00:46 (EEST)", type: .midnight),
-                                   using: Date())
+                                   using: currentDate)
         
         guard let output = results else { return XCTFail("expect results to have a value") }
         
