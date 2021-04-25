@@ -51,21 +51,21 @@ class PrayersTimesMapperTests: XCTestCase {
     }
     
     // MARK:- Helper
-    private func expect(_ receivedOutputPrayerTime: PrayersTimesMapper.Output, mappingCorrectlyAtIndex index: Int, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ receivedOutputPrayerTime: SwiftyPrayerTime, mappingCorrectlyAtIndex index: Int, file: StaticString = #filePath, line: UInt = #line) {
         let expectedOutputPrayerTime = expectedResult(at:  index)
         XCTAssertEqual(receivedOutputPrayerTime.type, expectedOutputPrayerTime.type, file: file, line: line)
         XCTAssertEqual(receivedOutputPrayerTime.date, expectedOutputPrayerTime.date, file: file, line: line)
     }
     
-    private func expectedResult(at index: Int) -> PrayersTimesMapper.Output {
-        [(date: Date(timeIntervalSince1970: 1619316060.0), type: .fajr),
-         (date: Date(timeIntervalSince1970: 1619321400.0), type: .sunrise),
-         (date: Date(timeIntervalSince1970: 1619343960.0), type: .dhuhr),
-         (date: Date(timeIntervalSince1970: 1619356680.0), type: .asr),
-         (date: Date(timeIntervalSince1970: 1619366520.0), type: .sunset),
-         (date: Date(timeIntervalSince1970: 1619366520.0), type: .maghrib),
-         (date: Date(timeIntervalSince1970: 1619371320.0), type: .isha),
-         (date: Date(timeIntervalSince1970: 1619315400.0), type: .imsak),
-         (date: Date(timeIntervalSince1970: 1619300760.0), type: .midnight)][index]
+    private func expectedResult(at index: Int) -> SwiftyPrayerTime {
+        [.init(date: Date(timeIntervalSince1970: 1619316060.0), type: .fajr),
+         .init(date: Date(timeIntervalSince1970: 1619321400.0), type: .sunrise),
+         .init(date: Date(timeIntervalSince1970: 1619343960.0), type: .dhuhr),
+         .init(date: Date(timeIntervalSince1970: 1619356680.0), type: .asr),
+         .init(date: Date(timeIntervalSince1970: 1619366520.0), type: .sunset),
+         .init(date: Date(timeIntervalSince1970: 1619366520.0), type: .maghrib),
+         .init(date: Date(timeIntervalSince1970: 1619371320.0), type: .isha),
+         .init(date: Date(timeIntervalSince1970: 1619315400.0), type: .imsak),
+         .init(date: Date(timeIntervalSince1970: 1619300760.0), type: .midnight)][index]
     }
 }

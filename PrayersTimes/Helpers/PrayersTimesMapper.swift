@@ -13,23 +13,10 @@ public class PrayersTimesMapper {
     public enum Error: Swift.Error {
         case invalidPrayerTime(Input)
     }
-    
-    public enum PrayersType {
-        case fajr
-        case sunrise
-        case dhuhr
-        case asr
-        case sunset
-        case maghrib
-        case isha
-        case imsak
-        case midnight
-    }
-    
+
     public typealias Input = (time: String, type: PrayersType)
-    public typealias Output = (date: Date, type: PrayersType)
     
-    public static func map(_ prayersTimes: Input ..., using date: Date) throws -> [Output] {
+    public static func map(_ prayersTimes: Input ..., using date: Date) throws -> [SwiftyPrayerTime] {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -37,14 +24,14 @@ public class PrayersTimesMapper {
         
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
         
-        var results = [Output]()
+        var results = [SwiftyPrayerTime]()
         for prayerTime in prayersTimes {
             try map(prayerTime, dateFormatter, fullDateString, &results)
         }
         return results
     }
     
-    private static func map(_ prayerTime: PrayersTimesMapper.Input, _ dateFormatter: DateFormatter, _ fullDateString: String, _ results: inout [(date: Date, type: PrayersTimesMapper.PrayersType)]) throws {
+    private static func map(_ prayerTime: PrayersTimesMapper.Input, _ dateFormatter: DateFormatter, _ fullDateString: String, _ results: inout [SwiftyPrayerTime]) throws {
         let splitResult = prayerTime.time.split(separator: " ")
         var stringPrayerDate = ""
         if let first = splitResult.first, let last = splitResult.last {
@@ -53,7 +40,7 @@ public class PrayersTimesMapper {
             stringPrayerDate.append(" \(first):00")
             guard let datePrayerTime = dateFormatter.date(from: stringPrayerDate)
             else { throw  Error.invalidPrayerTime(prayerTime) }
-            results.append((date: datePrayerTime, type: prayerTime.type))
+            results.append(.init(date: datePrayerTime, type: prayerTime.type))
         } else {
             throw Error.invalidPrayerTime(prayerTime)
         }

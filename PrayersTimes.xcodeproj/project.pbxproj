@@ -44,6 +44,9 @@
 		3DD9D9F9262F9ACB00CA2BFC /* RemotePrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9F8262F9ACB00CA2BFC /* RemotePrayersTimes.swift */; };
 		3DFB79842634D58F007EA8A4 /* PrayersTimesMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB79832634D58F007EA8A4 /* PrayersTimesMapperTests.swift */; };
 		3DFB798B2634E4FF007EA8A4 /* PrayersTimesMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB798A2634E4FF007EA8A4 /* PrayersTimesMapper.swift */; };
+		3DFB79A72634FE71007EA8A4 /* CalculateNextPrayerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB79A62634FE71007EA8A4 /* CalculateNextPrayerUseCaseTests.swift */; };
+		3DFB79AE26350561007EA8A4 /* SwiftyPrayerTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB79AD26350561007EA8A4 /* SwiftyPrayerTime.swift */; };
+		3DFB79B526350578007EA8A4 /* PrayersType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFB79B426350578007EA8A4 /* PrayersType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +117,9 @@
 		3DD9D9F8262F9ACB00CA2BFC /* RemotePrayersTimes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrayersTimes.swift; sourceTree = "<group>"; };
 		3DFB79832634D58F007EA8A4 /* PrayersTimesMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesMapperTests.swift; sourceTree = "<group>"; };
 		3DFB798A2634E4FF007EA8A4 /* PrayersTimesMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesMapper.swift; sourceTree = "<group>"; };
+		3DFB79A62634FE71007EA8A4 /* CalculateNextPrayerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateNextPrayerUseCaseTests.swift; sourceTree = "<group>"; };
+		3DFB79AD26350561007EA8A4 /* SwiftyPrayerTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyPrayerTime.swift; sourceTree = "<group>"; };
+		3DFB79B426350578007EA8A4 /* PrayersType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +312,7 @@
 				3DFB79832634D58F007EA8A4 /* PrayersTimesMapperTests.swift */,
 				3D90A210262F9E3600E28772 /* Prayers Times Api */,
 				3D21B7D32630EA6B00DED34B /* Prayers Times Cache */,
+				3DFB79A62634FE71007EA8A4 /* CalculateNextPrayerUseCaseTests.swift */,
 			);
 			path = PrayersTimesTests;
 			sourceTree = "<group>";
@@ -323,6 +330,8 @@
 			isa = PBXGroup;
 			children = (
 				3DFB798A2634E4FF007EA8A4 /* PrayersTimesMapper.swift */,
+				3DFB79AD26350561007EA8A4 /* SwiftyPrayerTime.swift */,
+				3DFB79B426350578007EA8A4 /* PrayersType.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -569,6 +578,8 @@
 				3DD9D9F5262F9A9000CA2BFC /* PrayersTimesItemMapper.swift in Sources */,
 				3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */,
 				3DD9D9F9262F9ACB00CA2BFC /* RemotePrayersTimes.swift in Sources */,
+				3DFB79AE26350561007EA8A4 /* SwiftyPrayerTime.swift in Sources */,
+				3DFB79B526350578007EA8A4 /* PrayersType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +602,7 @@
 				3D21B7D52630EABD00DED34B /* CachePrayersTimesUseCaseTests.swift in Sources */,
 				3DA66182262FC3E000BCD876 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				3DB314C32632EF9700AA4E1B /* PrayersTimesStoreSpecs.swift in Sources */,
+				3DFB79A72634FE71007EA8A4 /* CalculateNextPrayerUseCaseTests.swift in Sources */,
 				3D21B80A26325D7800DED34B /* PrayersTimesCacheTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
