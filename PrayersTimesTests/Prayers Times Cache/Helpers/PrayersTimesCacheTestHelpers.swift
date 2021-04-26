@@ -21,7 +21,7 @@ func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
                     isha: getDate(from: "20:22 (EEST)", using: date),
                     imsak: getDate(from: "04:50 (EEST)", using: date),
                     midnight: getDate(from: "00:46 (EEST)", using: date)),
-          for: staticDate)
+          for: date)
 }
 
 func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
@@ -61,6 +61,10 @@ func getDate(from string: String, using date: Date) -> Date {
 }
 
 extension Date {
+    
+    func adding(day: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .day, value: day, to: self)!
+    }
     
     func adding(month: Int) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .month, value: month, to: self)!
