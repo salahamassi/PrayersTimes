@@ -18,13 +18,13 @@ class NextPrayerUseCase {
         self.currentDate = currentDate
     }
     
-    func getPrayersTimesForCurrentDate() -> PrayersTimes? {
+    func getPrayersTimes() -> PrayersTimes? {
         let calendar = Calendar.init(identifier: .gregorian)
         return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
-    func getNextPrayerDateForCurrentDate() -> Date? {
-        guard let prayersTimes = getPrayersTimesForCurrentDate() else { return nil }
+    func getNextPrayerDate() -> Date? {
+        guard let prayersTimes = getPrayersTimes() else { return nil }
         let date = currentDate()
         let dates = [date,
                      prayersTimes.prayers[.fajr],
@@ -47,7 +47,7 @@ class NextPrayerUseCase {
 
 class NextPrayerUseCaseTests: XCTestCase {
     
-    func test_getPrayersTimesForCurrentDate() {
+    func test_getPrayersTimes() {
         let currentDate = Date()
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)
@@ -59,10 +59,10 @@ class NextPrayerUseCaseTests: XCTestCase {
         let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem], currentDate: Date.init)
         
         
-        XCTAssertEqual(sut.getPrayersTimesForCurrentDate(), todayItem)
+        XCTAssertEqual(sut.getPrayersTimes(), todayItem)
     }
     
-    func test_getNextPrayerDateForCurrentDate() {
+    func test_getNextPrayerDate() {
         let currentDate = staticDate // Saturday, April 24, 2021 9:00:00 PM GMT
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)
@@ -73,6 +73,6 @@ class NextPrayerUseCaseTests: XCTestCase {
         
         let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem], currentDate: { currentDate })
         let expectedPrayerDate = todayItem.prayers[.midnight] // Saturday, April 24, 2021 9:46:00 PM GMT
-        XCTAssertEqual(sut.getNextPrayerDateForCurrentDate(), expectedPrayerDate)
+        XCTAssertEqual(sut.getNextPrayerDate(), expectedPrayerDate)
     }
 }
