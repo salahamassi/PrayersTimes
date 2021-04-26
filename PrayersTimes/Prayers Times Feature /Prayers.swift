@@ -19,7 +19,7 @@ public struct Prayers: Equatable {
     private let imsak: Date
     private let midnight: Date
     
-    public init(fajr: Date,
+    init(fajr: Date,
                 sunrise: Date,
                 dhuhr: Date,
                 asr: Date,
