@@ -8,7 +8,7 @@
 import XCTest
 import PrayersTimes
 
-class NextPrayerUseCase {
+class PrayersUseCase {
     
     let currentDate: ()-> Date
     let prayersTimes: [PrayersTimes]
@@ -45,7 +45,7 @@ class NextPrayerUseCase {
     }
 }
 
-class NextPrayerUseCaseTests: XCTestCase {
+class PrayersUseCaseTests: XCTestCase {
     
     func test_getPrayersTimes() {
         let (sut, items) = makeSUT(with: Date.init)
@@ -63,7 +63,7 @@ class NextPrayerUseCaseTests: XCTestCase {
     }
     
     // - MARK: Helpers
-    private func makeSUT(with date: @escaping () -> Date = { staticDate }, file: StaticString = #filePath, line: UInt = #line) -> (sut: NextPrayerUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
+    private func makeSUT(with date: @escaping () -> Date = { staticDate }, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)
@@ -72,7 +72,7 @@ class NextPrayerUseCaseTests: XCTestCase {
         let todayItem = uniqueItem(using: currentDate)
         let tomorrowItem = uniqueItem(using: tomorrowDate)
         
-        let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem],
+        let sut = PrayersUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem],
                                     currentDate: date)
         trackForMemoryLeaks(sut)
         return (sut, (yesterdayItem, todayItem, tomorrowItem))
