@@ -73,41 +73,41 @@ public class CodablePrayersTimesStore: PrayersTimesStore {
     }
     
     private struct CodablePrayersTimes: Codable {
-        private let fajr: String
-        private let sunrise: String
-        private let dhuhr: String
-        private let asr: String
-        private let sunset: String
-        private let maghrib: String
-        private let isha: String
-        private let imsak: String
-        private let midnight: String
+        private let fajr: Date
+        private let sunrise: Date
+        private let dhuhr: Date
+        private let asr: Date
+        private let sunset: Date
+        private let maghrib: Date
+        private let isha: Date
+        private let imsak: Date
+        private let midnight: Date
         private let date: Date
         
         init(_ prayersTimes: LocalPrayersTimes) {
-            self.fajr = prayersTimes.fajr
-            self.sunrise = prayersTimes.sunrise
-            self.dhuhr = prayersTimes.dhuhr
-            self.asr = prayersTimes.asr
-            self.sunset = prayersTimes.sunset
-            self.maghrib = prayersTimes.maghrib
-            self.isha = prayersTimes.isha
-            self.imsak = prayersTimes.imsak
-            self.midnight = prayersTimes.midnight
-            self.date = prayersTimes.date
+            self.fajr = prayersTimes.prayers[.fajr]
+            self.sunrise = prayersTimes.prayers[.sunrise]
+            self.dhuhr = prayersTimes.prayers[.dhuhr]
+            self.asr = prayersTimes.prayers[.asr]
+            self.sunset = prayersTimes.prayers[.sunset]
+            self.maghrib = prayersTimes.prayers[.maghrib]
+            self.isha = prayersTimes.prayers[.isha]
+            self.imsak = prayersTimes.prayers[.imsak]
+            self.midnight = prayersTimes.prayers[.midnight]
+            self.date = prayersTimes.day
         }
         
         var local: LocalPrayersTimes {
-            .init(fajr: fajr,
-                  sunrise: sunrise,
-                  dhuhr: dhuhr,
-                  asr: asr,
-                  sunset: sunset,
-                  maghrib: maghrib,
-                  isha: isha,
-                  imsak: imsak,
-                  midnight: midnight,
-                  date: date)
+            .init(prayers: (fajr: fajr,
+                            sunrise: sunrise,
+                            dhuhr: dhuhr,
+                            asr: asr,
+                            sunset: sunset,
+                            maghrib: maghrib,
+                            isha: isha,
+                            imsak: imsak,
+                            midnight: midnight),
+                  for: date)
         }
     }
 }

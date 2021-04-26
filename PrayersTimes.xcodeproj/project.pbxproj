@@ -318,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */,
+				3DFB79B426350578007EA8A4 /* PrayerType.swift */,
 				3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */,
 			);
 			path = "Prayers Times Feature ";
@@ -328,7 +329,6 @@
 			children = (
 				3DFB798A2634E4FF007EA8A4 /* PrayersTimesMapper.swift */,
 				3DFB79AD26350561007EA8A4 /* SwiftyPrayerTime.swift */,
-				3DFB79B426350578007EA8A4 /* PrayerType.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

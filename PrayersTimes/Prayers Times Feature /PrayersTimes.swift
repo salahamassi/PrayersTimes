@@ -7,20 +7,27 @@
 
 import Foundation
 
-public struct PrayersTimes: Equatable {
+public struct Prayers: Equatable {
     
-    public let fajr: String
-    public let sunrise: String
-    public let dhuhr: String
-    public let asr: String
-    public let sunset: String
-    public let maghrib: String
-    public let isha: String
-    public let imsak: String
-    public let midnight: String
-    public let date: Date
+    private let fajr: Date
+    private let sunrise: Date
+    private let dhuhr: Date
+    private let asr: Date
+    private let sunset: Date
+    private let maghrib: Date
+    private let isha: Date
+    private let imsak: Date
+    private let midnight: Date
     
-    public init(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) {
+    public init(fajr: Date,
+                sunrise: Date,
+                dhuhr: Date,
+                asr: Date,
+                sunset: Date,
+                maghrib: Date,
+                isha: Date,
+                imsak: Date,
+                midnight: Date) {
         self.fajr = fajr
         self.sunrise = sunrise
         self.dhuhr = dhuhr
@@ -30,7 +37,65 @@ public struct PrayersTimes: Equatable {
         self.isha = isha
         self.imsak = imsak
         self.midnight = midnight
-        self.date = date
+    }
+    
+    public subscript(type: PrayerType) -> Date {
+        get {
+            return getPrayerDate(for: type)
+        }
+    }
+    
+    private func getPrayerDate(for type: PrayerType) -> Date {
+        let prayerDate: Date
+        switch type {
+        case .fajr:
+            prayerDate = fajr
+        case .sunrise:
+            prayerDate = sunrise
+        case .dhuhr:
+            prayerDate = dhuhr
+        case .asr:
+            prayerDate = asr
+        case .sunset:
+            prayerDate = sunset
+        case .maghrib:
+            prayerDate = maghrib
+        case .isha:
+            prayerDate = isha
+        case .imsak:
+            prayerDate = imsak
+        case .midnight:
+            prayerDate = midnight
+        }
+        return prayerDate
+    }
+}
+
+public struct PrayersTimes: Equatable {
+    
+    public let prayers: Prayers
+    public let day: Date
+    
+    public init(prayers: (fajr: Date,
+                          sunrise: Date,
+                          dhuhr: Date,
+                          asr: Date,
+                          sunset: Date,
+                          maghrib: Date,
+                          isha: Date,
+                          imsak: Date,
+                          midnight: Date),
+                for day: Date) {
+        self.prayers = Prayers(fajr: prayers.fajr,
+                               sunrise: prayers.sunrise,
+                               dhuhr: prayers.dhuhr,
+                               asr: prayers.asr,
+                               sunset: prayers.sunset,
+                               maghrib: prayers.maghrib,
+                               isha: prayers.isha,
+                               imsak: prayers.imsak,
+                               midnight: prayers.midnight)
+        self.day = day
     }
 }
 

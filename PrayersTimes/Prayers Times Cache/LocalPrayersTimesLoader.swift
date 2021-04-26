@@ -79,32 +79,29 @@ extension LocalPrayersTimesLoader {
 
 private extension Array where Element == PrayersTimes {
     func toLocal() -> [LocalPrayersTimes] {
-        map { LocalPrayersTimes(fajr: $0.fajr,
-                                sunrise: $0.sunrise,
-                                dhuhr: $0.dhuhr,
-                                asr: $0.asr,
-                                sunset: $0.sunset,
-                                maghrib: $0.maghrib,
-                                isha: $0.isha,
-                                imsak: $0.imsak,
-                                midnight: $0.midnight,
-                                date: $0.date)
-        }
+        map { LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr],
+                                          sunrise: $0.prayers[.sunrise],
+                                          dhuhr: $0.prayers[.dhuhr],
+                                          asr: $0.prayers[.asr],
+                                          sunset: $0.prayers[.sunset],
+                                          maghrib: $0.prayers[.maghrib],
+                                          isha: $0.prayers[.isha],
+                                          imsak: $0.prayers[.imsak],
+                                          midnight: $0.prayers[.midnight]), for: $0.day) }
     }
 }
 
 private extension Array where Element == LocalPrayersTimes {
     func toModels() -> [PrayersTimes] {
-        map { PrayersTimes(fajr: $0.fajr,
-                           sunrise: $0.sunrise,
-                           dhuhr: $0.dhuhr,
-                           asr: $0.asr,
-                           sunset: $0.sunset,
-                           maghrib: $0.maghrib,
-                           isha: $0.isha,
-                           imsak: $0.imsak,
-                           midnight: $0.midnight,
-                           date: $0.date) }
+        map { PrayersTimes(prayers: (fajr: $0.prayers[.fajr],
+                            sunrise: $0.prayers[.sunrise],
+                            dhuhr: $0.prayers[.dhuhr],
+                            asr: $0.prayers[.asr],
+                            sunset: $0.prayers[.sunset],
+                            maghrib: $0.prayers[.maghrib],
+                            isha: $0.prayers[.isha],
+                            imsak: $0.prayers[.imsak],
+                            midnight: $0.prayers[.midnight]), for: $0.day) }
     }
 }
 
