@@ -40,9 +40,7 @@ public struct Prayers: Equatable {
     }
     
     public subscript(type: PrayerType) -> Date {
-        get {
-            return getPrayerDate(for: type)
-        }
+        getPrayerDate(for: type)
     }
     
     private func getPrayerDate(for type: PrayerType) -> Date {
