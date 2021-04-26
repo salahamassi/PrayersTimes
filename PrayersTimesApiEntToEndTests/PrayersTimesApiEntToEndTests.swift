@@ -28,30 +28,30 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
         let loader = RemotePrayersTimesLoader(url: serverURL, client: client)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
-
+        
         let exp = expectation(description: "Wait for load completion")
-
+        
         var receivedResult: RemotePrayersTimesLoader.Result?
         loader.load { result in
             receivedResult = result
             exp.fulfill()
         }
         wait(for: [exp], timeout: 7.0)
-
+        
         return receivedResult
     }
-
+    
     private func expectedItem(at index: Int) -> PrayersTimes {
-        .init(fajr: fajr(at: 0),
-                            sunrise: sunrise(at: 0),
-                            dhuhr: dhuhr(at: 0),
-                            asr: asr(at: 0),
-                            sunset: sunset(at: 0),
-                            maghrib: maghrib(at: 0),
-                            isha: isha(at: 0),
-                            imsak: imsak(at: 0),
-                            midnight: midnight(at: 0),
-                            date: date(at: 0))
+        .init(prayers: (fajr: getDate(from: fajr(at: 0), using: date(at: 0)),
+                        sunrise: getDate(from: sunrise(at: 0), using: date(at: 0)),
+                        dhuhr: getDate(from: dhuhr(at: 0), using: date(at: 0)),
+                        asr: getDate(from: asr(at: 0), using: date(at: 0)),
+                        sunset: getDate(from: sunset(at: 0), using: date(at: 0)),
+                        maghrib: getDate(from: maghrib(at: 0), using: date(at: 0)),
+                        isha: getDate(from: isha(at: 0), using: date(at: 0)),
+                        imsak: getDate(from: imsak(at: 0), using: date(at: 0)),
+                        midnight: getDate(from: midnight(at: 0), using: date(at: 0))),
+              for: date(at: 0))
     }
     
     private func fajr(at index: Int) -> String {

@@ -18,6 +18,7 @@
 		3D21B80526325C7000DED34B /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D21B80A26325D7800DED34B /* PrayersTimesCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80926325D7800DED34B /* PrayersTimesCacheTestHelpers.swift */; };
 		3D8E098A2636599100BB323B /* Prayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09892636599100BB323B /* Prayers.swift */; };
+		3D8E09D726365E8300BB323B /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
 		3DA6617D262FA60D00BCD876 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6617C262FA60D00BCD876 /* URLSessionHTTPClientTests.swift */; };
 		3DA66182262FC3E000BCD876 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA66181262FC3E000BCD876 /* XCTestCase+MemoryLeakTracking.swift */; };
@@ -526,6 +527,7 @@
 			files = (
 				3DA66192262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift in Sources */,
 				3D21B7C02630C50E00DED34B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				3D8E09D726365E8300BB323B /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,8 +647,10 @@
 		3DBCDAC82633A4C4004EB263 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -660,6 +664,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOS;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -672,8 +677,10 @@
 		3DBCDAC92633A4C4004EB263 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -687,6 +694,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOS;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -700,7 +708,10 @@
 		3DBCDACA2633A4C4004EB263 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrayersTimesiOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -710,6 +721,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
@@ -720,7 +733,10 @@
 		3DBCDACB2633A4C4004EB263 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrayersTimesiOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -730,6 +746,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.msa.PrayersTimesiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;
