@@ -11,56 +11,77 @@ import PrayersTimes
 
 let staticDate = Date(timeIntervalSince1970: 1619298000)
 
-func uniqueItem() -> PrayersTimes {
-    .init(fajr: "05:01 (EEST)",
-          sunrise: "06:30 (EEST)",
-          dhuhr: "12:46 (EEST)",
-          asr: "16:18 (EEST)",
-          sunset: "19:02 (EEST)",
-          maghrib: "19:02 (EEST)",
-          isha: "20:22 (EEST)",
-          imsak: "04:50 (EEST)",
-          midnight: "00:46 (EEST)",
-          date: staticDate)
+func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
+    .init(prayers: (fajr: getDate(from: "05:01 (EEST)", using: date),
+                    sunrise: getDate(from: "06:30 (EEST)", using: date),
+                    dhuhr: getDate(from: "12:46 (EEST)", using: date),
+                    asr: getDate(from: "16:18 (EEST)", using: date),
+                    sunset: getDate(from: "19:02 (EEST)", using: date),
+                    maghrib: getDate(from: "19:02 (EEST)", using: date),
+                    isha: getDate(from: "20:22 (EEST)", using: date),
+                    imsak: getDate(from: "04:50 (EEST)", using: date),
+                    midnight: getDate(from: "00:46 (EEST)", using: date)),
+          for: staticDate)
 }
 
 func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
     let models = [uniqueItem(), uniqueItem()]
-    let local = models.map{ LocalPrayersTimes(fajr: $0.fajr,
-                                             sunrise: $0.sunrise,
-                                             dhuhr: $0.dhuhr,
-                                             asr: $0.asr,
-                                             sunset: $0.sunset,
-                                             maghrib: $0.maghrib,
-                                             isha: $0.isha,
-                                             imsak: $0.imsak,
-                                             midnight: $0.midnight,
-                                             date: $0.date) }
+    let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr],
+                                                        sunrise: $0.prayers[.sunrise],
+                                                        dhuhr: $0.prayers[.dhuhr],
+                                                        asr: $0.prayers[.asr],
+                                                        sunset: $0.prayers[.sunset],
+                                                        maghrib: $0.prayers[.maghrib],
+                                                        isha: $0.prayers[.isha],
+                                                        imsak: $0.prayers[.imsak],
+                                                        midnight: $0.prayers[.midnight]),
+                                              for: $0.day) }
     return (models, local)
 }
 
+func getDate(from string: String, using date: Date) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    let fullDateString = dateFormatter.string(from: date)
+    
+    dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+    
+    var stringResultDate = ""
+    let splitResult = string.split(separator: " ")
+    
+    if let first = splitResult.first, let last = splitResult.last {
+        dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+        stringResultDate.append(fullDateString)
+        stringResultDate.append(" \(first):00")
+        if let resultDate = dateFormatter.date(from: stringResultDate) {
+            return resultDate
+        }
+    }
+    fatalError("wrong string format \(string)")
+}
+
 extension Date {
-   
-   func adding(month: Int) -> Date {
-       return Calendar(identifier: .gregorian).date(byAdding: .month, value: month, to: self)!
-   }
-   
-   func adding(seconds: TimeInterval) -> Date {
-       return self + seconds
-   }
-   
-   var startOfMonth: Date {
-       let calendar = Calendar(identifier: .gregorian)
-       let components = calendar.dateComponents([.year, .month], from: self)
-       let startOfMonth = calendar.date(from: components)
-       return startOfMonth ?? self
-   }
-   
-   var endOfMonth: Date {
-       let calendar = Calendar(identifier: .gregorian)
-       var components = DateComponents()
-       components.month = 1
-       components.second = -1
-       return calendar.date(byAdding: components, to: startOfMonth) ?? self
-   }
+    
+    func adding(month: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .month, value: month, to: self)!
+    }
+    
+    func adding(seconds: TimeInterval) -> Date {
+        return self + seconds
+    }
+    
+    var startOfMonth: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let components = calendar.dateComponents([.year, .month], from: self)
+        let startOfMonth = calendar.date(from: components)
+        return startOfMonth ?? self
+    }
+    
+    var endOfMonth: Date {
+        let calendar = Calendar(identifier: .gregorian)
+        var components = DateComponents()
+        components.month = 1
+        components.second = -1
+        return calendar.date(byAdding: components, to: startOfMonth) ?? self
+    }
 }

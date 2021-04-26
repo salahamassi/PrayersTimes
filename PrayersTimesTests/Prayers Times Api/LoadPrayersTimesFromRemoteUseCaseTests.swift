@@ -66,10 +66,10 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
     }
-
+    
     func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
-
+        
         expect(sut, toCompleteWith: .success([])) {
             let emptyListJSON = makeItemsJSON([])
             client.complete(withStatusCode: 200, data: emptyListJSON)
@@ -78,65 +78,54 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
-
+        
         let item1 = makeItem(fajr: "05:01 (EEST)",
-                               sunrise: "06:31 (EEST)",
-                               dhuhr: "12:46 (EEST)",
-                               asr: "16:18 (EEST)",
-                               sunset: "19:02 (EEST)",
-                               maghrib: "19:02 (EEST)",
-                               isha: "20:22 (EEST)",
-                               imsak: "04:51 (EEST)",
-                               midnight: "00:46 (EEST)",
-                               date: Date(timeIntervalSince1970: 1617256861))
+                             sunrise: "06:31 (EEST)",
+                             dhuhr: "12:46 (EEST)",
+                             asr: "16:18 (EEST)",
+                             sunset: "19:02 (EEST)",
+                             maghrib: "19:02 (EEST)",
+                             isha: "20:22 (EEST)",
+                             imsak: "04:51 (EEST)",
+                             midnight: "00:46 (EEST)",
+                             day: Date(timeIntervalSince1970: 1617256861))
         
         let item2 = makeItem(fajr: "05:01 (EEST)",
-                               sunrise: "06:30 (EEST)",
-                               dhuhr: "12:46 (EEST)",
-                               asr: "16:18 (EEST)",
-                               sunset: "19:02 (EEST)",
-                               maghrib: "19:02 (EEST)",
-                               isha: "20:22 (EEST)",
-                               imsak: "04:50 (EEST)",
-                               midnight: "00:46 (EEST)",
-                               date: Date(timeIntervalSince1970: 1617343261))
-
+                             sunrise: "06:30 (EEST)",
+                             dhuhr: "12:46 (EEST)",
+                             asr: "16:18 (EEST)",
+                             sunset: "19:02 (EEST)",
+                             maghrib: "19:02 (EEST)",
+                             isha: "20:22 (EEST)",
+                             imsak: "04:50 (EEST)",
+                             midnight: "00:46 (EEST)",
+                             day: Date(timeIntervalSince1970: 1617343261))
+        
         let items = [item1.model, item2.model]
-
+        
         expect(sut, toCompleteWith: .success(items), when: {
             let json = makeItemsJSON([item1.json, item2.json])
             client.complete(withStatusCode: 200, data: json)
         })
     }
     
-    func test_load_deliversItemsOn200HTTPResponseWithInvalidDateJSONItems() {
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidDatesJSONItems() {
         let (sut, client) = makeSUT()
         
-        let item = PrayersTimes(fajr: "05:01 (EEST)",
-                                sunrise: "06:30 (EEST)",
-                                dhuhr: "12:46 (EEST)",
-                                asr: "16:18 (EEST)",
-                                sunset: "19:02 (EEST)",
-                                maghrib: "19:02 (EEST)",
-                                isha: "20:22 (EEST)",
-                                imsak: "04:50 (EEST)",
-                                midnight: "00:46 (EEST)",
-                                date: Date(timeIntervalSince1970: 0))
-
         let json = [
-            "timings": ["Fajr": item.fajr,
-                        "Sunrise": item.sunrise,
-                        "Dhuhr": item.dhuhr,
-                        "Asr": item.asr,
-                        "Sunset": item.sunset,
-                        "Maghrib": item.maghrib,
-                        "Isha": item.isha,
-                        "Imsak": item.imsak,
-                        "Midnight": item.midnight],
+            "timings": ["Fajr": "invalid Fajr",
+                        "Sunrise": "invalid Sunrise",
+                        "Dhuhr": "invalid Dhuhr",
+                        "Asr": "invalid Asr",
+                        "Sunset": "invalid Sunset",
+                        "Maghrib": "invalid Maghrib",
+                        "Isha": "invalid Isha",
+                        "Imsak": "invalid Imsak",
+                        "Midnight": "invalid Midnight"],
             "date": ["timestamp": "invalid time stamp"]
         ]
         
-        expect(sut, toCompleteWith: .success([item]), when: {
+        expect(sut, toCompleteWith: failure(.invalidData), when: {
             let json = makeItemsJSON([json])
             client.complete(withStatusCode: 200, data: json)
         })
@@ -146,16 +135,16 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
         let url = URL(string: "http://any-url.com")!
         let client = HTTPClientSpy()
         var sut: RemotePrayersTimesLoader? = RemotePrayersTimesLoader(url: url, client: client)
-
+        
         var capturedResults = [RemotePrayersTimesLoader.Result]()
         sut?.load { capturedResults.append($0) }
-
+        
         sut = nil
         client.complete(withStatusCode: 200, data: makeItemsJSON([]))
-
+        
         XCTAssertTrue(capturedResults.isEmpty)
     }
-
+    
     // MARK: - Helpers
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemotePrayersTimesLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
@@ -169,29 +158,29 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
         .failure(error)
     }
     
-    private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) -> (model: PrayersTimes, json: [String: Any]) {
-        let item = PrayersTimes(fajr: fajr,
-                               sunrise: sunrise,
-                               dhuhr: dhuhr,
-                               asr: asr,
-                               sunset: sunset,
-                               maghrib: maghrib,
-                               isha: isha,
-                               imsak: imsak,
-                               midnight: midnight,
-                               date: date)
-
+    private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, day: Date) -> (model: PrayersTimes, json: [String: Any]) {
+        let item = PrayersTimes(prayers: (fajr: getDate(from: fajr, using: day),
+                                          sunrise: getDate(from: sunrise, using: day),
+                                          dhuhr: getDate(from: dhuhr, using: day),
+                                          asr: getDate(from: asr, using: day),
+                                          sunset: getDate(from: sunset, using: day),
+                                          maghrib: getDate(from: maghrib, using: day),
+                                          isha: getDate(from: isha, using: day),
+                                          imsak: getDate(from: imsak, using: day),
+                                          midnight: getDate(from: midnight, using: day)),
+                                for: day)
+        
         let json = [
-            "timings": ["Fajr": item.fajr,
-                        "Sunrise": item.sunrise,
-                        "Dhuhr": item.dhuhr,
-                        "Asr": item.asr,
-                        "Sunset": item.sunset,
-                        "Maghrib": item.maghrib,
-                        "Isha": item.isha,
-                        "Imsak": item.imsak,
-                        "Midnight": item.midnight],
-            "date": ["timestamp": String(item.date.timeIntervalSince1970)]
+            "timings": ["Fajr": fajr,
+                        "Sunrise": sunrise,
+                        "Dhuhr": dhuhr,
+                        "Asr": asr,
+                        "Sunset": sunset,
+                        "Maghrib": maghrib,
+                        "Isha": isha,
+                        "Imsak": imsak,
+                        "Midnight": midnight],
+            "date": ["timestamp": String(item.day.timeIntervalSince1970)]
         ]
         return (item, json)
     }
@@ -204,11 +193,11 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
         ] as [String : Any]
         return try! JSONSerialization.data(withJSONObject: json)
     }
-
+    
     private func expect(_ sut: RemotePrayersTimesLoader, toCompleteWith expectedResult: RemotePrayersTimesLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for load completion")
-
+        
         sut.load { receivedResult in
             switch (receivedResult, expectedResult) {
             case let (.success(receivedItems), .success(expectedItems)):
@@ -218,10 +207,10 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
             default:
                 XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
             }
-
+            
             exp.fulfill()
         }
-
+        
         action()
         
         wait(for: [exp], timeout: 1.0)

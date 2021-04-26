@@ -1,5 +1,5 @@
 //
-//  PrayersType.swift
+//  PrayerType.swift
 //  PrayersTimes
 //
 //  Created by Salah Amassi on 25/04/2021.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PrayersType {
+public enum PrayerType {
     case fajr
     case sunrise
     case dhuhr

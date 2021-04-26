@@ -9,28 +9,29 @@ import Foundation
 
 public struct PrayersTimes: Equatable {
     
-    public let fajr: String
-    public let sunrise: String
-    public let dhuhr: String
-    public let asr: String
-    public let sunset: String
-    public let maghrib: String
-    public let isha: String
-    public let imsak: String
-    public let midnight: String
-    public let date: Date
+    public let prayers: Prayers
+    public let day: Date
     
-    public init(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, date: Date) {
-        self.fajr = fajr
-        self.sunrise = sunrise
-        self.dhuhr = dhuhr
-        self.asr = asr
-        self.sunset = sunset
-        self.maghrib = maghrib
-        self.isha = isha
-        self.imsak = imsak
-        self.midnight = midnight
-        self.date = date
+    public init(prayers: (fajr: Date,
+                          sunrise: Date,
+                          dhuhr: Date,
+                          asr: Date,
+                          sunset: Date,
+                          maghrib: Date,
+                          isha: Date,
+                          imsak: Date,
+                          midnight: Date),
+                for day: Date) {
+        self.prayers = Prayers(fajr: prayers.fajr,
+                               sunrise: prayers.sunrise,
+                               dhuhr: prayers.dhuhr,
+                               asr: prayers.asr,
+                               sunset: prayers.sunset,
+                               maghrib: prayers.maghrib,
+                               isha: prayers.isha,
+                               imsak: prayers.imsak,
+                               midnight: prayers.midnight)
+        self.day = day
     }
 }
 
