@@ -48,22 +48,23 @@ class NextPrayerUseCase {
 class NextPrayerUseCaseTests: XCTestCase {
     
     func test_getPrayersTimes() {
-        let currentDate = Date()
-        let yesterdayDate = currentDate.adding(day: -1)
-        let tomorrowDate = currentDate.adding(day: 1)
+        let (sut, items) = makeSUT(with: Date.init)
         
-        let yesterdayItem = uniqueItem(using: yesterdayDate)
-        let todayItem = uniqueItem(using: currentDate)
-        let tomorrowItem = uniqueItem(using: tomorrowDate)
-        
-        let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem], currentDate: Date.init)
-        
-        
-        XCTAssertEqual(sut.getPrayersTimes(), todayItem)
+        XCTAssertEqual(sut.getPrayersTimes(), items.todayItem)
     }
     
     func test_getNextPrayerDate() {
         let currentDate = staticDate // Saturday, April 24, 2021 9:00:00 PM GMT
+        let (sut, items) = makeSUT(with: { currentDate })
+        
+        let expectedPrayerDate = items.todayItem.prayers[.midnight] // Saturday, April 24, 2021 9:46:00 PM GMT
+        
+        XCTAssertEqual(sut.getNextPrayerDate(), expectedPrayerDate)
+    }
+    
+    // - MARK: Helpers
+    private func makeSUT(with date: @escaping () -> Date = { staticDate }, file: StaticString = #filePath, line: UInt = #line) -> (sut: NextPrayerUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
+        let currentDate = date()
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)
         
@@ -71,8 +72,9 @@ class NextPrayerUseCaseTests: XCTestCase {
         let todayItem = uniqueItem(using: currentDate)
         let tomorrowItem = uniqueItem(using: tomorrowDate)
         
-        let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem], currentDate: { currentDate })
-        let expectedPrayerDate = todayItem.prayers[.midnight] // Saturday, April 24, 2021 9:46:00 PM GMT
-        XCTAssertEqual(sut.getNextPrayerDate(), expectedPrayerDate)
+        let sut = NextPrayerUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem],
+                                    currentDate: date)
+        trackForMemoryLeaks(sut)
+        return (sut, (yesterdayItem, todayItem, tomorrowItem))
     }
 }
