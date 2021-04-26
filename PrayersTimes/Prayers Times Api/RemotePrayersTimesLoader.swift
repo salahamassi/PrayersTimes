@@ -38,17 +38,20 @@ public final class RemotePrayersTimesLoader: PrayersTimesLoader {
     
     private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
-            let items = try RemotePrayersTimesLoader.map(PrayersTimesItemMapper.map(data, from: response))
+            let items = try PrayersTimesItemMapper.map(data, from: response).toModels()
             return .success(items)
         } catch {
             return .failure(error)
         }
     }
+}
+
+private extension Array where Element == RemotePrayersTimes {
     
-    private static func map(_ items: [RemotePrayersTimes]) throws -> [PrayersTimes] {
+    func toModels() throws -> [PrayersTimes] {
         var result = [PrayersTimes]()
-        for item in items {
-            guard let timestamp = Double(item.date.timestamp) else { throw Error.invalidData }
+        for item in self {
+            guard let timestamp = Double(item.date.timestamp) else { throw RemotePrayersTimesLoader.Error.invalidData }
             let date = Date(timeIntervalSince1970: timestamp)
             
             let dateFormatter = DateFormatter()
@@ -58,15 +61,15 @@ public final class RemotePrayersTimesLoader: PrayersTimesLoader {
             
             do {
                 let prayersTimes = try PrayersTimes(prayers: (fajr: map(item.timings.fajr, dateFormatter, fullDateString),
-                                                           sunrise: map(item.timings.sunrise, dateFormatter, fullDateString),
-                                                           dhuhr: map(item.timings.dhuhr, dateFormatter, fullDateString),
-                                                           asr: map(item.timings.asr, dateFormatter, fullDateString),
-                                                           sunset: map(item.timings.sunset, dateFormatter, fullDateString),
-                                                           maghrib: map(item.timings.maghrib, dateFormatter, fullDateString),
-                                                           isha: map(item.timings.isha, dateFormatter, fullDateString),
-                                                           imsak: map(item.timings.imsak, dateFormatter, fullDateString),
-                                                           midnight: map(item.timings.midnight, dateFormatter, fullDateString)),
-                                                 for: date)
+                                                              sunrise: map(item.timings.sunrise, dateFormatter, fullDateString),
+                                                              dhuhr: map(item.timings.dhuhr, dateFormatter, fullDateString),
+                                                              asr: map(item.timings.asr, dateFormatter, fullDateString),
+                                                              sunset: map(item.timings.sunset, dateFormatter, fullDateString),
+                                                              maghrib: map(item.timings.maghrib, dateFormatter, fullDateString),
+                                                              isha: map(item.timings.isha, dateFormatter, fullDateString),
+                                                              imsak: map(item.timings.imsak, dateFormatter, fullDateString),
+                                                              midnight: map(item.timings.midnight, dateFormatter, fullDateString)),
+                                                    for: date)
                 result.append(prayersTimes)
             } catch {
                 throw error
@@ -75,7 +78,7 @@ public final class RemotePrayersTimesLoader: PrayersTimesLoader {
         return result
     }
     
-    private static func map(_ prayerTime: String, _ dateFormatter: DateFormatter, _ fullDateString: String) throws -> Date {
+    private func map(_ prayerTime: String, _ dateFormatter: DateFormatter, _ fullDateString: String) throws -> Date {
         let splitResult = prayerTime.split(separator: " ")
         var stringPrayerDate = ""
         if let first = splitResult.first, let last = splitResult.last {
@@ -83,10 +86,10 @@ public final class RemotePrayersTimesLoader: PrayersTimesLoader {
             stringPrayerDate.append(fullDateString)
             stringPrayerDate.append(" \(first):00")
             guard let datePrayerTime = dateFormatter.date(from: stringPrayerDate)
-            else { throw Error.invalidData }
+            else { throw RemotePrayersTimesLoader.Error.invalidData }
             return datePrayerTime
         } else {
-            throw Error.invalidData
+            throw RemotePrayersTimesLoader.Error.invalidData
         }
     }
 }
