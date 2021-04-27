@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0CF4592637A37C00B7CA27 /* PrayersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0CF4582637A37C00B7CA27 /* PrayersUseCase.swift */; };
 		3D21B7C02630C50E00DED34B /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA66181262FC3E000BCD876 /* XCTestCase+MemoryLeakTracking.swift */; };
 		3D21B7D52630EABD00DED34B /* CachePrayersTimesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B7D42630EABD00DED34B /* CachePrayersTimesUseCaseTests.swift */; };
 		3D21B7DE263109C000DED34B /* LocalPrayersTimesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B7DD263109C000DED34B /* LocalPrayersTimesLoader.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D0CF4582637A37C00B7CA27 /* PrayersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersUseCase.swift; sourceTree = "<group>"; };
 		3D21B7D42630EABD00DED34B /* CachePrayersTimesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePrayersTimesUseCaseTests.swift; sourceTree = "<group>"; };
 		3D21B7DD263109C000DED34B /* LocalPrayersTimesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPrayersTimesLoader.swift; sourceTree = "<group>"; };
 		3D21B7E326310A1F00DED34B /* PrayersTimesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesStore.swift; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0CF45F2637A3E600B7CA27 /* Prayers Use Case */ = {
+			isa = PBXGroup;
+			children = (
+				3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */,
+			);
+			path = "Prayers Use Case";
+			sourceTree = "<group>";
+		};
 		3D21B7D32630EA6B00DED34B /* Prayers Times Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,9 +314,9 @@
 			children = (
 				3DD9D9CF262F742600CA2BFC /* Info.plist */,
 				3DA66180262FC3D700BCD876 /* Helpers */,
+				3D0CF45F2637A3E600B7CA27 /* Prayers Use Case */,
 				3D90A210262F9E3600E28772 /* Prayers Times Api */,
 				3D21B7D32630EA6B00DED34B /* Prayers Times Cache */,
-				3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */,
 			);
 			path = PrayersTimesTests;
 			sourceTree = "<group>";
@@ -317,6 +327,7 @@
 				3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */,
 				3D8E09892636599100BB323B /* Prayers.swift */,
 				3DFB79B426350578007EA8A4 /* PrayerType.swift */,
+				3D0CF4582637A37C00B7CA27 /* PrayersUseCase.swift */,
 				3DD9D9DF262F779400CA2BFC /* PrayersTimesLoader.swift */,
 			);
 			path = "Prayers Times Feature ";
@@ -563,6 +574,7 @@
 				3DB4DA4D2632E7F4001A2C1B /* CodablePrayersTimesStore.swift in Sources */,
 				3DD9D9F5262F9A9000CA2BFC /* PrayersTimesItemMapper.swift in Sources */,
 				3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */,
+				3D0CF4592637A37C00B7CA27 /* PrayersUseCase.swift in Sources */,
 				3DD9D9F9262F9ACB00CA2BFC /* RemotePrayersTimes.swift in Sources */,
 				3DFB79B526350578007EA8A4 /* PrayerType.swift in Sources */,
 			);
