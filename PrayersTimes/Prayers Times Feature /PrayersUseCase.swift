@@ -22,7 +22,7 @@ public class PrayersUseCase {
         return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
-    public func getNextPrayerDate() -> Prayers.Prayer? {
+    public func getNextPrayer() -> Prayers.Prayer? {
         guard let prayersTimes = getPrayersTimes() else { return nil }
         let prayers = [prayersTimes.prayers[.fajr],
                        prayersTimes.prayers[.sunrise],
