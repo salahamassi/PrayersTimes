@@ -24,11 +24,11 @@ public class PrayersUseCase {
     
     public func getNextPrayer() -> Prayers.Prayer? {
         guard let prayersTimes = getPrayersTimes() else { return nil }
-        let prayers = [prayersTimes.prayers[.fajr],
-                       prayersTimes.prayers[.dhuhr],
-                       prayersTimes.prayers[.asr],
-                       prayersTimes.prayers[.maghrib],
-                       prayersTimes.prayers[.isha]]
+        let prayers = [prayersTimes[.fajr],
+                       prayersTimes[.dhuhr],
+                       prayersTimes[.asr],
+                       prayersTimes[.maghrib],
+                       prayersTimes[.isha]]
         return prayers.first(where: { $0.date >  currentDate() })
     }
     

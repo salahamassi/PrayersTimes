@@ -33,15 +33,15 @@ func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
 
 func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
     let models = [uniqueItem(), uniqueItem()]
-    let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr].date,
-                                                        sunrise: $0.prayers[.sunrise].date,
-                                                        dhuhr: $0.prayers[.dhuhr].date,
-                                                        asr: $0.prayers[.asr].date,
-                                                        sunset: $0.prayers[.sunset].date,
-                                                        maghrib: $0.prayers[.maghrib].date,
-                                                        isha: $0.prayers[.isha].date,
-                                                        imsak: $0.prayers[.imsak].date,
-                                                        midnight: $0.prayers[.midnight].date),
+    let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0[.fajr].date,
+                                                        sunrise: $0[.sunrise].date,
+                                                        dhuhr: $0[.dhuhr].date,
+                                                        asr: $0[.asr].date,
+                                                        sunset: $0[.sunset].date,
+                                                        maghrib: $0[.maghrib].date,
+                                                        isha: $0[.isha].date,
+                                                        imsak: $0[.imsak].date,
+                                                        midnight: $0[.midnight].date),
                                               for: $0.day) }
     return (models, local)
 }

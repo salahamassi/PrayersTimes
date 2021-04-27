@@ -7,9 +7,10 @@
 
 import Foundation
 
+@dynamicMemberLookup
 public struct LocalPrayersTimes: Equatable {
     
-    public let prayers: Prayers
+    private let prayers: Prayers
     public let day: Date
     
     public init(prayers: (fajr: Date,
@@ -32,6 +33,11 @@ public struct LocalPrayersTimes: Equatable {
                                imsak: prayers.imsak,
                                midnight: prayers.midnight)
         self.day = day
-    }}
+    }
+    
+    public subscript<T>(dynamicMember keyPath: KeyPath<Prayers, T>) -> T{
+        prayers[keyPath: keyPath]
+    }
+}
 
 
