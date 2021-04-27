@@ -20,7 +20,9 @@ class PrayersUseCaseTests: XCTestCase {
         let currentDate = Date(timeIntervalSince1970: 1619321400.0) // Sunday, April 25, 2021 6:30:00 AM GMT+03:00 DST
         let (sut, _) = makeSUT(with: { currentDate })
         
-        XCTAssertEqual(sut.calculateRemainingTimeToNextPrayer(), 22560) // 6 hours, 16 minutes and 0 seconds.
+        guard let nextPrayer = sut.getNextPrayer() else { return XCTFail("Expect nextPrayer to have a value") }
+        
+        XCTAssertEqual(sut.calculateRemainingTime(to: nextPrayer), 22560) // 6 hours, 16 minutes and 0 seconds.
     }
     
     // - MARK: Helpers

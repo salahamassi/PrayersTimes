@@ -32,9 +32,8 @@ public class PrayersUseCase {
         return prayers.first(where: { $0.date >  currentDate() })
     }
     
-    public func calculateRemainingTimeToNextPrayer() -> Int? {
-        guard let prayer = getNextPrayer() else { return nil }
+    public func calculateRemainingTime(to prayer: Prayers.Prayer) -> Int {
         let calendar = Calendar(identifier: .gregorian)
-        return calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second
+        return calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
     }
 }
