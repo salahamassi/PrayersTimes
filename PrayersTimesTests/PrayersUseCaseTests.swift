@@ -34,7 +34,7 @@ class PrayersUseCase {
                      prayersTimes.prayers[.isha],
                      prayersTimes.prayers[.imsak],
                      prayersTimes.prayers[.midnight]]
-        return prayers.first(where: { $0.date >  currentDate()})
+        return prayers.first(where: { $0.date >  currentDate() && ($0.type != .sunset && $0.type != .sunrise && $0.type != .imsak && $0.type != .midnight) })
     }
 }
 
@@ -58,6 +58,58 @@ class PrayersUseCaseTests: XCTestCase {
         XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
     }
     
+    func test_getNextPrayerDate_dhuhr() {
+        let currentDate = Date(timeIntervalSince1970: 1619321400.0) // Sunday, April 25, 2021 6:30:00 AM GMT+03:00 DST
+        let (sut, items) = makeSUT(with: { currentDate })
+        
+        let expectedPrayer = items.todayItem.prayers[.dhuhr] // Sunday, April 25, 2021 12:46:00 PM GMT+03:00 DST
+
+        
+        let resultPrayer = sut.getNextPrayerDate()
+        
+        XCTAssertEqual(resultPrayer?.date, expectedPrayer.date)
+        XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
+    }
+    
+    func test_getNextPrayerDate_asr() {
+        let currentDate = Date(timeIntervalSince1970: 1619343960.0) // Sunday, April 25, 2021 12:46:00 PM GMT+03:00 DST
+        let (sut, items) = makeSUT(with: { currentDate })
+        
+        let expectedPrayer = items.todayItem.prayers[.asr] // Sunday, April 25, 2021 4:18:00 PM GMT+03:00 DST
+
+        
+        let resultPrayer = sut.getNextPrayerDate()
+        
+        XCTAssertEqual(resultPrayer?.date, expectedPrayer.date)
+        XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
+    }
+    
+    func test_getNextPrayerDate_maghrib() {
+        let currentDate = Date(timeIntervalSince1970: 1619356680.0) // Sunday, April 25, 2021 4:18:00 PM GMT+03:00 DST
+        let (sut, items) = makeSUT(with: { currentDate })
+        
+        let expectedPrayer = items.todayItem.prayers[.maghrib] // Sunday, April 25, 2021 7:02:00 PM GMT+03:00 DST
+
+        
+        let resultPrayer = sut.getNextPrayerDate()
+        
+        XCTAssertEqual(resultPrayer?.date, expectedPrayer.date)
+        XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
+    }
+    
+    func test_getNextPrayerDate_isha() {
+        let currentDate = Date(timeIntervalSince1970: 1619366520.0) // Sunday, April 25, 2021 7:02:00 PM GMT+03:00 DST
+        let (sut, items) = makeSUT(with: { currentDate })
+        
+        let expectedPrayer = items.todayItem.prayers[.isha] // Sunday, April 25, 2021 8:22:00 PM GMT+03:00 DST
+
+        
+        let resultPrayer = sut.getNextPrayerDate()
+        
+        XCTAssertEqual(resultPrayer?.date, expectedPrayer.date)
+        XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
+    }
+
     // - MARK: Helpers
     private func makeSUT(with date: @escaping () -> Date, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
