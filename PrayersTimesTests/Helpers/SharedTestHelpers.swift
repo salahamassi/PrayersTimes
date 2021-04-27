@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PrayersTimes
 
 func anyNSError() -> NSError {
     .init(domain: "any error", code: 0)
@@ -13,6 +14,36 @@ func anyNSError() -> NSError {
 
 func anyURL() -> URL {
     URL(string: "http://any-url.com")!
+}
+
+let staticDate = Date(timeIntervalSince1970: 1619298000)
+
+func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
+    .init(prayers: (fajr: getDate(from: "05:01 (EEST)", using: date),
+                    sunrise: getDate(from: "06:30 (EEST)", using: date),
+                    dhuhr: getDate(from: "12:46 (EEST)", using: date),
+                    asr: getDate(from: "16:18 (EEST)", using: date),
+                    sunset: getDate(from: "19:02 (EEST)", using: date),
+                    maghrib: getDate(from: "19:02 (EEST)", using: date),
+                    isha: getDate(from: "20:22 (EEST)", using: date),
+                    imsak: getDate(from: "04:50 (EEST)", using: date),
+                    midnight: getDate(from: "00:46 (EEST)", using: date)),
+          for: date)
+}
+
+func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
+    let models = [uniqueItem(), uniqueItem()]
+    let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr].date,
+                                                        sunrise: $0.prayers[.sunrise].date,
+                                                        dhuhr: $0.prayers[.dhuhr].date,
+                                                        asr: $0.prayers[.asr].date,
+                                                        sunset: $0.prayers[.sunset].date,
+                                                        maghrib: $0.prayers[.maghrib].date,
+                                                        isha: $0.prayers[.isha].date,
+                                                        imsak: $0.prayers[.imsak].date,
+                                                        midnight: $0.prayers[.midnight].date),
+                                              for: $0.day) }
+    return (models, local)
 }
 
 func getDate(from string: String, using date: Date) -> Date {
