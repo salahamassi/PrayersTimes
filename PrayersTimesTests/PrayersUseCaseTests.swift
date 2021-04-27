@@ -23,11 +23,9 @@ class PrayersUseCase {
         return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
-    func getNextPrayerDate() -> Date? {
+    func getNextPrayerDate() -> Prayers.Prayer? {
         guard let prayersTimes = getPrayersTimes() else { return nil }
-        let date = currentDate()
-        let dates = [date,
-                     prayersTimes.prayers[.fajr],
+        let prayers = [prayersTimes.prayers[.fajr],
                      prayersTimes.prayers[.sunrise],
                      prayersTimes.prayers[.dhuhr],
                      prayersTimes.prayers[.asr],
@@ -35,13 +33,8 @@ class PrayersUseCase {
                      prayersTimes.prayers[.maghrib],
                      prayersTimes.prayers[.isha],
                      prayersTimes.prayers[.imsak],
-                     prayersTimes.prayers[.midnight]].sorted()
-        guard let firstIndex = dates.firstIndex(of: date) else { return nil }
-        if firstIndex < dates.count - 1 {
-            let index = firstIndex + 1
-            return dates[index]
-        }
-        return nil
+                     prayersTimes.prayers[.midnight]]
+        return prayers.first(where: { $0.date >  currentDate()})
     }
 }
 
@@ -54,16 +47,19 @@ class PrayersUseCaseTests: XCTestCase {
     }
     
     func test_getNextPrayerDate() {
-        let currentDate = staticDate // Saturday, April 24, 2021 9:00:00 PM GMT
+        let currentDate = staticDate // Sunday, April 25, 2021 12:00:00 AM GMT+03:00 DST
         let (sut, items) = makeSUT(with: { currentDate })
         
-        let expectedPrayerDate = items.todayItem.prayers[.midnight] // Saturday, April 24, 2021 9:46:00 PM GMT
+        let expectedPrayer = items.todayItem.prayers[.fajr] // Sunday, April 25, 2021 5:01:00 AM GMT+03:00 DST
         
-        XCTAssertEqual(sut.getNextPrayerDate(), expectedPrayerDate)
+        let resultPrayer = sut.getNextPrayerDate()
+        
+        XCTAssertEqual(resultPrayer?.date, expectedPrayer.date)
+        XCTAssertEqual(resultPrayer?.type, expectedPrayer.type)
     }
     
     // - MARK: Helpers
-    private func makeSUT(with date: @escaping () -> Date = { staticDate }, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
+    private func makeSUT(with date: @escaping () -> Date, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)

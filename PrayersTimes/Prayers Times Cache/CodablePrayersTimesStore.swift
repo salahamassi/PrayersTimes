@@ -85,15 +85,15 @@ public class CodablePrayersTimesStore: PrayersTimesStore {
         private let date: Date
         
         init(_ prayersTimes: LocalPrayersTimes) {
-            self.fajr = prayersTimes.prayers[.fajr]
-            self.sunrise = prayersTimes.prayers[.sunrise]
-            self.dhuhr = prayersTimes.prayers[.dhuhr]
-            self.asr = prayersTimes.prayers[.asr]
-            self.sunset = prayersTimes.prayers[.sunset]
-            self.maghrib = prayersTimes.prayers[.maghrib]
-            self.isha = prayersTimes.prayers[.isha]
-            self.imsak = prayersTimes.prayers[.imsak]
-            self.midnight = prayersTimes.prayers[.midnight]
+            self.fajr = prayersTimes.prayers[.fajr].date
+            self.sunrise = prayersTimes.prayers[.sunrise].date
+            self.dhuhr = prayersTimes.prayers[.dhuhr].date
+            self.asr = prayersTimes.prayers[.asr].date
+            self.sunset = prayersTimes.prayers[.sunset].date
+            self.maghrib = prayersTimes.prayers[.maghrib].date
+            self.isha = prayersTimes.prayers[.isha].date
+            self.imsak = prayersTimes.prayers[.imsak].date
+            self.midnight = prayersTimes.prayers[.midnight].date
             self.date = prayersTimes.day
         }
         

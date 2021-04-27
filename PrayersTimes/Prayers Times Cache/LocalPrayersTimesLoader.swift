@@ -68,7 +68,7 @@ extension LocalPrayersTimesLoader {
             guard let self = self else { return }
             switch result {
             case let .found(_, timestamp) where !PrayersTimesCachePolicy.validate(timestamp, against: self.currentDate()):
-                    self.store.deleteCachedPrayersTimes { _ in }
+                self.store.deleteCachedPrayersTimes { _ in }
             case .failure:
                 self.store.deleteCachedPrayersTimes { _ in }
             default: break
@@ -79,29 +79,29 @@ extension LocalPrayersTimesLoader {
 
 private extension Array where Element == PrayersTimes {
     func toLocal() -> [LocalPrayersTimes] {
-        map { LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr],
-                                          sunrise: $0.prayers[.sunrise],
-                                          dhuhr: $0.prayers[.dhuhr],
-                                          asr: $0.prayers[.asr],
-                                          sunset: $0.prayers[.sunset],
-                                          maghrib: $0.prayers[.maghrib],
-                                          isha: $0.prayers[.isha],
-                                          imsak: $0.prayers[.imsak],
-                                          midnight: $0.prayers[.midnight]), for: $0.day) }
+        map { LocalPrayersTimes(prayers: (fajr: $0.prayers[.fajr].date,
+                                          sunrise: $0.prayers[.sunrise].date,
+                                          dhuhr: $0.prayers[.dhuhr].date,
+                                          asr: $0.prayers[.asr].date,
+                                          sunset: $0.prayers[.sunset].date,
+                                          maghrib: $0.prayers[.maghrib].date,
+                                          isha: $0.prayers[.isha].date,
+                                          imsak: $0.prayers[.imsak].date,
+                                          midnight: $0.prayers[.midnight].date), for: $0.day) }
     }
 }
 
 private extension Array where Element == LocalPrayersTimes {
     func toModels() -> [PrayersTimes] {
-        map { PrayersTimes(prayers: (fajr: $0.prayers[.fajr],
-                            sunrise: $0.prayers[.sunrise],
-                            dhuhr: $0.prayers[.dhuhr],
-                            asr: $0.prayers[.asr],
-                            sunset: $0.prayers[.sunset],
-                            maghrib: $0.prayers[.maghrib],
-                            isha: $0.prayers[.isha],
-                            imsak: $0.prayers[.imsak],
-                            midnight: $0.prayers[.midnight]), for: $0.day) }
+        map { PrayersTimes(prayers: (fajr: $0.prayers[.fajr].date,
+                                     sunrise: $0.prayers[.sunrise].date,
+                                     dhuhr: $0.prayers[.dhuhr].date,
+                                     asr: $0.prayers[.asr].date,
+                                     sunset: $0.prayers[.sunset].date,
+                                     maghrib: $0.prayers[.maghrib].date,
+                                     isha: $0.prayers[.isha].date,
+                                     imsak: $0.prayers[.imsak].date,
+                                     midnight: $0.prayers[.midnight].date), for: $0.day) }
     }
 }
 

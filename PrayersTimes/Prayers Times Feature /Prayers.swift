@@ -9,6 +9,11 @@ import Foundation
 
 public struct Prayers: Equatable {
     
+    public struct Prayer {
+        public let type: PrayerType
+        public let date: Date
+    }
+    
     private let fajr: Date
     private let sunrise: Date
     private let dhuhr: Date
@@ -20,14 +25,14 @@ public struct Prayers: Equatable {
     private let midnight: Date
     
     init(fajr: Date,
-                sunrise: Date,
-                dhuhr: Date,
-                asr: Date,
-                sunset: Date,
-                maghrib: Date,
-                isha: Date,
-                imsak: Date,
-                midnight: Date) {
+         sunrise: Date,
+         dhuhr: Date,
+         asr: Date,
+         sunset: Date,
+         maghrib: Date,
+         isha: Date,
+         imsak: Date,
+         midnight: Date) {
         self.fajr = fajr
         self.sunrise = sunrise
         self.dhuhr = dhuhr
@@ -39,8 +44,8 @@ public struct Prayers: Equatable {
         self.midnight = midnight
     }
     
-    public subscript(type: PrayerType) -> Date {
-        getPrayerDate(for: type)
+    public subscript(type: PrayerType) -> Prayer {
+        .init(type: type, date: getPrayerDate(for: type))
     }
     
     private func getPrayerDate(for type: PrayerType) -> Date {
