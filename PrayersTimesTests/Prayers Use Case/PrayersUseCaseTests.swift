@@ -16,6 +16,13 @@ class PrayersUseCaseTests: XCTestCase {
         XCTAssertEqual(sut.getPrayersTimes(), items.todayItem)
     }
     
+    func test_calculateNextPayerRemainingTimes() {
+        let currentDate = Date(timeIntervalSince1970: 1619321400.0) // Sunday, April 25, 2021 6:30:00 AM GMT+03:00 DST
+        let (sut, _) = makeSUT(with: { currentDate })
+        
+        XCTAssertEqual(sut.calculateRemainingTimeToNextPrayer(), 22560) // 6 hours, 16 minutes and 0 seconds.
+    }
+    
     // - MARK: Helpers
     private func makeSUT(with date: @escaping () -> Date, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
