@@ -28,19 +28,19 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
         let loader = RemotePrayersTimesLoader(url: serverURL, client: client)
         trackForMemoryLeaks(client, file: file, line: line)
         trackForMemoryLeaks(loader, file: file, line: line)
-
+        
         let exp = expectation(description: "Wait for load completion")
-
+        
         var receivedResult: RemotePrayersTimesLoader.Result?
         loader.load { result in
             receivedResult = result
             exp.fulfill()
         }
         wait(for: [exp], timeout: 7.0)
-
+        
         return receivedResult
     }
-
+    
     private func expectedItem(at index: Int) -> PrayersTimes {
         .init(prayers: (fajr: getDate(from: fajr(at: 0), using: date(at: 0)),
                             sunrise: getDate(from: sunrise(at: 0), using: date(at: 0)),
