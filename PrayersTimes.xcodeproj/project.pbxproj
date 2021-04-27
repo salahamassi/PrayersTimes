@@ -18,6 +18,7 @@
 		3D21B8002632590400DED34B /* ValidatePrayersTimesCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B7FF2632590400DED34B /* ValidatePrayersTimesCacheUseCaseTests.swift */; };
 		3D21B80526325C7000DED34B /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D21B80A26325D7800DED34B /* PrayersTimesCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80926325D7800DED34B /* PrayersTimesCacheTestHelpers.swift */; };
+		3D40EE122637A8E700C0B68A /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D8E098A2636599100BB323B /* Prayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09892636599100BB323B /* Prayers.swift */; };
 		3D8E09E8263664C200BB323B /* PrayersUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */; };
 		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
@@ -540,6 +541,7 @@
 			files = (
 				3DA66192262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift in Sources */,
 				3D21B7C02630C50E00DED34B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				3D40EE122637A8E700C0B68A /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
