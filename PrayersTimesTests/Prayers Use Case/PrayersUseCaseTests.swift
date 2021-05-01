@@ -13,8 +13,8 @@ class PrayersUseCaseTests: XCTestCase {
     func test_getPrayersTimes() {
         let (sut, items) = makeSUT(with: Date.init)
         var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.locale = Locale(identifier: "en")
+        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
 
         XCTAssertEqual(sut.getPrayersTimes(with: calendar), items.todayItem)
     }
@@ -23,8 +23,8 @@ class PrayersUseCaseTests: XCTestCase {
         let currentDate = Date(timeIntervalSince1970: 1619321400.0) // Sunday, April 25, 2021 6:30:00 AM GMT+03:00 DST
         let (sut, _) = makeSUT(with: { currentDate })
         var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.locale = Locale(identifier: "en")
+        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
         guard let nextPrayer = sut.getNextPrayer(with: calendar) else { return XCTFail("Expect nextPrayer to have a value") }
         
         XCTAssertEqual(sut.calculateRemainingTime(to: nextPrayer, with: calendar), 22560) // 6 hours, 16 minutes and 0 seconds.
@@ -35,8 +35,8 @@ class PrayersUseCaseTests: XCTestCase {
         let currentDate = date()
         
         var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.locale = Locale(identifier: "en")
+        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
 
         let yesterdayDate = currentDate.adding(day: -1, with: calendar)
         let tomorrowDate = currentDate.adding(day: 1, with: calendar)
