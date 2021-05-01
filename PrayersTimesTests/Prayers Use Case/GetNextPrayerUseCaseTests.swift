@@ -51,7 +51,7 @@ class GetNextPrayerUseCaseTests: XCTestCase {
 
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
 
         let yesterdayDate = currentDate.adding(day: -1, with: calendar)
         let tomorrowDate = currentDate.adding(day: 1, with: calendar)
@@ -70,7 +70,7 @@ class GetNextPrayerUseCaseTests: XCTestCase {
         let expectedPrayer = sut.items.todayItem[type]
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
 
         let resultPrayer = sut.sut.getNextPrayer(with: calendar)
         

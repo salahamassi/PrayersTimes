@@ -14,7 +14,7 @@ class PrayersUseCaseTests: XCTestCase {
         let (sut, items) = makeSUT(with: Date.init)
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
 
         XCTAssertEqual(sut.getPrayersTimes(with: calendar), items.todayItem)
     }
@@ -24,7 +24,7 @@ class PrayersUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT(with: { currentDate })
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
         guard let nextPrayer = sut.getNextPrayer(with: calendar) else { return XCTFail("Expect nextPrayer to have a value") }
         
         XCTAssertEqual(sut.calculateRemainingTime(to: nextPrayer, with: calendar), 22560) // 6 hours, 16 minutes and 0 seconds.
@@ -36,7 +36,7 @@ class PrayersUseCaseTests: XCTestCase {
         
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
 
         let yesterdayDate = currentDate.adding(day: -1, with: calendar)
         let tomorrowDate = currentDate.adding(day: 1, with: calendar)
