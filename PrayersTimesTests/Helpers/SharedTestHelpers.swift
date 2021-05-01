@@ -48,12 +48,7 @@ func prayersTimesArray() -> (models: [PrayersTimes], local: [LocalPrayersTimes])
 
 func getDate(from string: String, using date: Date) -> Date {
     let dateFormatter = DateFormatter()
-    let calendar = Calendar.init(identifier: .gregorian)
-    let locale = Locale(identifier: "en_US_POSIX")
-
     dateFormatter.dateFormat = "MM/dd/yyyy"
-    dateFormatter.calendar = calendar
-    dateFormatter.locale = locale
     let fullDateString = dateFormatter.string(from: date)
     
     dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
