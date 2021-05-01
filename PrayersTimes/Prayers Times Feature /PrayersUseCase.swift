@@ -18,7 +18,8 @@ public class PrayersUseCase {
     }
     
     public func getPrayersTimes() -> PrayersTimes? {
-        let calendar = Calendar.init(identifier: .gregorian)
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
@@ -29,11 +30,12 @@ public class PrayersUseCase {
                        prayersTimes[.asr],
                        prayersTimes[.maghrib],
                        prayersTimes[.isha]]
-        return prayers.first(where: { $0.date >  currentDate() })
+        return prayers.first(where: { $0.date > currentDate() })
     }
     
     public func calculateRemainingTime(to prayer: Prayers.Prayer) -> Int {
-        let calendar = Calendar(identifier: .gregorian)
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "en_US_POSIX")
         return calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
     }
 }
