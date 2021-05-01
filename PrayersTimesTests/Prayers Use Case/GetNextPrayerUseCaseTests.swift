@@ -50,8 +50,8 @@ class GetNextPrayerUseCaseTests: XCTestCase {
         let currentDate = date()
 
         var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "en")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
+        calendar.locale = Locale(identifier: "PS-GZA")
+        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
 
         let yesterdayDate = currentDate.adding(day: -1, with: calendar)
         let tomorrowDate = currentDate.adding(day: 1, with: calendar)
@@ -69,8 +69,8 @@ class GetNextPrayerUseCaseTests: XCTestCase {
     private func assertThat(_ sut: (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)), nextPrayerIs type: PrayerType, file: StaticString = #filePath, line: UInt = #line) {
         let expectedPrayer = sut.items.todayItem[type]
         var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "en")
-        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
+        calendar.locale = Locale(identifier: "PS-GZA")
+        calendar.timeZone = TimeZone(abbreviation: "GMT+03:00")!
 
         let resultPrayer = sut.sut.getNextPrayer(with: calendar)
         
