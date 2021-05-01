@@ -12,17 +12,22 @@ class PrayersUseCaseTests: XCTestCase {
     
     func test_getPrayersTimes() {
         let (sut, items) = makeSUT(with: Date.init)
-        
-        XCTAssertEqual(sut.getPrayersTimes(), items.todayItem)
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "PS-GZA")
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
+
+        XCTAssertEqual(sut.getPrayersTimes(with: calendar), items.todayItem)
     }
     
     func test_calculateNextPayerRemainingTimes() {
         let currentDate = Date(timeIntervalSince1970: 1619321400.0) // Sunday, April 25, 2021 6:30:00 AM GMT+03:00 DST
         let (sut, _) = makeSUT(with: { currentDate })
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "PS-GZA")
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
+        guard let nextPrayer = sut.getNextPrayer(with: calendar) else { return XCTFail("Expect nextPrayer to have a value") }
         
-        guard let nextPrayer = sut.getNextPrayer() else { return XCTFail("Expect nextPrayer to have a value") }
-        
-        XCTAssertEqual(sut.calculateRemainingTime(to: nextPrayer), 22560) // 6 hours, 16 minutes and 0 seconds.
+        XCTAssertEqual(sut.calculateRemainingTime(to: nextPrayer, with: calendar), 22560) // 6 hours, 16 minutes and 0 seconds.
     }
     
     // - MARK: Helpers

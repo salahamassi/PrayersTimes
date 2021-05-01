@@ -17,13 +17,12 @@ public class PrayersUseCase {
         self.currentDate = currentDate
     }
     
-    public func getPrayersTimes() -> PrayersTimes? {
-        let calendar = Calendar.init(identifier: .gregorian)
+    public func getPrayersTimes(with calendar: Calendar = Calendar.current) -> PrayersTimes? {
         return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
-    public func getNextPrayer() -> Prayers.Prayer? {
-        guard let prayersTimes = getPrayersTimes() else { return nil }
+    public func getNextPrayer(with calendar: Calendar = Calendar.current) -> Prayers.Prayer? {
+        guard let prayersTimes = getPrayersTimes(with: calendar) else { return nil }
         let prayers = [prayersTimes[.fajr],
                        prayersTimes[.dhuhr],
                        prayersTimes[.asr],
@@ -32,8 +31,8 @@ public class PrayersUseCase {
         return prayers.first(where: { $0.date >  currentDate() })
     }
     
-    public func calculateRemainingTime(to prayer: Prayers.Prayer) -> Int {
-        let calendar = Calendar(identifier: .gregorian)
-        return calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
+    public func calculateRemainingTime(to prayer: Prayers.Prayer,
+                                       with calendar: Calendar = Calendar.current) -> Int {
+        calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
     }
 }

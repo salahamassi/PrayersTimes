@@ -63,8 +63,11 @@ class GetNextPrayerUseCaseTests: XCTestCase {
     
     private func assertThat(_ sut: (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)), nextPrayerIs type: PrayerType, file: StaticString = #filePath, line: UInt = #line) {
         let expectedPrayer = sut.items.todayItem[type]
-        
-        let resultPrayer = sut.sut.getNextPrayer()
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.locale = Locale(identifier: "PS-GZA")
+        calendar.timeZone = TimeZone(abbreviation: "EEST")!
+
+        let resultPrayer = sut.sut.getNextPrayer(with: calendar)
         
         XCTAssertEqual(resultPrayer?.date, expectedPrayer.date, file: file, line: line)
         XCTAssertEqual(resultPrayer?.type, expectedPrayer.type, file: file, line: line)
