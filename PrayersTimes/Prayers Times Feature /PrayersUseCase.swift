@@ -29,7 +29,7 @@ public class PrayersUseCase {
                        prayersTimes[.asr],
                        prayersTimes[.maghrib],
                        prayersTimes[.isha]]
-        return prayers.first(where: { $0.date >  currentDate() })
+        return prayers.first(where: { $0.date > currentDate() })
     }
     
     public func calculateRemainingTime(to prayer: Prayers.Prayer) -> Int {
