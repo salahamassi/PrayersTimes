@@ -51,9 +51,9 @@ class GetNextPrayerUseCaseTests: XCTestCase {
         let yesterdayDate = currentDate.adding(day: -1)
         let tomorrowDate = currentDate.adding(day: 1)
         
-        let yesterdayItem = uniqueItem(using: yesterdayDate)
-        let todayItem = uniqueItem(using: currentDate)
-        let tomorrowItem = uniqueItem(using: tomorrowDate)
+        let yesterdayItem = prayersTimes(using: yesterdayDate)
+        let todayItem = prayersTimes(using: currentDate)
+        let tomorrowItem = prayersTimes(using: tomorrowDate)
         
         let sut = PrayersUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem],
                                     currentDate: date)

@@ -18,7 +18,7 @@ func anyURL() -> URL {
 
 let staticDate = Date(timeIntervalSince1970: 1619298000)
 
-func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
+func prayersTimes(using date: Date = staticDate) -> PrayersTimes {
     .init(prayers: (fajr: getDate(from: "05:01 (EEST)", using: date),
                     sunrise: getDate(from: "06:30 (EEST)", using: date),
                     dhuhr: getDate(from: "12:46 (EEST)", using: date),
@@ -31,8 +31,8 @@ func uniqueItem(using date: Date = staticDate) -> PrayersTimes {
           for: date)
 }
 
-func uniqueItems() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
-    let models = [uniqueItem(), uniqueItem()]
+func prayersTimesArray() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
+    let models = [prayersTimes(), prayersTimes()]
     let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0[.fajr].date,
                                                         sunrise: $0[.sunrise].date,
                                                         dhuhr: $0[.dhuhr].date,

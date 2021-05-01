@@ -19,7 +19,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
     }
 
     func assertThatRetrieveDeliversFoundValuesOnNonEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        let prayersTimes = uniqueItems().local
+        let prayersTimes = prayersTimesArray().local
         let timestamp = Date()
 
         insert((prayersTimes, timestamp), to: sut)
@@ -28,7 +28,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
     }
 
     func assertThatRetrieveHasNoSideEffectsOnNonEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        let prayersTimes = uniqueItems().local
+        let prayersTimes = prayersTimesArray().local
         let timestamp = Date()
 
         insert((prayersTimes, timestamp), to: sut)
@@ -37,23 +37,23 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
     }
 
     func assertThatInsertDeliversNoErrorOnEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        let insertionError = insert((uniqueItems().local, Date()), to: sut)
+        let insertionError = insert((prayersTimesArray().local, Date()), to: sut)
 
         XCTAssertNil(insertionError, "Expected to insert cache successfully", file: file, line: line)
     }
 
     func assertThatInsertDeliversNoErrorOnNonEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        insert((uniqueItems().local, Date()), to: sut)
+        insert((prayersTimesArray().local, Date()), to: sut)
 
-        let insertionError = insert((uniqueItems().local, Date()), to: sut)
+        let insertionError = insert((prayersTimesArray().local, Date()), to: sut)
 
         XCTAssertNil(insertionError, "Expected to override cache successfully", file: file, line: line)
     }
 
     func assertThatInsertOverridesPreviouslyInsertedCacheValues(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        insert((uniqueItems().local, Date()), to: sut)
+        insert((prayersTimesArray().local, Date()), to: sut)
 
-        let latestPrayersTimes = uniqueItems().local
+        let latestPrayersTimes = prayersTimesArray().local
         let latestTimestamp = Date()
         insert((latestPrayersTimes, latestTimestamp), to: sut)
 
@@ -73,7 +73,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
     }
 
     func assertThatDeleteDeliversNoErrorOnNonEmptyCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        insert((uniqueItems().local, Date()), to: sut)
+        insert((prayersTimesArray().local, Date()), to: sut)
 
         let deletionError = deleteCache(from: sut)
 
@@ -81,7 +81,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
     }
 
     func assertThatDeleteEmptiesPreviouslyInsertedCache(on sut: PrayersTimesStore, file: StaticString = #filePath, line: UInt = #line) {
-        insert((uniqueItems().local, Date()), to: sut)
+        insert((prayersTimesArray().local, Date()), to: sut)
 
         deleteCache(from: sut)
 
@@ -92,7 +92,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
         var completedOperationsInOrder = [XCTestExpectation]()
 
         let op1 = expectation(description: "Operation 1")
-        sut.insert(uniqueItems().local, timestamp: Date()) { _ in
+        sut.insert(prayersTimesArray().local, timestamp: Date()) { _ in
             completedOperationsInOrder.append(op1)
             op1.fulfill()
         }
@@ -104,7 +104,7 @@ extension PrayersTimesStoreSpecs where Self: XCTestCase {
         }
 
         let op3 = expectation(description: "Operation 3")
-        sut.insert(uniqueItems().local, timestamp: Date()) { _ in
+        sut.insert(prayersTimesArray().local, timestamp: Date()) { _ in
             completedOperationsInOrder.append(op3)
             op3.fulfill()
         }
