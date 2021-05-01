@@ -48,14 +48,9 @@ class GetNextPrayerUseCaseTests: XCTestCase {
     // - MARK: Helpers
     private func makeSUT(with date: @escaping () -> Date, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
-
-        var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale(identifier: "PS-GZA")
-        calendar.timeZone = TimeZone(abbreviation: "EEST")!
-
-        let yesterdayDate = currentDate.adding(day: -1, with: calendar)
-        let tomorrowDate = currentDate.adding(day: 1, with: calendar)
-
+        let yesterdayDate = currentDate.adding(day: -1)
+        let tomorrowDate = currentDate.adding(day: 1)
+        
         let yesterdayItem = prayersTimes(using: yesterdayDate)
         let todayItem = prayersTimes(using: currentDate)
         let tomorrowItem = prayersTimes(using: tomorrowDate)
