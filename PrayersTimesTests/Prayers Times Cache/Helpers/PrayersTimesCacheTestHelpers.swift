@@ -9,12 +9,12 @@ import Foundation
 
 extension Date {
     
-    func adding(day: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: day, to: self)!
+    func adding(day: Int, with calendar: Calendar = Calendar.current) -> Date {
+       calendar.date(byAdding: .day, value: day, to: self)!
     }
     
-    func adding(month: Int) -> Date {
-        return Calendar(identifier: .gregorian).date(byAdding: .month, value: month, to: self)!
+    func adding(month: Int, with calendar: Calendar = Calendar.current) -> Date {
+        calendar.date(byAdding: .month, value: month, to: self)!
     }
     
     func adding(seconds: TimeInterval) -> Date {
