@@ -56,6 +56,7 @@ private extension Array where Element == RemotePrayersTimes {
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT+3")!
             let fullDateString = dateFormatter.string(from: date)
             dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
             

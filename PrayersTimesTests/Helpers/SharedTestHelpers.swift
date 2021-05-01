@@ -18,21 +18,21 @@ func anyURL() -> URL {
 
 let staticDate = Date(timeIntervalSince1970: 1619298000)
 
-func prayersTimes(using date: Date = staticDate) -> PrayersTimes {
-    .init(prayers: (fajr: getDate(from: "05:01 (EEST)", using: date),
-                    sunrise: getDate(from: "06:30 (EEST)", using: date),
-                    dhuhr: getDate(from: "12:46 (EEST)", using: date),
-                    asr: getDate(from: "16:18 (EEST)", using: date),
-                    sunset: getDate(from: "19:02 (EEST)", using: date),
-                    maghrib: getDate(from: "19:02 (EEST)", using: date),
-                    isha: getDate(from: "20:22 (EEST)", using: date),
-                    imsak: getDate(from: "04:50 (EEST)", using: date),
-                    midnight: getDate(from: "00:46 (EEST)", using: date)),
+func prayersTimes(using date: Date = staticDate, timeZone: TimeZone) -> PrayersTimes {
+    .init(prayers: (fajr: getDate(from: "05:01 (EEST)", using: date, and: timeZone),
+                    sunrise: getDate(from: "06:30 (EEST)", using: date, and: timeZone),
+                    dhuhr: getDate(from: "12:46 (EEST)", using: date, and: timeZone),
+                    asr: getDate(from: "16:18 (EEST)", using: date, and: timeZone),
+                    sunset: getDate(from: "19:02 (EEST)", using: date, and: timeZone),
+                    maghrib: getDate(from: "19:02 (EEST)", using: date, and: timeZone),
+                    isha: getDate(from: "20:22 (EEST)", using: date, and: timeZone),
+                    imsak: getDate(from: "04:50 (EEST)", using: date, and: timeZone),
+                    midnight: getDate(from: "00:46 (EEST)", using: date, and: timeZone)),
           for: date)
 }
 
-func prayersTimesArray() -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
-    let models = [prayersTimes(), prayersTimes()]
+func prayersTimesArray(using timeZone: TimeZone) -> (models: [PrayersTimes], local: [LocalPrayersTimes]) {
+    let models = [prayersTimes(timeZone: timeZone), prayersTimes(timeZone: timeZone)]
     let local = models.map{ LocalPrayersTimes(prayers: (fajr: $0[.fajr].date,
                                                         sunrise: $0[.sunrise].date,
                                                         dhuhr: $0[.dhuhr].date,
@@ -46,13 +46,14 @@ func prayersTimesArray() -> (models: [PrayersTimes], local: [LocalPrayersTimes])
     return (models, local)
 }
 
-func getDate(from string: String, using date: Date) -> Date {
+func getDate(from string: String, using date: Date, and timeZone: TimeZone) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MM/dd/yyyy"
+    dateFormatter.timeZone = timeZone
     let fullDateString = dateFormatter.string(from: date)
     
     dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
-    
+
     var stringResultDate = ""
     let splitResult = string.split(separator: " ")
     

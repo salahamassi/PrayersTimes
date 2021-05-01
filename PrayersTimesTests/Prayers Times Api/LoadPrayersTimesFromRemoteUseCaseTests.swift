@@ -159,15 +159,15 @@ class LoadPrayersTimesFromRemoteUseCaseTests: XCTestCase {
     }
     
     private func makeItem(fajr: String, sunrise: String, dhuhr: String, asr: String, sunset: String, maghrib: String, isha: String, imsak: String, midnight: String, day: Date) -> (model: PrayersTimes, json: [String: Any]) {
-        let item = PrayersTimes(prayers: (fajr: getDate(from: fajr, using: day),
-                                          sunrise: getDate(from: sunrise, using: day),
-                                          dhuhr: getDate(from: dhuhr, using: day),
-                                          asr: getDate(from: asr, using: day),
-                                          sunset: getDate(from: sunset, using: day),
-                                          maghrib: getDate(from: maghrib, using: day),
-                                          isha: getDate(from: isha, using: day),
-                                          imsak: getDate(from: imsak, using: day),
-                                          midnight: getDate(from: midnight, using: day)),
+        let item = PrayersTimes(prayers: (fajr: getDate(from: fajr, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          sunrise: getDate(from: sunrise, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          dhuhr: getDate(from: dhuhr, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          asr: getDate(from: asr, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          sunset: getDate(from: sunset, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          maghrib: getDate(from: maghrib, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          isha: getDate(from: isha, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          imsak: getDate(from: imsak, using: day, and: TimeZone(abbreviation: "GMT+3")!),
+                                          midnight: getDate(from: midnight, using: day, and: TimeZone(abbreviation: "GMT+3")!)),
                                 for: day)
         
         let json = [

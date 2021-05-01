@@ -35,7 +35,7 @@ class ValidatePrayersTimesCacheUseCaseTests: XCTestCase {
     }
     
     func test_validateCache_doesNotDeleteOnTheSameMonthCache() {
-        let items = prayersTimesArray()
+        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
@@ -53,7 +53,7 @@ class ValidatePrayersTimesCacheUseCaseTests: XCTestCase {
     }
     
     func test_validateCache_deleteOnNotTheSameMonthCache() {
-        let items = prayersTimesArray()
+        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         

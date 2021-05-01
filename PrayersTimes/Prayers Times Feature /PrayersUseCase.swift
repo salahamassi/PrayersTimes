@@ -9,17 +9,18 @@ import Foundation
 
 public class PrayersUseCase {
     
-    public let currentDate: ()-> Date
     public let prayersTimes: [PrayersTimes]
-    
-    public init(prayersTimes: [PrayersTimes], currentDate: @escaping () -> Date) {
+    public let calendar: Calendar
+    public let currentDate: ()-> Date
+
+    public init(prayersTimes: [PrayersTimes], calendar: Calendar, currentDate: @escaping () -> Date) {
         self.prayersTimes = prayersTimes
+        self.calendar = calendar
         self.currentDate = currentDate
     }
     
     public func getPrayersTimes() -> PrayersTimes? {
-        let calendar = Calendar.init(identifier: .gregorian)
-        return prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
+        prayersTimes.first(where: { calendar.isDate($0.day, inSameDayAs: currentDate()) })
     }
     
     public func getNextPrayer() -> Prayers.Prayer? {
@@ -33,7 +34,6 @@ public class PrayersUseCase {
     }
     
     public func calculateRemainingTime(to prayer: Prayers.Prayer) -> Int {
-        let calendar = Calendar(identifier: .gregorian)
-        return calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
+        calendar.dateComponents([.second], from: currentDate(), to: prayer.date).second ?? .zero
     }
 }

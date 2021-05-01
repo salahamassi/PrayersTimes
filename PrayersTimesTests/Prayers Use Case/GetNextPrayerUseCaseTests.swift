@@ -48,15 +48,19 @@ class GetNextPrayerUseCaseTests: XCTestCase {
     // - MARK: Helpers
     private func makeSUT(with date: @escaping () -> Date, file: StaticString = #filePath, line: UInt = #line) -> (sut: PrayersUseCase, items: (yesterdayItem: PrayersTimes, todayItem: PrayersTimes, tomorrowItem: PrayersTimes)) {
         let currentDate = date()
-        let yesterdayDate = currentDate.adding(day: -1)
-        let tomorrowDate = currentDate.adding(day: 1)
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(abbreviation: "GMT+3")!
+        let yesterdayDate = currentDate.adding(day: -1, using: calendar)
+        let tomorrowDate = currentDate.adding(day: 1, using: calendar)
         
-        let yesterdayItem = prayersTimes(using: yesterdayDate)
-        let todayItem = prayersTimes(using: currentDate)
-        let tomorrowItem = prayersTimes(using: tomorrowDate)
+
+        let yesterdayItem = prayersTimes(using: yesterdayDate, timeZone: TimeZone(abbreviation: "GMT+3")!)
+        let todayItem = prayersTimes(using: currentDate, timeZone: TimeZone(abbreviation: "GMT+3")!)
+        let tomorrowItem = prayersTimes(using: tomorrowDate, timeZone: TimeZone(abbreviation: "GMT+3")!)
         
         let sut = PrayersUseCase(prayersTimes: [yesterdayItem, todayItem, tomorrowItem],
-                                    currentDate: date)
+                                 calendar: calendar,
+                                 currentDate: date)
         trackForMemoryLeaks(sut)
         return (sut, (yesterdayItem, todayItem, tomorrowItem))
     }
