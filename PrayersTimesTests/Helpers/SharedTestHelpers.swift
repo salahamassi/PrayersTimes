@@ -54,7 +54,7 @@ func getDate(from string: String, using date: Date) -> Date {
     let splitResult = string.split(separator: " ")
     
     if let first = splitResult.first, let last = splitResult.last  {
-        dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+        dateFormatter.timeZone = TimeZone(abbreviation: "\(last.dropFirst().dropLast())")
         
         let fullDateString = dateFormatter.string(from: date)
         dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"

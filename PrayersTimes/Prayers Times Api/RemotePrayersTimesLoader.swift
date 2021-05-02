@@ -80,7 +80,7 @@ private extension Array where Element == RemotePrayersTimes {
         let splitResult = prayerTime.split(separator: " ")
         var stringPrayerDate = ""
         if let first = splitResult.first, let last = splitResult.last {
-            dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+            dateFormatter.timeZone = TimeZone(abbreviation: "\(last.dropFirst().dropLast())")
             let fullDateString = dateFormatter.string(from: date)
             
             stringPrayerDate.append(fullDateString)
