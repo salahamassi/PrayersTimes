@@ -54,21 +54,16 @@ private extension Array where Element == RemotePrayersTimes {
             guard let timestamp = Double(item.date.timestamp) else { throw RemotePrayersTimesLoader.Error.invalidData }
             let date = Date(timeIntervalSince1970: timestamp)
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            let fullDateString = dateFormatter.string(from: date)
-            dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
-            
             do {
-                let prayersTimes = try PrayersTimes(prayers: (fajr: map(item.timings.fajr, dateFormatter, fullDateString),
-                                                              sunrise: map(item.timings.sunrise, dateFormatter, fullDateString),
-                                                              dhuhr: map(item.timings.dhuhr, dateFormatter, fullDateString),
-                                                              asr: map(item.timings.asr, dateFormatter, fullDateString),
-                                                              sunset: map(item.timings.sunset, dateFormatter, fullDateString),
-                                                              maghrib: map(item.timings.maghrib, dateFormatter, fullDateString),
-                                                              isha: map(item.timings.isha, dateFormatter, fullDateString),
-                                                              imsak: map(item.timings.imsak, dateFormatter, fullDateString),
-                                                              midnight: map(item.timings.midnight, dateFormatter, fullDateString)),
+                let prayersTimes = try PrayersTimes(prayers: (fajr: map(item.timings.fajr, using: date),
+                                                              sunrise: map(item.timings.sunrise, using: date),
+                                                              dhuhr: map(item.timings.dhuhr, using: date),
+                                                              asr: map(item.timings.asr, using: date),
+                                                              sunset: map(item.timings.sunset, using: date),
+                                                              maghrib: map(item.timings.maghrib, using: date),
+                                                              isha: map(item.timings.isha, using: date),
+                                                              imsak: map(item.timings.imsak, using: date),
+                                                              midnight: map(item.timings.midnight, using: date)),
                                                     for: date)
                 result.append(prayersTimes)
             } catch {
@@ -78,13 +73,21 @@ private extension Array where Element == RemotePrayersTimes {
         return result
     }
     
-    private func map(_ prayerTime: String, _ dateFormatter: DateFormatter, _ fullDateString: String) throws -> Date {
+    private func map(_ prayerTime: String, using date: Date) throws -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+
         let splitResult = prayerTime.split(separator: " ")
         var stringPrayerDate = ""
         if let first = splitResult.first, let last = splitResult.last {
             dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+            let fullDateString = dateFormatter.string(from: date)
+            
             stringPrayerDate.append(fullDateString)
             stringPrayerDate.append(" \(first):00")
+            
+            dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+
             guard let datePrayerTime = dateFormatter.date(from: stringPrayerDate)
             else { throw RemotePrayersTimesLoader.Error.invalidData }
             return datePrayerTime

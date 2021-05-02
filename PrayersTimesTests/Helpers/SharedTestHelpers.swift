@@ -49,15 +49,16 @@ func prayersTimesArray() -> (models: [PrayersTimes], local: [LocalPrayersTimes])
 func getDate(from string: String, using date: Date) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MM/dd/yyyy"
-    let fullDateString = dateFormatter.string(from: date)
-    
-    dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
     
     var stringResultDate = ""
     let splitResult = string.split(separator: " ")
     
-    if let first = splitResult.first, let last = splitResult.last {
+    if let first = splitResult.first, let last = splitResult.last  {
         dateFormatter.timeZone = TimeZone(abbreviation: String(last))
+        
+        let fullDateString = dateFormatter.string(from: date)
+        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+        
         stringResultDate.append(fullDateString)
         stringResultDate.append(" \(first):00")
         if let resultDate = dateFormatter.date(from: stringResultDate) {
