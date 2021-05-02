@@ -42,15 +42,15 @@ class PrayersTimesApiEntToEndTests: XCTestCase {
     }
     
     private func expectedItem(at index: Int) -> PrayersTimes {
-        .init(prayers: (fajr: getDate(from: fajr(at: 0), using: date(at: 0)),
-                            sunrise: getDate(from: sunrise(at: 0), using: date(at: 0)),
-                            dhuhr: getDate(from: dhuhr(at: 0), using: date(at: 0)),
-                            asr: getDate(from: asr(at: 0), using: date(at: 0)),
-                            sunset: getDate(from: sunset(at: 0), using: date(at: 0)),
-                            maghrib: getDate(from: maghrib(at: 0), using: date(at: 0)),
-                            isha: getDate(from: isha(at: 0), using: date(at: 0)),
-                            imsak: getDate(from: imsak(at: 0), using: date(at: 0)),
-                            midnight: getDate(from: midnight(at: 0), using: date(at: 0))),
+        .init(prayers: (fajr: getDate(from: fajr(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            sunrise: getDate(from: sunrise(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            dhuhr: getDate(from: dhuhr(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            asr: getDate(from: asr(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            sunset: getDate(from: sunset(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            maghrib: getDate(from: maghrib(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            isha: getDate(from: isha(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            imsak: getDate(from: imsak(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!),
+                            midnight: getDate(from: midnight(at: 0), using: date(at: 0), and: TimeZone(abbreviation: "GMT+3")!)),
                             for: date(at: 0))
     }
     
