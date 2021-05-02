@@ -42,7 +42,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     }
     
     func test_load_deliversCachedPrayersTimesOnTheSameMonth() {
-        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
+        let items = prayersTimesArray()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
@@ -59,7 +59,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     }
     
     func test_load_deliversNoPrayersTimesOnNotTheSameMonth() {
-        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
+        let items = prayersTimesArray()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
@@ -93,7 +93,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     }
     
     func test_load_hasNoSideEffectsOnTheSameMonthCache() {
-        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
+        let items = prayersTimesArray()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         
@@ -111,7 +111,7 @@ class LoadPrayersTimesFromCacheUseCaseTests: XCTestCase {
     }
     
     func test_load_hasNoSideEffectsOnNotTheSameMonthCache() {
-        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
+        let items = prayersTimesArray()
         let fixedCurrentDate = Date()
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         

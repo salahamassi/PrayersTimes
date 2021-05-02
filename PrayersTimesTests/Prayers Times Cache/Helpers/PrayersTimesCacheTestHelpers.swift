@@ -9,8 +9,8 @@ import Foundation
 
 extension Date {
     
-    func adding(day: Int, using calendar: Calendar) -> Date {
-        calendar.date(byAdding: .day, value: day, to: self)!
+    func adding(day: Int) -> Date {
+        return Calendar(identifier: .gregorian).date(byAdding: .day, value: day, to: self)!
     }
     
     func adding(month: Int) -> Date {

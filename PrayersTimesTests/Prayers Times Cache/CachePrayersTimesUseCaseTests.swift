@@ -18,7 +18,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_save_requestsCacheDeletion() {
         let (sut, store) = makeSUT()
-        let items = [prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!), prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!)]
+        let items = [prayersTimes(), prayersTimes()]
         
         sut.save(items) { _ in }
         
@@ -26,7 +26,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     }
     
     func test_save_doesNotRequestCacheInsertionOnDeletionError() {
-        let items = [prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!), prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!)]
+        let items = [prayersTimes(), prayersTimes()]
         let (sut, store) = makeSUT()
         let deletionError = anyNSError()
         
@@ -38,7 +38,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
     
     func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
         let timestamp = Date()
-        let items = prayersTimesArray(using: TimeZone(abbreviation: "GMT+3")!)
+        let items = prayersTimesArray()
         let (sut, store) = makeSUT(currentDate: { timestamp })
         
         sut.save(items.models) { _ in }
@@ -80,7 +80,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
 
         var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
-        sut?.save([prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!)]) { receivedResults.append($0) }
+        sut?.save([prayersTimes()]) { receivedResults.append($0) }
 
         sut = nil
         store.completeDeletion(with: anyNSError())
@@ -93,7 +93,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         var sut: LocalPrayersTimesLoader? = LocalPrayersTimesLoader(store: store, currentDate: Date.init)
 
         var receivedResults = [LocalPrayersTimesLoader.SaveResult]()
-        sut?.save([prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!)]) { receivedResults.append($0) }
+        sut?.save([prayersTimes()]) { receivedResults.append($0) }
 
         store.completeDeletionSuccessfully()
         sut = nil
@@ -115,7 +115,7 @@ class CachePrayersTimesUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait for save completion")
 
         var receivedError: LocalPrayersTimesLoader.SaveResult = nil
-        sut.save([prayersTimes(timeZone: TimeZone(abbreviation: "GMT+3")!)]) { error in
+        sut.save([prayersTimes()]) { error in
             receivedError = error
             exp.fulfill()
         }
