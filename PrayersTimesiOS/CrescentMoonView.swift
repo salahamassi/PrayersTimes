@@ -9,16 +9,21 @@ import SwiftUI
 
 public struct CrescentMoonView: View {
     
-    @State var size: CGFloat
-    @State var animated: [Bool]  = Array(repeating: false, count: 2)
+    @State private var animated: [Bool]  = Array(repeating: false, count: 2)
     @State private var ellipseHidden = true
     
+    @State var size: CGFloat
     var waning: Bool = true
     
     private var offsetX: CGFloat {
         waning ? (size * 0.2) / 2 : -(size * 0.2) / 2
     }
     
+    public init(size: CGFloat, waning: Bool) {
+        self.size = size
+        self.waning = waning
+    }
+
     public var body: some View {
         ZStack {
             MoonView(size: size, stroke: 8)
