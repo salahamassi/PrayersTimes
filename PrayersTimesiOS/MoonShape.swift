@@ -25,7 +25,8 @@ private extension Array {
 struct MoonView: View {
     
     @State var size: CGFloat
-    
+    @State var stroke: CGFloat
+
     @State private var animated: [Bool] = Array(repeating: false, count: 5)
     
     var body: some View {
@@ -33,7 +34,7 @@ struct MoonView: View {
             
         
             Circle()
-                .stroke(lineWidth: size / 16)
+                .stroke(lineWidth: stroke)
             
             Circle()
                 .frame(width: size * 0.24, height: size * 0.24, animated: animated[0])
@@ -83,7 +84,7 @@ struct MoonView: View {
 
 struct HalalShape_Previews: PreviewProvider {
     static var previews: some View {
-        MoonView(size: 512)
+        MoonView(size: 512, stroke: 512 / 16)
             .frame(width: 512, height: 512)
             .padding()
             .previewLayout(.sizeThatFits)
