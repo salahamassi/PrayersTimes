@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CrescentMoonView: View {
+public struct CrescentMoonView: View {
     
     @State var size: CGFloat
     @State var animated: [Bool]  = Array(repeating: false, count: 2)
@@ -19,7 +19,7 @@ struct CrescentMoonView: View {
         waning ? (size * 0.2) / 2 : -(size * 0.2) / 2
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             MoonView(size: size, stroke: 8)
             

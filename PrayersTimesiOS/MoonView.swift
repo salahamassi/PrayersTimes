@@ -14,14 +14,14 @@ private extension Array {
     }
 }
 
-struct MoonView: View {
+public struct MoonView: View {
     
     @State var size: CGFloat
     @State var stroke: CGFloat
 
     @State private var animated: [Bool] = Array(repeating: false, count: 5)
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             
         
