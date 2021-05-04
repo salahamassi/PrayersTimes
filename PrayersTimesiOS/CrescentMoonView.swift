@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GibbousMoonView: View {
+struct CrescentMoonView: View {
     
     @State var size: CGFloat
     @State var animated: [Bool]  = Array(repeating: false, count: 2)
@@ -41,9 +41,9 @@ struct GibbousMoonView: View {
     }
 }
 
-struct WaxingGibbousView_Previews: PreviewProvider {
+struct CrescentMoonView_Previews: PreviewProvider {
     static var previews: some View {
-        GibbousMoonView(size: 512)
+        CrescentMoonView(size: 512)
             .frame(width: 512, height: 512)
             .padding()
             .previewLayout(.sizeThatFits)
