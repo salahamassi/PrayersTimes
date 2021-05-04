@@ -21,9 +21,8 @@
 		3D40EE122637A8E700C0B68A /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D40EE192637A99100C0B68A /* GetNextPrayerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D40EE182637A99100C0B68A /* GetNextPrayerUseCaseTests.swift */; };
 		3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */; };
-		3D8430A126415E5A000FBD2C /* WaxingGibbousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */; };
+		3D8430A126415E5A000FBD2C /* GibbousMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A026415E5A000FBD2C /* GibbousMoonView.swift */; };
 		3D8430A42641662D000FBD2C /* Extensions+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A32641662D000FBD2C /* Extensions+View.swift */; };
-		3D8430A62641670B000FBD2C /* WaningGibbousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A52641670B000FBD2C /* WaningGibbousView.swift */; };
 		3D8E098A2636599100BB323B /* Prayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09892636599100BB323B /* Prayers.swift */; };
 		3D8E09E8263664C200BB323B /* PrayersUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */; };
 		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
@@ -43,7 +42,7 @@
 		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
 		3DBCDAC52633A4C4004EB263 /* PrayersTimesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */; };
 		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3DBED8E62640B5B200A37A37 /* MoonShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonShape.swift */; };
+		3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonView.swift */; };
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
@@ -92,9 +91,8 @@
 		3D21B80926325D7800DED34B /* PrayersTimesCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCacheTestHelpers.swift; sourceTree = "<group>"; };
 		3D40EE182637A99100C0B68A /* GetNextPrayerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNextPrayerUseCaseTests.swift; sourceTree = "<group>"; };
 		3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayersTimesView.swift; sourceTree = "<group>"; };
-		3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaxingGibbousView.swift; sourceTree = "<group>"; };
+		3D8430A026415E5A000FBD2C /* GibbousMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GibbousMoonView.swift; sourceTree = "<group>"; };
 		3D8430A32641662D000FBD2C /* Extensions+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+View.swift"; sourceTree = "<group>"; };
-		3D8430A52641670B000FBD2C /* WaningGibbousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaningGibbousView.swift; sourceTree = "<group>"; };
 		3D8E09892636599100BB323B /* Prayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prayers.swift; sourceTree = "<group>"; };
 		3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersUseCaseTests.swift; sourceTree = "<group>"; };
 		3D90A20C262F9CAB00E28772 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -119,7 +117,7 @@
 		3DBCDABF2633A4C4004EB263 /* PrayersTimesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesiOSTests.swift; sourceTree = "<group>"; };
 		3DBCDAC62633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3DBED8E52640B5B200A37A37 /* MoonShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonShape.swift; sourceTree = "<group>"; };
+		3DBED8E52640B5B200A37A37 /* MoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonView.swift; sourceTree = "<group>"; };
 		3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimes.h; sourceTree = "<group>"; };
 		3DD9D9C3262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -285,9 +283,8 @@
 				3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */,
 				3DBCDABA2633A4C4004EB263 /* Info.plist */,
 				3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */,
-				3DBED8E52640B5B200A37A37 /* MoonShape.swift */,
-				3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */,
-				3D8430A52641670B000FBD2C /* WaningGibbousView.swift */,
+				3DBED8E52640B5B200A37A37 /* MoonView.swift */,
+				3D8430A026415E5A000FBD2C /* GibbousMoonView.swift */,
 			);
 			path = PrayersTimesiOS;
 			sourceTree = "<group>";
@@ -586,11 +583,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D8430A126415E5A000FBD2C /* WaxingGibbousView.swift in Sources */,
+				3D8430A126415E5A000FBD2C /* GibbousMoonView.swift in Sources */,
 				3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */,
-				3D8430A62641670B000FBD2C /* WaningGibbousView.swift in Sources */,
 				3D8430A42641662D000FBD2C /* Extensions+View.swift in Sources */,
-				3DBED8E62640B5B200A37A37 /* MoonShape.swift in Sources */,
+				3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

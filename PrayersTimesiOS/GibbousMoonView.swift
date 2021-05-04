@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WaxingGibbousView: View {
+struct GibbousMoonView: View {
     
     @State var size: CGFloat
     @State var animated: [Bool]  = Array(repeating: false, count: 2)
@@ -43,7 +43,7 @@ struct WaxingGibbousView: View {
 
 struct WaxingGibbousView_Previews: PreviewProvider {
     static var previews: some View {
-        WaxingGibbousView(size: 512)
+        GibbousMoonView(size: 512)
             .frame(width: 512, height: 512)
             .padding()
             .previewLayout(.sizeThatFits)
