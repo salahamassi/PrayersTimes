@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-private extension View {
-    func frame(width: CGFloat, height: CGFloat, animated: Bool) -> some View {
-        let newWidth = animated ? width : .zero
-        let newHeight = animated ? height : .zero
-        return frame(width: newWidth, height: newHeight, alignment: .center)
-    }
-}
-
 private extension Array {
     
     var lastIndex: Int {
