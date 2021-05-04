@@ -16,10 +16,15 @@ private extension Array {
 
 public struct MoonView: View {
     
+    @State private var animated: [Bool] = Array(repeating: false, count: 5)
+    
     @State var size: CGFloat
     @State var stroke: CGFloat
 
-    @State private var animated: [Bool] = Array(repeating: false, count: 5)
+    public init(size: CGFloat, stroke: CGFloat) {
+        self.size = size
+        self.stroke = stroke
+    }
     
     public var body: some View {
         ZStack {

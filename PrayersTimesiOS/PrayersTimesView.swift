@@ -17,7 +17,9 @@ struct PrayersTimesView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 8) {
-                CrescentMoonView(size: size)
+                CrescentMoonView(size: size, waning: true)
+                    .frame(width: size, height: size)
+                CrescentMoonView(size: size, waning: false)
                     .frame(width: size, height: size)
                 Text("Ramdan")
                     .bold()
