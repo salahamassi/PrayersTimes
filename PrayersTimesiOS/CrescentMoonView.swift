@@ -13,6 +13,12 @@ struct CrescentMoonView: View {
     @State var animated: [Bool]  = Array(repeating: false, count: 2)
     @State private var ellipseHidden = true
     
+    var waning: Bool = true
+    
+    private var offsetX: CGFloat {
+        waning ? (size * 0.2) / 2 : -(size * 0.2) / 2
+    }
+    
     var body: some View {
         ZStack {
             MoonView(size: size, stroke: 8)
@@ -24,8 +30,9 @@ struct CrescentMoonView: View {
                        animatedHeight: size,
                        hidden: ellipseHidden,
                        animated: animated[0])
-                .offset(x: animated[1] ? (size * 0.2) / 2 : 0)
+                .offset(x: animated[1] ? offsetX : 0)
                 .animation(.easeInOut)
+            
         }.onAppear() {
             let duration = 0.4
             let delay = (duration * 4)
@@ -43,7 +50,7 @@ struct CrescentMoonView: View {
 
 struct CrescentMoonView_Previews: PreviewProvider {
     static var previews: some View {
-        CrescentMoonView(size: 512)
+        CrescentMoonView(size: 512, waning: false)
             .frame(width: 512, height: 512)
             .padding()
             .previewLayout(.sizeThatFits)
