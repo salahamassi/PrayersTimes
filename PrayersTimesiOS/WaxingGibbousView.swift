@@ -11,21 +11,30 @@ struct WaxingGibbousView: View {
     
     @State var size: CGFloat
     @State var animated: [Bool]  = Array(repeating: false, count: 2)
+    @State private var ellipseHidden = true
     
     var body: some View {
         ZStack {
             MoonView(size: size, stroke: 8)
             
             Ellipse()
-                .frame(width: size - (size * 0.2), height: size, animated: animated[0])
+                .frame(width: size,
+                       height: size,
+                       animatedWidth: size - (size * 0.2),
+                       animatedHeight: size,
+                       hidden: ellipseHidden,
+                       animated: animated[0])
                 .offset(x: animated[1] ? (size * 0.2) / 2 : 0)
                 .animation(.easeInOut)
         }.onAppear() {
-            for (index ,value) in animated.enumerated() {
-                let duration = 0.4
-                let delay = (duration * Double(index) + 2)
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    animated[index] = !value
+            let duration = 0.4
+            let delay = (duration * 4)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                ellipseHidden = false
+                for (index ,_) in animated.enumerated() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+                        animated[index].toggle()
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@
 		3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */; };
 		3D8430A126415E5A000FBD2C /* WaxingGibbousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */; };
 		3D8430A42641662D000FBD2C /* Extensions+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A32641662D000FBD2C /* Extensions+View.swift */; };
+		3D8430A62641670B000FBD2C /* WaningGibbousView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A52641670B000FBD2C /* WaningGibbousView.swift */; };
 		3D8E098A2636599100BB323B /* Prayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09892636599100BB323B /* Prayers.swift */; };
 		3D8E09E8263664C200BB323B /* PrayersUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */; };
 		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
@@ -93,6 +94,7 @@
 		3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayersTimesView.swift; sourceTree = "<group>"; };
 		3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaxingGibbousView.swift; sourceTree = "<group>"; };
 		3D8430A32641662D000FBD2C /* Extensions+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+View.swift"; sourceTree = "<group>"; };
+		3D8430A52641670B000FBD2C /* WaningGibbousView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaningGibbousView.swift; sourceTree = "<group>"; };
 		3D8E09892636599100BB323B /* Prayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prayers.swift; sourceTree = "<group>"; };
 		3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersUseCaseTests.swift; sourceTree = "<group>"; };
 		3D90A20C262F9CAB00E28772 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 				3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */,
 				3DBED8E52640B5B200A37A37 /* MoonShape.swift */,
 				3D8430A026415E5A000FBD2C /* WaxingGibbousView.swift */,
+				3D8430A52641670B000FBD2C /* WaningGibbousView.swift */,
 			);
 			path = PrayersTimesiOS;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 			files = (
 				3D8430A126415E5A000FBD2C /* WaxingGibbousView.swift in Sources */,
 				3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */,
+				3D8430A62641670B000FBD2C /* WaningGibbousView.swift in Sources */,
 				3D8430A42641662D000FBD2C /* Extensions+View.swift in Sources */,
 				3DBED8E62640B5B200A37A37 /* MoonShape.swift in Sources */,
 			);
