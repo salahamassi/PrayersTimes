@@ -15,8 +15,8 @@ struct PrayersTimesView: View {
         animating ? 265.0 : 128.0
     }
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading, spacing: 8) {
+        ScrollView {
+            VStack(spacing: 32) {
                 CrescentMoonView(size: size, waning: true)
                     .frame(width: size, height: size)
                 CrescentMoonView(size: size, waning: false)
@@ -28,10 +28,16 @@ struct PrayersTimesView: View {
                 GibbousMoonView(size: size, waning: false)
                     .frame(width: size, height: size)
                 
+                QuarterMoonView(size: size, third: true)
+                    .frame(width: size, height: size)
+
+                QuarterMoonView(size: size, third: false)
+                    .frame(width: size, height: size)
+
                 Text("Ramdan")
                     .bold()
                 Text("22, 1442 AH")
-            }
+            }.padding()
         }
     }
 }
