@@ -20,7 +20,7 @@ public struct MoonView: View {
     
     @State var size: CGFloat
     @State var stroke: CGFloat
-
+    
     public init(size: CGFloat, stroke: CGFloat) {
         self.size = size
         self.stroke = stroke
@@ -29,36 +29,50 @@ public struct MoonView: View {
     public var body: some View {
         ZStack {
             
-        
+            
             Circle()
                 .stroke(lineWidth: stroke)
             
             Circle()
-                .frame(width: size * 0.24, height: size * 0.24, animated: animated[0])
+                .frame(width: size * 0.24,
+                       height: size * 0.24,
+                       animated: animated[0])
                 .offset(x: -size * 0.2, y: -size * 0.2)
             
             Group {
                 Circle()
-                    .frame(width: size * 0.15, height: size * 0.15, animated: animated[1])
+                    .frame(width: size * 0.15,
+                           height: size * 0.15,
+                           animated: animated[1])
                 Circle()
-                    .frame(width: size * 0.17, height: size * 0.17, animated: animated[1])
+                    .frame(width: size * 0.17,
+                           height: size * 0.17,
+                           animated: animated[1])
                     .offset(x: size * 0.1, y: size * 0.1)
             }.offset(x: size * 0.04, y: -size * 0.2)
-           
+            
             Circle()
-                .frame(width: size * 0.12, height: size * 0.12, animated: animated[2])
+                .frame(width: size * 0.12,
+                       height: size * 0.12,
+                       animated: animated[2])
                 .offset(x: size * 0.35, y: -size * 0.13)
-
-
+            
+            
             Circle()
-                .frame(width: size * 0.2, height: size * 0.2, animated: animated[3])
+                .frame(width: size * 0.2,
+                       height: size * 0.2,
+                       animated: animated[3])
                 .offset(x: size * 0.3, y: size * 0.05)
             
             Group {
                 Circle()
-                    .frame(width: size * 0.1, height: size * 0.1, animated: animated[4])
+                    .frame(width: size * 0.1,
+                           height: size * 0.1,
+                           animated: animated[4])
                 Circle()
-                    .frame(width: size * 0.12, height: size * 0.12, animated: animated[4])
+                    .frame(width: size * 0.12,
+                           height: size * 0.12,
+                           animated: animated[4])
                     .offset(x: -size * 0.06, y: size * 0.1)
             }.offset(x: -size * 0.1, y: size * 0.15)
             
@@ -66,11 +80,16 @@ public struct MoonView: View {
             for (index ,value) in animated.enumerated() {
                 let duration = 0.4
                 if index == animated.lastIndex {
-                    withAnimation(Animation.interpolatingSpring(mass: 1, stiffness: 1, damping: 1, initialVelocity: 1).delay(duration * Double(index))) {
+                    let animation: Animation = .interpolatingSpring(mass: 1,
+                                                                    stiffness: 1,
+                                                                    damping: 1,
+                                                                    initialVelocity: 1)
+                    withAnimation(animation.delay(duration * Double(index))) {
                         animated[index] = !value
                     }
                 } else {
-                    withAnimation(Animation.easeInOut(duration: duration).delay(duration * Double(index))) {
+                    let animation: Animation = .easeInOut(duration: duration)
+                    withAnimation(animation.delay(duration * Double(index))) {
                         animated[index] = !value
                     }
                 }
