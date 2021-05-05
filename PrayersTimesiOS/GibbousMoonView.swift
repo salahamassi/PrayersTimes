@@ -15,7 +15,7 @@ public struct GibbousMoonView: View {
     var waning: Bool = true
     
     private var offsetX: CGFloat {
-        waning ? size * 0.2 : -size * 0.2
+        waning ? (size * 0.2) / 2 : -(size * 0.2) / 2
     }
 
     public init(size: CGFloat, waning: Bool) {
@@ -28,11 +28,16 @@ public struct GibbousMoonView: View {
             Group {
                 Ellipse()
                     .scaleEffect(ellipseHidden ? .zero : 1)
+
+                Ellipse()
+                    .fill(Color.systemBackground)
+                    .scaleEffect(x: animated ? 0.8 : 1)
                     .offset(x: animated ? offsetX : 0)
-                
+
                 MoonView(size: size, stroke: 0)
-            
-            }.offset(x: animated ? -offsetX : 0)
+                    .scaleEffect(animated ? 0.8 : 1)
+                    .offset(x: animated ? offsetX : 0)
+            }
         }.onAppear() {
             withAnimation(.easeInOut(duration: 0.4).delay(1)) {
                 ellipseHidden.toggle()
