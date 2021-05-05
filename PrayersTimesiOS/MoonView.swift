@@ -14,6 +14,14 @@ private extension Array {
     }
 }
 
+private extension Color {
+    
+    static var systemBackground: Color {
+        Color(UIColor.systemBackground)
+    }
+}
+
+
 public struct MoonView: View {
     
     @State private var animated: [Bool] = Array(repeating: false, count: 5)
@@ -29,7 +37,7 @@ public struct MoonView: View {
     public var body: some View {
         ZStack {
             Circle()
-                .fill(Color(UIColor.systemBackground))
+                .fill(Color.systemBackground)
 
             Circle()
                 .stroke(lineWidth: stroke)
