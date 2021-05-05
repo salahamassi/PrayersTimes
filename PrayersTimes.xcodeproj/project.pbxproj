@@ -39,6 +39,10 @@
 		3DB4DA2026326232001A2C1B /* PrayersTimesCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */; };
 		3DB4DA4526326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */; };
 		3DB4DA4D2632E7F4001A2C1B /* CodablePrayersTimesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */; };
+		3DB90472264293420036FB88 /* WAXING_CRESCENT_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9046E264293410036FB88 /* WAXING_CRESCENT_MOON_dark.png */; };
+		3DB90473264293420036FB88 /* WANING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9046F264293410036FB88 /* WANING_CRESCENT_MOON_light.png */; };
+		3DB90474264293420036FB88 /* WAXING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90470264293410036FB88 /* WAXING_CRESCENT_MOON_light.png */; };
+		3DB90475264293420036FB88 /* WANING_CRESCENT_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90471264293410036FB88 /* WANING_CRESCENT_MOON_dark.png */; };
 		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
 		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonView.swift */; };
@@ -115,6 +119,10 @@
 		3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCachePolicy.swift; sourceTree = "<group>"; };
 		3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStoreTests.swift; sourceTree = "<group>"; };
 		3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStore.swift; sourceTree = "<group>"; };
+		3DB9046E264293410036FB88 /* WAXING_CRESCENT_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_CRESCENT_MOON_dark.png; sourceTree = "<group>"; };
+		3DB9046F264293410036FB88 /* WANING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
+		3DB90470264293410036FB88 /* WAXING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
+		3DB90471264293410036FB88 /* WANING_CRESCENT_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_dark.png; sourceTree = "<group>"; };
 		3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimesiOS.h; sourceTree = "<group>"; };
 		3DBCDABA2633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -338,6 +346,10 @@
 			children = (
 				3DC9D8862642209100A0E929 /* FULL_MOON_dark.png */,
 				3DC9D8852642209100A0E929 /* FULL_MOON_light.png */,
+				3DB90471264293410036FB88 /* WANING_CRESCENT_MOON_dark.png */,
+				3DB9046F264293410036FB88 /* WANING_CRESCENT_MOON_light.png */,
+				3DB9046E264293410036FB88 /* WAXING_CRESCENT_MOON_dark.png */,
+				3DB90470264293410036FB88 /* WAXING_CRESCENT_MOON_light.png */,
 			);
 			path = snapshots;
 			sourceTree = "<group>";
@@ -586,7 +598,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB90474264293420036FB88 /* WAXING_CRESCENT_MOON_light.png in Resources */,
 				3DC9D8872642209100A0E929 /* FULL_MOON_light.png in Resources */,
+				3DB90472264293420036FB88 /* WAXING_CRESCENT_MOON_dark.png in Resources */,
+				3DB90475264293420036FB88 /* WANING_CRESCENT_MOON_dark.png in Resources */,
+				3DB90473264293420036FB88 /* WANING_CRESCENT_MOON_light.png in Resources */,
 				3DC9D8882642209100A0E929 /* FULL_MOON_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
