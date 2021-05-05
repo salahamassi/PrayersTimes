@@ -15,9 +15,9 @@ extension View {
        return frame(width: newWidth, height: newHeight)
    }
     
-    func frame(width: CGFloat, height: CGFloat, animatedWidth: CGFloat, animatedHeight: CGFloat, hidden: Bool, animated: Bool) -> some View {
-        let newWidth = hidden ? .zero : animated ? animatedWidth : width
-        let newHeight = hidden ? .zero : animated ? animatedHeight : height
+    func frame(width: CGFloat, height: CGFloat, animatedWidth: CGFloat, animatedHeight: CGFloat, animated: Bool) -> some View {
+        let newWidth = animated ? animatedWidth : width
+        let newHeight = animated ? animatedHeight : height
         return frame(width: newWidth, height: newHeight)
     }
 }

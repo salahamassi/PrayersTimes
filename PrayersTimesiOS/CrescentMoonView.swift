@@ -23,31 +23,26 @@ public struct CrescentMoonView: View {
         self.size = size
         self.waning = waning
     }
-
+    
     public var body: some View {
         ZStack {
             MoonView(size: size, stroke: 8)
-            
             Ellipse()
                 .frame(width: size,
                        height: size,
                        animatedWidth: size - (size * 0.2),
                        animatedHeight: size,
-                       hidden: ellipseHidden,
                        animated: animated[0])
+                .scaleEffect(ellipseHidden ? .zero : 1)
                 .offset(x: animated[1] ? offsetX : 0)
-                .animation(.easeInOut)
-            
         }.onAppear() {
-            let duration = 0.4
-            let delay = (duration * 4)
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                ellipseHidden = false
-                for (index ,_) in animated.enumerated() {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-                        animated[index].toggle()
-                    }
-                }
+            withAnimation(.easeInOut(duration: 0.4).delay(1)) {
+                ellipseHidden.toggle()
+            }
+
+            withAnimation(.easeInOut(duration: 0.4).delay(1.4)) {
+                animated[0].toggle()
+                animated[1].toggle()
             }
         }
     }
@@ -55,8 +50,8 @@ public struct CrescentMoonView: View {
 
 struct CrescentMoonView_Previews: PreviewProvider {
     static var previews: some View {
-        CrescentMoonView(size: 512, waning: false)
-            .frame(width: 512, height: 512)
+        CrescentMoonView(size: 256, waning: true)
+            .frame(width: 256, height: 256)
             .padding()
             .previewLayout(.sizeThatFits)
     }
