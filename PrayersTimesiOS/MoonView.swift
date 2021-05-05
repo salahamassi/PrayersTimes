@@ -28,8 +28,6 @@ public struct MoonView: View {
     
     public var body: some View {
         ZStack {
-            
-            
             Circle()
                 .stroke(lineWidth: stroke)
             
@@ -74,7 +72,6 @@ public struct MoonView: View {
                     .scaleEffect(animated[4] ? 1 : .zero)
                     .offset(x: -size * 0.06, y: size * 0.1)
             }.offset(x: -size * 0.1, y: size * 0.15)
-            
         }.onAppear() {
             for (index ,value) in animated.enumerated() {
                 let duration = 0.3
@@ -99,8 +96,8 @@ public struct MoonView: View {
 
 struct HalalShape_Previews: PreviewProvider {
     static var previews: some View {
-        MoonView(size: 512, stroke: 512 / 16)
-            .frame(width: 512, height: 512)
+        MoonView(size: 256, stroke: 256 / 16)
+            .frame(width: 256, height: 256)
             .padding()
             .previewLayout(.sizeThatFits)
     }
