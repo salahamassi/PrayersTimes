@@ -29,7 +29,7 @@ public struct MoonView: View {
     public var body: some View {
         ZStack {
             Circle()
-                .fill(Color.white)
+                .fill(Color(UIColor.systemBackground))
 
             Circle()
                 .stroke(lineWidth: stroke)
