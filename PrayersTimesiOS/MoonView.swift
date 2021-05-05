@@ -29,6 +29,9 @@ public struct MoonView: View {
     public var body: some View {
         ZStack {
             Circle()
+                .fill(Color.white)
+
+            Circle()
                 .stroke(lineWidth: stroke)
             
             Circle()
