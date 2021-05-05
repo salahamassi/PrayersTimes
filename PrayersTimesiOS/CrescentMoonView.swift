@@ -40,7 +40,7 @@ public struct CrescentMoonView: View {
                 ellipseHidden.toggle()
             }
 
-            withAnimation(.easeInOut(duration: 0.4).delay(1.4)) {
+            withAnimation(.easeOut(duration: 0.4).delay(1.4)) {
                 animated[0].toggle()
                 animated[1].toggle()
             }

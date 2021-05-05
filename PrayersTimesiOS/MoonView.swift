@@ -35,60 +35,59 @@ public struct MoonView: View {
             
             Circle()
                 .frame(width: size * 0.24,
-                       height: size * 0.24,
-                       animated: animated[0])
+                       height: size * 0.24)
+                .scaleEffect(animated[0] ? 1 : .zero)
                 .offset(x: -size * 0.2, y: -size * 0.2)
             
             Group {
                 Circle()
                     .frame(width: size * 0.15,
-                           height: size * 0.15,
-                           animated: animated[1])
+                           height: size * 0.15)
+                    .scaleEffect(animated[1] ? 1 : .zero)
                 Circle()
                     .frame(width: size * 0.17,
-                           height: size * 0.17,
-                           animated: animated[1])
+                           height: size * 0.17)
+                    .scaleEffect(animated[1] ? 1 : .zero)
                     .offset(x: size * 0.1, y: size * 0.1)
             }.offset(x: size * 0.04, y: -size * 0.2)
             
             Circle()
                 .frame(width: size * 0.12,
-                       height: size * 0.12,
-                       animated: animated[2])
+                       height: size * 0.12)
+                .scaleEffect(animated[2] ? 1 : .zero)
                 .offset(x: size * 0.35, y: -size * 0.13)
-            
             
             Circle()
                 .frame(width: size * 0.2,
-                       height: size * 0.2,
-                       animated: animated[3])
+                       height: size * 0.2)
+                .scaleEffect(animated[3] ? 1 : .zero)
                 .offset(x: size * 0.3, y: size * 0.05)
             
             Group {
                 Circle()
                     .frame(width: size * 0.1,
-                           height: size * 0.1,
-                           animated: animated[4])
+                           height: size * 0.1)
+                    .scaleEffect(animated[4] ? 1 : .zero)
                 Circle()
                     .frame(width: size * 0.12,
-                           height: size * 0.12,
-                           animated: animated[4])
+                           height: size * 0.12)
+                    .scaleEffect(animated[4] ? 1 : .zero)
                     .offset(x: -size * 0.06, y: size * 0.1)
             }.offset(x: -size * 0.1, y: size * 0.15)
             
         }.onAppear() {
             for (index ,value) in animated.enumerated() {
-                let duration = 0.4
+                let duration = 0.3
                 if index == animated.lastIndex {
-                    let animation: Animation = .interpolatingSpring(mass: 1,
+                    let animation: Animation = .interpolatingSpring(mass: 0.4,
                                                                     stiffness: 1,
-                                                                    damping: 1,
+                                                                    damping: 0.9,
                                                                     initialVelocity: 1)
                     withAnimation(animation.delay(duration * Double(index))) {
                         animated[index] = !value
                     }
                 } else {
-                    let animation: Animation = .easeInOut(duration: duration)
+                    let animation: Animation = .easeOut(duration: duration)
                     withAnimation(animation.delay(duration * Double(index))) {
                         animated[index] = !value
                     }
