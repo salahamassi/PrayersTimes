@@ -29,11 +29,9 @@ public struct CrescentMoonView: View {
             MoonView(size: size, stroke: 8)
             Ellipse()
                 .frame(width: size,
-                       height: size,
-                       animatedWidth: size - (size * 0.2),
-                       animatedHeight: size,
-                       animated: animated[0])
+                       height: size)
                 .scaleEffect(ellipseHidden ? .zero : 1)
+                .scaleEffect(x: animated[1] ? 0.8 : 1)
                 .offset(x: animated[1] ? offsetX : 0)
         }.onAppear() {
             withAnimation(.easeInOut(duration: 0.4).delay(1)) {
