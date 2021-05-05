@@ -14,14 +14,6 @@ private extension Array {
     }
 }
 
-private extension Color {
-    
-    static var systemBackground: Color {
-        Color(UIColor.systemBackground)
-    }
-}
-
-
 public struct MoonView: View {
     
     @State private var animated: [Bool] = Array(repeating: false, count: 5)
