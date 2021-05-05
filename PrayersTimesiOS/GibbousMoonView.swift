@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GibbousMoonView: View {
+public struct GibbousMoonView: View {
     @State private var animated = false
     @State private var ellipseHidden = true
     

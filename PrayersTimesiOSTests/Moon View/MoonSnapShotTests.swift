@@ -36,4 +36,25 @@ class MoonSnapShotTests: XCTestCase {
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "WAXING_CRESCENT_MOON_light")
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "WAXING_CRESCENT_MOON_dark")
     }
+    
+    func test_waning_gibbous_moon() {
+        let sut = GibbousMoonView(size: 256, waning: true)
+            .frame(width: 256, height: 256)
+            .animation(nil)
+            .padding()
+        
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "WANING_GIBBOUS_MOON_light")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "WANING_GIBBOUS_MOON_dark")
+    }
+
+    
+    func test_waxing_gibbous_moon() {
+        let sut = GibbousMoonView(size: 256, waning: false)
+            .frame(width: 256, height: 256)
+            .animation(nil)
+            .padding()
+        
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "WAXING_GIBBOUS_MOON_light")
+        assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "WAXING_GIBBOUS_MOON_dark")
+    }
 }
