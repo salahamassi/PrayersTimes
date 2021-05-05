@@ -45,6 +45,16 @@
 		3DB9048926434C120036FB88 /* QUARTER_THIRD_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */; };
 		3DB9048A26434C120036FB88 /* QUARTER_FIRST_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048626434C110036FB88 /* QUARTER_FIRST_MOON_dark.png */; };
 		3DB9048B26434C120036FB88 /* QUARTER_FIRST_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */; };
+		3DB90496264351B40036FB88 /* WANING_GIBBOUS_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048C264351B30036FB88 /* WANING_GIBBOUS_MOON_dark.png */; };
+		3DB90497264351B40036FB88 /* WAXING_CRESCENT_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048D264351B30036FB88 /* WAXING_CRESCENT_MOON_dark.png */; };
+		3DB90498264351B40036FB88 /* FULL_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048E264351B30036FB88 /* FULL_MOON_light.png */; };
+		3DB90499264351B40036FB88 /* WANING_GIBBOUS_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048F264351B30036FB88 /* WANING_GIBBOUS_MOON_light.png */; };
+		3DB9049A264351B40036FB88 /* WAXING_GIBBOUS_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90490264351B30036FB88 /* WAXING_GIBBOUS_MOON_light.png */; };
+		3DB9049B264351B40036FB88 /* WAXING_GIBBOUS_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90491264351B30036FB88 /* WAXING_GIBBOUS_MOON_dark.png */; };
+		3DB9049C264351B40036FB88 /* FULL_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90492264351B30036FB88 /* FULL_MOON_dark.png */; };
+		3DB9049D264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90493264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png */; };
+		3DB9049E264351B40036FB88 /* WANING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90494264351B40036FB88 /* WANING_CRESCENT_MOON_light.png */; };
+		3DB9049F264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90495264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png */; };
 		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
 		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonView.swift */; };
@@ -125,6 +135,16 @@
 		3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_THIRD_MOON_light.png; sourceTree = "<group>"; };
 		3DB9048626434C110036FB88 /* QUARTER_FIRST_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_FIRST_MOON_dark.png; sourceTree = "<group>"; };
 		3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_FIRST_MOON_light.png; sourceTree = "<group>"; };
+		3DB9048C264351B30036FB88 /* WANING_GIBBOUS_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_GIBBOUS_MOON_dark.png; sourceTree = "<group>"; };
+		3DB9048D264351B30036FB88 /* WAXING_CRESCENT_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_CRESCENT_MOON_dark.png; sourceTree = "<group>"; };
+		3DB9048E264351B30036FB88 /* FULL_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FULL_MOON_light.png; sourceTree = "<group>"; };
+		3DB9048F264351B30036FB88 /* WANING_GIBBOUS_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_GIBBOUS_MOON_light.png; sourceTree = "<group>"; };
+		3DB90490264351B30036FB88 /* WAXING_GIBBOUS_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_GIBBOUS_MOON_light.png; sourceTree = "<group>"; };
+		3DB90491264351B30036FB88 /* WAXING_GIBBOUS_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_GIBBOUS_MOON_dark.png; sourceTree = "<group>"; };
+		3DB90492264351B30036FB88 /* FULL_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FULL_MOON_dark.png; sourceTree = "<group>"; };
+		3DB90493264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_dark.png; sourceTree = "<group>"; };
+		3DB90494264351B40036FB88 /* WANING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
+		3DB90495264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
 		3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimesiOS.h; sourceTree = "<group>"; };
 		3DBCDABA2633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -350,6 +370,16 @@
 				3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */,
 				3DB9048426434C110036FB88 /* QUARTER_THIRD_MOON_dark.png */,
 				3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */,
+				3DB90492264351B30036FB88 /* FULL_MOON_dark.png */,
+				3DB9048E264351B30036FB88 /* FULL_MOON_light.png */,
+				3DB90493264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png */,
+				3DB90494264351B40036FB88 /* WANING_CRESCENT_MOON_light.png */,
+				3DB9048C264351B30036FB88 /* WANING_GIBBOUS_MOON_dark.png */,
+				3DB9048F264351B30036FB88 /* WANING_GIBBOUS_MOON_light.png */,
+				3DB9048D264351B30036FB88 /* WAXING_CRESCENT_MOON_dark.png */,
+				3DB90495264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png */,
+				3DB90491264351B30036FB88 /* WAXING_GIBBOUS_MOON_dark.png */,
+				3DB90490264351B30036FB88 /* WAXING_GIBBOUS_MOON_light.png */,
 			);
 			path = snapshots;
 			sourceTree = "<group>";
@@ -598,10 +628,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB9049B264351B40036FB88 /* WAXING_GIBBOUS_MOON_dark.png in Resources */,
+				3DB90496264351B40036FB88 /* WANING_GIBBOUS_MOON_dark.png in Resources */,
+				3DB90498264351B40036FB88 /* FULL_MOON_light.png in Resources */,
+				3DB9049D264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png in Resources */,
+				3DB90497264351B40036FB88 /* WAXING_CRESCENT_MOON_dark.png in Resources */,
+				3DB9049A264351B40036FB88 /* WAXING_GIBBOUS_MOON_light.png in Resources */,
+				3DB9049F264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png in Resources */,
+				3DB9049C264351B40036FB88 /* FULL_MOON_dark.png in Resources */,
 				3DB9048926434C120036FB88 /* QUARTER_THIRD_MOON_light.png in Resources */,
 				3DB9048B26434C120036FB88 /* QUARTER_FIRST_MOON_light.png in Resources */,
+				3DB90499264351B40036FB88 /* WANING_GIBBOUS_MOON_light.png in Resources */,
 				3DB9048826434C120036FB88 /* QUARTER_THIRD_MOON_dark.png in Resources */,
 				3DB9048A26434C120036FB88 /* QUARTER_FIRST_MOON_dark.png in Resources */,
+				3DB9049E264351B40036FB88 /* WANING_CRESCENT_MOON_light.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
