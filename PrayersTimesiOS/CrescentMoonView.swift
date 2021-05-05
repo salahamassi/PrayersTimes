@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct CrescentMoonView: View {
     
-    @State private var animated: [Bool]  = Array(repeating: false, count: 2)
+    @State private var animated = false
     @State private var ellipseHidden = true
     
     @State var size: CGFloat
@@ -31,16 +31,15 @@ public struct CrescentMoonView: View {
                 .frame(width: size,
                        height: size)
                 .scaleEffect(ellipseHidden ? .zero : 1)
-                .scaleEffect(x: animated[1] ? 0.8 : 1)
-                .offset(x: animated[1] ? offsetX : 0)
+                .scaleEffect(x: animated ? 0.8 : 1)
+                .offset(x: animated ? offsetX : 0)
         }.onAppear() {
             withAnimation(.easeInOut(duration: 0.4).delay(1)) {
                 ellipseHidden.toggle()
             }
 
             withAnimation(.easeOut(duration: 0.4).delay(1.4)) {
-                animated[0].toggle()
-                animated[1].toggle()
+                animated.toggle()
             }
         }
     }
