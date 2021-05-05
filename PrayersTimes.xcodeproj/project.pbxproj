@@ -20,6 +20,8 @@
 		3D21B80A26325D7800DED34B /* PrayersTimesCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80926325D7800DED34B /* PrayersTimesCacheTestHelpers.swift */; };
 		3D40EE122637A8E700C0B68A /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21B80426325C7000DED34B /* SharedTestHelpers.swift */; };
 		3D40EE192637A99100C0B68A /* GetNextPrayerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D40EE182637A99100C0B68A /* GetNextPrayerUseCaseTests.swift */; };
+		3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */; };
+		3D8430A126415E5A000FBD2C /* CrescentMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8430A026415E5A000FBD2C /* CrescentMoonView.swift */; };
 		3D8E098A2636599100BB323B /* Prayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09892636599100BB323B /* Prayers.swift */; };
 		3D8E09E8263664C200BB323B /* PrayersUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */; };
 		3D90A20D262F9CAB00E28772 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D90A20C262F9CAB00E28772 /* HTTPClient.swift */; };
@@ -36,9 +38,19 @@
 		3DB4DA2026326232001A2C1B /* PrayersTimesCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */; };
 		3DB4DA4526326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */; };
 		3DB4DA4D2632E7F4001A2C1B /* CodablePrayersTimesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */; };
+		3DB90477264293DA0036FB88 /* GibbousMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB90476264293DA0036FB88 /* GibbousMoonView.swift */; };
+		3DB904812642BA580036FB88 /* Extension+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB904802642BA580036FB88 /* Extension+Color.swift */; };
+		3DB90483264345A50036FB88 /* QuarterMoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB90482264345A50036FB88 /* QuarterMoonView.swift */; };
+		3DB9048826434C120036FB88 /* QUARTER_THIRD_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048426434C110036FB88 /* QUARTER_THIRD_MOON_dark.png */; };
+		3DB9048926434C120036FB88 /* QUARTER_THIRD_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */; };
+		3DB9048A26434C120036FB88 /* QUARTER_FIRST_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048626434C110036FB88 /* QUARTER_FIRST_MOON_dark.png */; };
+		3DB9048B26434C120036FB88 /* QUARTER_FIRST_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */; };
 		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
-		3DBCDAC52633A4C4004EB263 /* PrayersTimesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */; };
 		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonView.swift */; };
+		3DC9D87426420F7600A0E929 /* XCTestCase+Snapshot.swift .swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9D87326420F7600A0E929 /* XCTestCase+Snapshot.swift .swift */; };
+		3DC9D87826420FB200A0E929 /* View+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9D87726420FB200A0E929 /* View+Snapshot.swift */; };
+		3DC9D87C2642109300A0E929 /* MoonSnapShotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9D87B2642109300A0E929 /* MoonSnapShotTests.swift */; };
 		3DD9D9C9262F742600CA2BFC /* PrayersTimes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */; };
 		3DD9D9D0262F742600CA2BFC /* PrayersTimes.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DD9D9DC262F748100CA2BFC /* PrayersTimes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9D9DB262F748100CA2BFC /* PrayersTimes.swift */; };
@@ -86,6 +98,8 @@
 		3D21B80426325C7000DED34B /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		3D21B80926325D7800DED34B /* PrayersTimesCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCacheTestHelpers.swift; sourceTree = "<group>"; };
 		3D40EE182637A99100C0B68A /* GetNextPrayerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNextPrayerUseCaseTests.swift; sourceTree = "<group>"; };
+		3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrayersTimesView.swift; sourceTree = "<group>"; };
+		3D8430A026415E5A000FBD2C /* CrescentMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrescentMoonView.swift; sourceTree = "<group>"; };
 		3D8E09892636599100BB323B /* Prayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prayers.swift; sourceTree = "<group>"; };
 		3D8E09E7263664C200BB323B /* PrayersUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersUseCaseTests.swift; sourceTree = "<group>"; };
 		3D90A20C262F9CAB00E28772 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -95,6 +109,7 @@
 		3DA6618F262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesApiEntToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DA66191262FD1AE00BCD876 /* PrayersTimesApiEntToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesApiEntToEndTests.swift; sourceTree = "<group>"; };
 		3DA66193262FD1AE00BCD876 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DAC3BF3263EEBD900D8FBD3 /* PrayersTimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesView.swift; sourceTree = "<group>"; };
 		3DB314C22632EF9700AA4E1B /* PrayersTimesStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesStoreSpecs.swift; sourceTree = "<group>"; };
 		3DB314CF2632F06800AA4E1B /* XCTestCase+PrayersTimesStoreSpecs.swift .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+PrayersTimesStoreSpecs.swift .swift"; sourceTree = "<group>"; };
 		3DB314D42632F4D700AA4E1B /* XCTestCase+FailableDeletePrayersTimesStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableDeletePrayersTimesStoreSpecs.swift"; sourceTree = "<group>"; };
@@ -103,12 +118,22 @@
 		3DB4DA1F26326232001A2C1B /* PrayersTimesCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesCachePolicy.swift; sourceTree = "<group>"; };
 		3DB4DA4426326BF5001A2C1B /* CodablePrayersTimesStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStoreTests.swift; sourceTree = "<group>"; };
 		3DB4DA4C2632E7F4001A2C1B /* CodablePrayersTimesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePrayersTimesStore.swift; sourceTree = "<group>"; };
+		3DB90476264293DA0036FB88 /* GibbousMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GibbousMoonView.swift; sourceTree = "<group>"; };
+		3DB904802642BA580036FB88 /* Extension+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Color.swift"; sourceTree = "<group>"; };
+		3DB90482264345A50036FB88 /* QuarterMoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterMoonView.swift; sourceTree = "<group>"; };
+		3DB9048426434C110036FB88 /* QUARTER_THIRD_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_THIRD_MOON_dark.png; sourceTree = "<group>"; };
+		3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_THIRD_MOON_light.png; sourceTree = "<group>"; };
+		3DB9048626434C110036FB88 /* QUARTER_FIRST_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_FIRST_MOON_dark.png; sourceTree = "<group>"; };
+		3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QUARTER_FIRST_MOON_light.png; sourceTree = "<group>"; };
 		3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimesiOS.h; sourceTree = "<group>"; };
 		3DBCDABA2633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DBCDABF2633A4C4004EB263 /* PrayersTimesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrayersTimesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayersTimesiOSTests.swift; sourceTree = "<group>"; };
 		3DBCDAC62633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DBED8E52640B5B200A37A37 /* MoonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonView.swift; sourceTree = "<group>"; };
+		3DC9D87326420F7600A0E929 /* XCTestCase+Snapshot.swift .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift .swift"; sourceTree = "<group>"; };
+		3DC9D87726420FB200A0E929 /* View+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Snapshot.swift"; sourceTree = "<group>"; };
+		3DC9D87B2642109300A0E929 /* MoonSnapShotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonSnapShotTests.swift; sourceTree = "<group>"; };
 		3DD9D9BF262F742600CA2BFC /* PrayersTimes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD9D9C2262F742600CA2BFC /* PrayersTimes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimes.h; sourceTree = "<group>"; };
 		3DD9D9C3262F742600CA2BFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -208,6 +233,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		3D8430A226416619000FBD2C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3DB904802642BA580036FB88 /* Extension+Color.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3D90A210262F9E3600E28772 /* Prayers Times Api */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,8 +295,14 @@
 		3DBCDAB82633A4C4004EB263 /* PrayersTimesiOS */ = {
 			isa = PBXGroup;
 			children = (
+				3D8430A226416619000FBD2C /* Helpers */,
 				3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */,
 				3DBCDABA2633A4C4004EB263 /* Info.plist */,
+				3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */,
+				3DBED8E52640B5B200A37A37 /* MoonView.swift */,
+				3D8430A026415E5A000FBD2C /* CrescentMoonView.swift */,
+				3DB90476264293DA0036FB88 /* GibbousMoonView.swift */,
+				3DB90482264345A50036FB88 /* QuarterMoonView.swift */,
 			);
 			path = PrayersTimesiOS;
 			sourceTree = "<group>";
@@ -271,10 +310,48 @@
 		3DBCDAC32633A4C4004EB263 /* PrayersTimesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				3DBCDAC42633A4C4004EB263 /* PrayersTimesiOSTests.swift */,
 				3DBCDAC62633A4C4004EB263 /* Info.plist */,
+				3DC9D87926420FBF00A0E929 /* Helpers */,
+				3DC9D87226420F5600A0E929 /* Moon View */,
 			);
 			path = PrayersTimesiOSTests;
+			sourceTree = "<group>";
+		};
+		3DBED8E726415D4A00A37A37 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				3DAC3BF3263EEBD900D8FBD3 /* PrayersTimesView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		3DC9D87226420F5600A0E929 /* Moon View */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9D87E2642138500A0E929 /* snapshots */,
+				3DC9D87B2642109300A0E929 /* MoonSnapShotTests.swift */,
+			);
+			path = "Moon View";
+			sourceTree = "<group>";
+		};
+		3DC9D87926420FBF00A0E929 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9D87326420F7600A0E929 /* XCTestCase+Snapshot.swift .swift */,
+				3DC9D87726420FB200A0E929 /* View+Snapshot.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3DC9D87E2642138500A0E929 /* snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				3DB9048626434C110036FB88 /* QUARTER_FIRST_MOON_dark.png */,
+				3DB9048726434C110036FB88 /* QUARTER_FIRST_MOON_light.png */,
+				3DB9048426434C110036FB88 /* QUARTER_THIRD_MOON_dark.png */,
+				3DB9048526434C110036FB88 /* QUARTER_THIRD_MOON_light.png */,
+			);
+			path = snapshots;
 			sourceTree = "<group>";
 		};
 		3DD9D9B5262F742600CA2BFC = {
@@ -286,6 +363,7 @@
 				3DBCDAB82633A4C4004EB263 /* PrayersTimesiOS */,
 				3DBCDAC32633A4C4004EB263 /* PrayersTimesiOSTests */,
 				3DD9D9C0262F742600CA2BFC /* Products */,
+				3DBED8E726415D4A00A37A37 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -463,9 +541,11 @@
 					};
 					3DBCDAB62633A4C4004EB263 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					3DBCDABE2633A4C4004EB263 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1250;
 					};
 					3DD9D9BE262F742600CA2BFC = {
 						CreatedOnToolsVersion = 12.4;
@@ -518,6 +598,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB9048926434C120036FB88 /* QUARTER_THIRD_MOON_light.png in Resources */,
+				3DB9048B26434C120036FB88 /* QUARTER_FIRST_MOON_light.png in Resources */,
+				3DB9048826434C120036FB88 /* QUARTER_THIRD_MOON_dark.png in Resources */,
+				3DB9048A26434C120036FB88 /* QUARTER_FIRST_MOON_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +636,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D8430A126415E5A000FBD2C /* CrescentMoonView.swift in Sources */,
+				3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */,
+				3DB90483264345A50036FB88 /* QuarterMoonView.swift in Sources */,
+				3DB904812642BA580036FB88 /* Extension+Color.swift in Sources */,
+				3DB90477264293DA0036FB88 /* GibbousMoonView.swift in Sources */,
+				3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,7 +649,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DBCDAC52633A4C4004EB263 /* PrayersTimesiOSTests.swift in Sources */,
+				3DC9D87826420FB200A0E929 /* View+Snapshot.swift in Sources */,
+				3DC9D87C2642109300A0E929 /* MoonSnapShotTests.swift in Sources */,
+				3DC9D87426420F7600A0E929 /* XCTestCase+Snapshot.swift .swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +759,7 @@
 		3DBCDAC82633A4C4004EB263 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -689,6 +782,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -697,6 +791,7 @@
 		3DBCDAC92633A4C4004EB263 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -728,6 +823,8 @@
 		3DBCDACA2633A4C4004EB263 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -745,6 +842,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -753,6 +851,8 @@
 		3DBCDACB2633A4C4004EB263 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
