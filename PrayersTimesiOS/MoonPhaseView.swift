@@ -64,12 +64,12 @@ private extension View {
             return AnyView(overlay(Ellipse()
                             .fill(Color.systemBackground)
                             .scaleEffect(x: animated ? 0.8 : 1)
-                            .offset(x: animated ?  -(size * 0.2) / 2 : 0)))
+                            .offset(x: animated ?  (size * 0.2) / 2 : 0)))
         case .waningGibbous:
             return AnyView(overlay(Ellipse()
                             .fill(Color.systemBackground)
                             .scaleEffect(x: animated ? 0.8 : 1)
-                            .offset(x: animated ?  (size * 0.2) / 2 : 0)))
+                            .offset(x: animated ?  -(size * 0.2) / 2 : 0)))
         default:
             return AnyView(scaleEffect(1))
         }
@@ -101,9 +101,9 @@ private extension View {
         case .waningCrescent:
             return AnyView(offset(x: animated ?  (size * 0.2) / 2 : 0))
         case .waxingGibbous:
-            return AnyView(offset(x: 1))
-        case .waningGibbous:
             return AnyView(offset(x: -1))
+        case .waningGibbous:
+            return AnyView(offset(x: 1))
         default:
             return AnyView(offset())
         }
@@ -136,7 +136,7 @@ private extension Shape {
 struct MoonPhaseView_Previews: PreviewProvider {
     static var previews: some View {
         MoonPhaseView(size: 256,
-                      moonPhase: Binding<MoonPhases>.constant(.waningGibbous))
+                      moonPhase: Binding<MoonPhases>.constant(.waxingCrescent))
             .frame(width: 256, height: 256)
             .padding()
             .previewLayout(.sizeThatFits)
