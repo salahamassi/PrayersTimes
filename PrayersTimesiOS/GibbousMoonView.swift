@@ -28,6 +28,7 @@ public struct GibbousMoonView: View {
             Group {
                 Ellipse()
                     .scaleEffect(ellipseHidden ? .zero : 1)
+                    .offset(x: waning ? -1 : 1)
 
                 Ellipse()
                     .fill(Color.systemBackground)
