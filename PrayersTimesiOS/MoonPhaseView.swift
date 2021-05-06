@@ -123,12 +123,12 @@ private extension View {
 
 private extension Shape {
     
-    func trim(for moonPhase: MoonPhases, animated: Bool) -> some View {
+    func trim(for moonPhase: MoonPhases, animated: Bool) -> some Shape {
         switch moonPhase {
         case .firstQuarter, .thirdQuarter:
-            return AnyView(trim(from: 0.0, to: animated ? 0.5 : 1.0))
+            return trim(from: 0.0, to: animated ? 0.5 : 1.0)
         default:
-            return AnyView(trim())
+            return trim()
         }
     }
 }
