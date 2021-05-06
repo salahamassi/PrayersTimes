@@ -52,6 +52,7 @@
 		3DB9049D264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90493264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png */; };
 		3DB9049E264351B40036FB88 /* WANING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90494264351B40036FB88 /* WANING_CRESCENT_MOON_light.png */; };
 		3DB9049F264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DB90495264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png */; };
+		3DB904A12643F6A90036FB88 /* MoonPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB904A02643F6A90036FB88 /* MoonPhaseView.swift */; };
 		3DBCDAC02633A4C4004EB263 /* PrayersTimesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */; };
 		3DBCDAC72633A4C4004EB263 /* PrayersTimesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED8E52640B5B200A37A37 /* MoonView.swift */; };
@@ -139,6 +140,7 @@
 		3DB90493264351B40036FB88 /* WANING_CRESCENT_MOON_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_dark.png; sourceTree = "<group>"; };
 		3DB90494264351B40036FB88 /* WANING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WANING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
 		3DB90495264351B40036FB88 /* WAXING_CRESCENT_MOON_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WAXING_CRESCENT_MOON_light.png; sourceTree = "<group>"; };
+		3DB904A02643F6A90036FB88 /* MoonPhaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseView.swift; sourceTree = "<group>"; };
 		3DBCDAB72633A4C4004EB263 /* PrayersTimesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrayersTimesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrayersTimesiOS.h; sourceTree = "<group>"; };
 		3DBCDABA2633A4C4004EB263 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				3DBCDAB92633A4C4004EB263 /* PrayersTimesiOS.h */,
 				3DBCDABA2633A4C4004EB263 /* Info.plist */,
 				3D84309E26415DFA000FBD2C /* PrayersTimesView.swift */,
+				3DB904A02643F6A90036FB88 /* MoonPhaseView.swift */,
 				3DBED8E52640B5B200A37A37 /* MoonView.swift */,
 			);
 			path = PrayersTimesiOS;
@@ -670,6 +673,7 @@
 				3D84309F26415DFB000FBD2C /* PrayersTimesView.swift in Sources */,
 				3DB904812642BA580036FB88 /* Extension+Color.swift in Sources */,
 				3DBED8E62640B5B200A37A37 /* MoonView.swift in Sources */,
+				3DB904A12643F6A90036FB88 /* MoonPhaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
