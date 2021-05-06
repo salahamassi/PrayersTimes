@@ -9,42 +9,46 @@ import SwiftUI
 
 struct PrayersTimesView: View {
     
-    @State private var animating: Bool = false
+    @State
+    private var moonPhase: MoonPhases
     
     var size: CGFloat {
-        animating ? 265.0 : 128.0
+        128.0
     }
+    
+    public init(moonPhase: MoonPhases) {
+        self.moonPhase = moonPhase
+    }
+    
     var body: some View {
-        ScrollView {
-            VStack(spacing: 32) {
-                CrescentMoonView(size: size, waning: true)
-                    .frame(width: size, height: size)
-                CrescentMoonView(size: size, waning: false)
-                    .frame(width: size, height: size)
+        VStack(spacing: 32) {
+            
+            MoonPhaseView(size: size, moonPhase: $moonPhase)
+                .frame(width: size, height: size)
+            Text("Ramdan")
+                .bold()
+            Text("22, 1442 AH")
+            Button(action: {
+                let moonPhases: [MoonPhases] = [.newMoon, .waxingCrescent, .firstQuarter, .waxingGibbous, .fullMoon, .waningGibbous, .waningCrescent, .thirdQuarter]
                 
-                GibbousMoonView(size: size, waning: true)
-                    .frame(width: size, height: size)
-                
-                GibbousMoonView(size: size, waning: false)
-                    .frame(width: size, height: size)
-                
-                QuarterMoonView(size: size, third: true)
-                    .frame(width: size, height: size)
-
-                QuarterMoonView(size: size, third: false)
-                    .frame(width: size, height: size)
-
-                Text("Ramdan")
-                    .bold()
-                Text("22, 1442 AH")
-            }.padding()
+                for (index, moonPhase) in moonPhases.enumerated() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index)) {
+                        withAnimation {
+                            self.moonPhase = moonPhase
+                        }
+                        print("moonPhase \(moonPhase)")
+                    }
+                }
+            }, label: {
+                Text("animate")
+            })
         }
     }
 }
 
 struct PrayersTimesView_Previews: PreviewProvider {
     static var previews: some View {
-        PrayersTimesView()
-            .preferredColorScheme(.dark)
+        PrayersTimesView(moonPhase: .newMoon)
+            .preferredColorScheme(.light)
     }
 }
