@@ -33,7 +33,7 @@ class MoonSnapShotTests: XCTestCase {
     }
     
     func test_waning_gibbous_moon() {
-        let sut = makeSUT(for: .waxingGibbous)
+        let sut = makeSUT(for: .waningGibbous)
 
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "WANING_GIBBOUS_MOON_light")
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .dark)), named: "WANING_GIBBOUS_MOON_dark")
