@@ -83,7 +83,7 @@ public struct MoonPhaseView: View {
     }
     
     public var body: some View {
-        MoonView(size: size, stroke: 0.0) {
+        MoonView(size: size) {
             CrescentShape(size: size, moonPhase: moonPhase.wrappedValue)
                 .fill(Color.darkSideMoonColor)
         }.onAppear() {

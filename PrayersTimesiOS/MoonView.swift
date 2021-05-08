@@ -31,22 +31,17 @@ public struct MoonView<Content: View>: View {
     private var animated: [Bool] = Array(repeating: false, count: 5)
     
     private let size: CGFloat
-    private let stroke: CGFloat
     @ViewBuilder
     private let content: Content
     
-    public init(size: CGFloat, stroke: CGFloat, content: () -> Content) {
+    public init(size: CGFloat, content: () -> Content) {
         self.content = content()
         self.size = size
-        self.stroke = stroke
     }
     
     public var body: some View {
         ZStack {
     
-            Circle()
-                .stroke(Color.darkSideMoonColor, lineWidth: stroke)
-
             Circle()
                 .fill(Color.lightSideMoonColor)
             
