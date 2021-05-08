@@ -43,27 +43,28 @@ public struct MoonView<Content: View>: View {
     
     public var body: some View {
         ZStack {
+    
+            Circle()
+                .stroke(Color.darkSideMoonColor, lineWidth: stroke)
+
+            Circle()
+                .fill(Color.lightSideMoonColor)
             
             Circle()
-                .fill(Color.systemBackground)
-            
-            Circle()
-                .stroke(lineWidth: stroke)
-            
-            content
-            
-            Circle()
+                .fill(Color.moonDotsColor)
                 .frame(width: size * 0.24,
                        height: size * 0.24)
                 .scaleEffect(animated[0] ? 1 : .zero)
                 .offset(x: -size * 0.2, y: -size * 0.2)
-            
+
             Group {
                 Circle()
+                    .fill(Color.moonDotsColor)
                     .frame(width: size * 0.15,
                            height: size * 0.15)
                     .scaleEffect(animated[1] ? 1 : .zero)
                 Circle()
+                    .fill(Color.moonDotsColor)
                     .frame(width: size * 0.17,
                            height: size * 0.17)
                     .scaleEffect(animated[1] ? 1 : .zero)
@@ -71,12 +72,14 @@ public struct MoonView<Content: View>: View {
             }.offset(x: size * 0.04, y: -size * 0.2)
             
             Circle()
+                .fill(Color.moonDotsColor)
                 .frame(width: size * 0.12,
                        height: size * 0.12)
                 .scaleEffect(animated[2] ? 1 : .zero)
                 .offset(x: size * 0.35, y: -size * 0.13)
             
             Circle()
+                .fill(Color.moonDotsColor)
                 .frame(width: size * 0.2,
                        height: size * 0.2)
                 .scaleEffect(animated[3] ? 1 : .zero)
@@ -84,16 +87,19 @@ public struct MoonView<Content: View>: View {
             
             Group {
                 Circle()
+                    .fill(Color.moonDotsColor)
                     .frame(width: size * 0.1,
                            height: size * 0.1)
                     .scaleEffect(animated[4] ? 1 : .zero)
                 Circle()
+                    .fill(Color.moonDotsColor)
                     .frame(width: size * 0.12,
                            height: size * 0.12)
                     .scaleEffect(animated[4] ? 1 : .zero)
                     .offset(x: -size * 0.06, y: size * 0.1)
             }.offset(x: -size * 0.1, y: size * 0.15)
-            
+            content
+
         }.onAppear() {
             for (index ,value) in animated.enumerated() {
                 let duration = 0.3

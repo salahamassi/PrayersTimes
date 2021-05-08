@@ -8,6 +8,65 @@
 import SwiftUI
 
 
+struct CrescentShape: Shape {
+    
+    let size: CGFloat
+    let moonPhase: MoonPhases
+    
+    var animatableData: MoonPhases {
+        moonPhase
+    }
+    
+    private var arc: (startAngle: Angle, endAngle: Angle) {
+        switch moonPhase {
+        case .newMoon:
+            return (startAngle: .degrees(0), endAngle: .degrees(360))
+        case .waxingCrescent, .firstQuarter, .waxingGibbous, .waningGibbous:
+            return (startAngle: .degrees(90), endAngle: .degrees(270))
+        case .fullMoon:
+            return (startAngle: .degrees(360), endAngle: .degrees(0))
+        case .waningCrescent, .thirdQuarter:
+            return (startAngle: -.degrees(90), endAngle: -.degrees(270))
+        }
+    }
+    
+    private var shouldDrawQuadCurve: Bool {
+        moonPhase == .waxingCrescent ||
+        moonPhase == .waxingGibbous ||
+        moonPhase == .waningGibbous ||
+        moonPhase == .waningCrescent
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        
+        path.addArc(center: center,
+                    radius: size / 2,
+                    startAngle: arc.startAngle,
+                    endAngle: arc.endAngle,
+                    clockwise: false)
+ 
+        if shouldDrawQuadCurve {
+            let startPoint = CGPoint(x: rect.midX, y: rect.minY)
+            let endPoint = CGPoint(x: rect.midX, y: rect.maxY)
+            let controlPointOffset = moonPhase == .waningCrescent ? (size * 0.2) : 0
+            let controlPoint =
+                moonPhase == .waningCrescent
+                ? CGPoint(x: rect.maxX + controlPointOffset, y: rect.midY)
+                : CGPoint(x: rect.minX, y: rect.midY)
+            
+            path.move(to: startPoint)
+            path.addQuadCurve(to: endPoint, control: controlPoint)
+            if moonPhase == .waningGibbous {
+                path = path.rotation(.degrees(180), anchor: .center).path(in: rect)
+            }
+        }
+        return path
+    }
+}
+
 public struct MoonPhaseView: View {
     
     private var moonPhase: Binding<MoonPhases>
@@ -24,15 +83,9 @@ public struct MoonPhaseView: View {
     }
     
     public var body: some View {
-        MoonView(size: size, stroke: getStroke(for: moonPhase.wrappedValue)) {
-            Ellipse()
-                .trim(for: moonPhase.wrappedValue, animated: animated)
-                .rotationEffect(for: moonPhase.wrappedValue, animated: animated)
-                .frame(for: moonPhase.wrappedValue, size: size)
-                .scaleEffect(moonPhaseViewHidden ? .zero : 1)
-                .scaleEffect(for: moonPhase.wrappedValue, animated: animated)
-                .offset(for: moonPhase.wrappedValue, using: size, animated: animated)
-                .overlay(for: moonPhase.wrappedValue, size: size, animated: animated)
+        MoonView(size: size, stroke: 0.0) {
+            CrescentShape(size: size, moonPhase: moonPhase.wrappedValue)
+                .fill(Color.darkSideMoonColor)
         }.onAppear() {
             withAnimation(.easeInOut(duration: 0.4).delay(1)) {
                 moonPhaseViewHidden.toggle()
@@ -43,100 +96,12 @@ public struct MoonPhaseView: View {
             }
         }
     }
-
-    private func getStroke(for moonPhase: MoonPhases) -> CGFloat {
-        switch moonPhase {
-        case .newMoon, .fullMoon:
-            return size / 16
-        case .waxingCrescent, .waningCrescent, .firstQuarter, .thirdQuarter:
-            return 8
-        case .waxingGibbous, .waningGibbous:
-            return 0
-        }
-    }
-}
-
-private extension View {
-    
-    func overlay(for moonPhase: MoonPhases, size: CGFloat, animated: Bool) -> some View {
-        switch moonPhase {
-        case .waxingGibbous:
-            return AnyView(overlay(Ellipse()
-                            .fill(Color.systemBackground)
-                            .scaleEffect(x: animated ? 0.8 : 1)
-                            .offset(x: animated ?  (size * 0.2) / 2 : 0)))
-        case .waningGibbous:
-            return AnyView(overlay(Ellipse()
-                            .fill(Color.systemBackground)
-                            .scaleEffect(x: animated ? 0.8 : 1)
-                            .offset(x: animated ?  -(size * 0.2) / 2 : 0)))
-        default:
-            return AnyView(scaleEffect(1))
-        }
-        
-    }
-    
-    func frame(for moonPhase: MoonPhases, size: CGFloat) -> some View {
-        switch moonPhase {
-        case .fullMoon:
-            return AnyView(frame(width: .zero, height: .zero))
-        default:
-            return AnyView(frame(width: size, height: size))
-        }
-    }
-    
-    func scaleEffect(for moonPhase: MoonPhases, animated: Bool) -> some View {
-        switch moonPhase {
-        case .waxingCrescent, .waningCrescent:
-            return AnyView(scaleEffect(x: animated ? 0.8 : 1))
-        default:
-            return AnyView(scaleEffect(1))
-        }
-    }
-    
-    func offset(for moonPhase: MoonPhases, using size: CGFloat, animated: Bool) -> some View {
-        switch moonPhase {
-        case .waxingCrescent:
-            return AnyView(offset(x: animated ?  -(size * 0.2) / 2 : 0))
-        case .waningCrescent:
-            return AnyView(offset(x: animated ?  (size * 0.2) / 2 : 0))
-        case .waxingGibbous:
-            return AnyView(offset(x: -1))
-        case .waningGibbous:
-            return AnyView(offset(x: 1))
-        default:
-            return AnyView(offset())
-        }
-    }
-    
-    func rotationEffect(for moonPhase: MoonPhases, animated: Bool) -> some View {
-        switch moonPhase {
-        case .firstQuarter:
-            return  AnyView(rotationEffect(animated ? -.degrees(90) : .zero ))
-        case .thirdQuarter:
-            return  AnyView(rotationEffect(animated ? .degrees(90) : .zero ))
-        default:
-            return AnyView(rotationEffect(.zero))
-        }
-    }
-}
-
-private extension Shape {
-    
-    func trim(for moonPhase: MoonPhases, animated: Bool) -> some Shape {
-        switch moonPhase {
-        case .firstQuarter, .thirdQuarter:
-            return trim(from: 0.0, to: animated ? 0.5 : 1.0)
-        default:
-            return trim()
-        }
-    }
 }
 
 struct MoonPhaseView_Previews: PreviewProvider {
     static var previews: some View {
         MoonPhaseView(size: 256,
-                      moonPhase: Binding<MoonPhases>.constant(.waxingCrescent))
+                      moonPhase: Binding<MoonPhases>.constant(.waningGibbous))
             .frame(width: 256, height: 256)
             .padding()
             .previewLayout(.sizeThatFits)
