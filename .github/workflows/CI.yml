@@ -16,5 +16,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build and test
-      run: xcodebuild clean build test -project PrayersTimes.xcodeproj -scheme "CI_iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -destination "platform=iOS Simulator,name=Any iOS Simulator Device" ONLY_ACTIVE_ARCH=YES
+    - name: List available simulators
+      run: xcrun simctl list devices available | grep -i "iphone" | head -5
+
+    - name: Build and test iOS
+      run: xcodebuild clean build test -project PrayersTimes.xcodeproj -scheme "CI_iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 16" ONLY_ACTIVE_ARCH=YES
